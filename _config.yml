@@ -18,16 +18,17 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Tapyrus
-email: info@chaintope.com
+title: "Tapyrus Guide"
+name: "chaintope, Inc"
+email: "info@chaintope.com"
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  TapyrusおよびTapyrus APIに関する技術情報サイトです。
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://site.tapyrus.chaintope.com" # the base hostname & protocol for your site, e.g. http://example.com
+locale: "ja"
+logo: "/assets/images/logo.png"
+twitter_username: chaintope
+github_username:  chaintope
 
 # Build settings
 #theme: minima
@@ -57,3 +58,15 @@ plugins:
 #   - vendor/ruby/
 
 destination: ./docs
+minimal_mistakes_skin: "contrast"
+include: ["_pages"]
+search: true
+search_full_content: true
+footer:
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/chaintope"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/chaintope"

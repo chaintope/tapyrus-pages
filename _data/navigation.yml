@@ -1,0 +1,7 @@
+main:
+  - title: "Tapyrus Core"
+    url: "/core"
+  - title: "Tapyrus API"
+    url: "/api"
+  - title: "Network"
+    url: "/network"
