@@ -39,3 +39,13 @@ feature_row:
 ---
 
 {% include feature_row %}
+
+### 更新情報
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
