@@ -18,7 +18,7 @@ feature_row:
     title: "Tapyrus"
     excerpt: "Tapyrusはビジネス要件に応じて構成可能な独自のエンタープライズブロックチェーンです。ネットワークには誰でも自由に参加でき、取引の作成や検証が行えます。
 一方、ブロック生成や機能追加の権限は予め設定した管理者ネットワークに属するため、従来のパブリックブロックチェーンのガバナンスやファイナリティといった課題を解消します。"
-    url: "/api/"
+    url: "/core/"
     btn_class: "btn--info"
     btn_label: "Learn more"
   - image_path: /assets/images/network.jpg
