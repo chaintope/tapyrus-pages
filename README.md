@@ -1,4 +1,4 @@
-# Tapyrus Guid
+# Tapyrus Guide
 
 本リポジトリは、サイト https://site.tapyrus.chaintope.com/ のコンテンツを管理しています。
 
