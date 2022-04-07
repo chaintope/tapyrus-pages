@@ -163,7 +163,65 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>WIP</p>
+        <p>Tapyrusは、任意のビジネスユースケースに応じて独自のブロックチェーンネットワークを構成可能なエンタープライズ向けのブロックチェーンです。
+各ブロックチェーンネットワークは、ビジネスを推進するフェデレーションが管理するSigner Networkと、
+誰もが参加可能な共有台帳ネットワークであるTapyrus Networkで構成されます。</p>
+
+<p><img src="/assets/images/tapyrus-network-diagram.png" alt="network" /></p>
+
+<h2 id="signer-network">Signer Network</h2>
+
+<p>Signer Networkは、ネットワークのセットアップ時に予め定められたフェデレーションのメンバーによって運営されます。
+フェデレーションのメンバーはTapyrus Networkにブロードキャストされたトランザクションを収集、検証し、
+有効なトランザクションを含むブロックを生成します。生成したブロックはTapyrus Networkにブロードキャストされます。</p>
+
+<p>ブロックは、フェデレーションメンバーによるブロックに対するデジタル署名により作成されます。
+このデジタル署名はブロックに<code class="language-plaintext highlighter-rouge">proof</code>としてセットされ、Tapyrus Networkの各フルノードは、この署名が有効か検証することでブロックの有効性を検証します。</p>
+
+<h3 id="署名鍵">署名鍵</h3>
+
+<p>ブロックの有効性検証を行う際の公開鍵は、フェデレーションメンバーの集約公開鍵を使用します。</p>
+
+<p>チェーンのセットアップ段階で、フェデレーションの各メンバーは、それぞれブロックを承認するための楕円曲線暗号の鍵ペアを用意します。
+これらの公開鍵をメンバー間で共有し、全メンバーの公開鍵を加算して集約公開鍵を生成します。
+この集約公開鍵はパラメーターとしてチェーンのジェネシスブロックの<code class="language-plaintext highlighter-rouge">xfield</code>に埋め込まれ、
+各フルノードは埋め込まれた集約公開鍵を使用して署名検証を行います。<sup id="fnref:key-update" role="doc-noteref"><a href="#fn:key-update" class="footnote" rel="footnote">1</a></sup></p>
+
+<h3 id="signerノード">Signerノード</h3>
+
+<p>Signer Networkを運営するためのノード実装として、<a href="https://github.com/chaintope/tapyrus-signer/">Tapyrus Signer</a>を提供しています。
+フルノードと一緒に実行することで、フェデレーションメンバーと通信し、ブロックの署名を完成させます。
+この時、StinsonとStrobl(2001)による<strong>検証可能で安全な分散Schnorr署名と(t, n)閾値署名方式</strong><sup id="fnref:threshold" role="doc-noteref"><a href="#fn:threshold" class="footnote" rel="footnote">2</a></sup>を基に、
+各フェデレーションメンバーの秘密鍵を明かすことなく、集約公開鍵に対して有効なSchnorr署名を作成します。</p>
+
+<p class="notice">※ Tapyrusのプロトコル上、有効なSchnorr署名が作成できればよく、Tapyrus Signer以外の実装も使用可能です。</p>
+
+<h2 id="tapyrus-network">Tapyrus Network</h2>
+
+<p>Tapyrus Network は誰もが参加可能な共有台帳ネットワークで、ジェネシスブロックから最新のブロックまでブロックチェーンのすべての
+オンチェーンデータの提供、新規トランザクションの発行、伝播をサポートします。
+Tapyrus のフルノード<a href="https://github.com/chaintope/tapyrus-core/">Tapyrus Core</a>は、
+Bitcoinの参照実装である<a href="https://github.com/bitcoin/bitcoin">Bitcoin Core</a>をベースに、以下の変更を行ったノード実装です。</p>
+
+<ul>
+  <li>コンセンサスアルゴリズムの変更</li>
+  <li>トランザクションIDのマリアビリティの修正</li>
+  <li>オラクルを利用したコントラクトのサポート</li>
+  <li>Colored Coin機能のサポート</li>
+</ul>
+
+<p>プロトコルの詳細や、機能については<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/Tapyrus_Technical_Overview_ja.pdf">Tapyrus Technical Overview</a> を参照ください。</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:key-update" role="doc-endnote">
+      <p>フェデレーションメンバーに変更がある場合、切り替わりのブロックの<code class="language-plaintext highlighter-rouge">xfield</code>にメンバー変更後の集約公開鍵がセットされ、それ以降のブロックでは更新された集約公開鍵を使用して署名検証が行われます。 <a href="#fnref:key-update" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:threshold" role="doc-endnote">
+      <p><a href="http://cacr.uwaterloo.ca/techreports/2001/corr2001-13.ps">http://cacr.uwaterloo.ca/techreports/2001/corr2001-13.ps</a> <a href="#fnref:threshold" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
         
       </section>
