@@ -1,4 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-04-07T17:18:02+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tapyrus Guide</title><subtitle>TapyrusおよびTapyrus APIに関する技術情報サイトです。</subtitle><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.0リリース</title><link href="http://localhost:4000/ja/2021/12/24/release-core-0.5.0/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.0リリース" /><published>2021-12-24T00:00:00+09:00</published><updated>2021-12-24T00:00:00+09:00</updated><id>http://localhost:4000/ja/2021/12/24/v0.5.0</id><content type="html" xml:base="http://localhost:4000/ja/2021/12/24/release-core-0.5.0/">&lt;p&gt;&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.0&quot;&gt;Tapyrus Core v0.5.0&lt;/a&gt;では、ブロックチェーンのレイヤー１でネイティブに動作するColored Coin（トークン）機能を追加しました。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-12T10:50:30+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tapyrus Guide</title><subtitle>TapyrusおよびTapyrus APIに関する技術情報サイトです。</subtitle><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.1リリース</title><link href="http://localhost:4000/ja/2022/04/20/release-core-0.5.1/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.1リリース" /><published>2022-04-20T00:00:00+09:00</published><updated>2022-04-20T00:00:00+09:00</updated><id>http://localhost:4000/ja/2022/04/20/v0.5.1</id><content type="html" xml:base="http://localhost:4000/ja/2022/04/20/release-core-0.5.1/">&lt;p&gt;ARM64アーキテクチャのコンテナで動作する&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1&quot;&gt;Tapyrus Core v0.5.1&lt;/a&gt;をリリースしました。&lt;/p&gt;
+
+&lt;h2 id=&quot;主な変更点&quot;&gt;主な変更点&lt;/h2&gt;
+
+&lt;h3 id=&quot;arm64アーキテクチャのコンテナのサポート&quot;&gt;ARM64アーキテクチャのコンテナのサポート&lt;/h3&gt;
+
+&lt;p&gt;バージョンv0.5.1では、TapyrusはARM64アーキテクチャベースのコンテナで動作するようになりました。&lt;/p&gt;
+
+&lt;p&gt;Docker HubにARM64アーキテクチャで動作可能な&lt;a href=&quot;https://hub.docker.com/layers/tapyrusd/tapyrus/tapyrusd/v0.5.1/images/sha256-0e25122fe7805ecc3a4545862befe3e0a9ec60ad211b94afa8d07d5ac2a5198c?context=explore&quot;&gt;v0.5.1のイメージ&lt;/a&gt;を追加しています。&lt;/p&gt;
+
+&lt;h3 id=&quot;secp256k1のサブモジュール化&quot;&gt;secp256k1のサブモジュール化&lt;/h3&gt;
+
+&lt;p&gt;Tapyrusが使用するsecp256k1ライブラリの&lt;a href=&quot;https://github.com/chaintope/secp256k1&quot;&gt;リポジトリを分離し&lt;/a&gt;、Git submoduleとして参照するようになりました。&lt;/p&gt;
+
+&lt;h3 id=&quot;rpcの戻り値の名称変更&quot;&gt;RPCの戻り値の名称変更&lt;/h3&gt;
+
+&lt;p&gt;以下のRPCでトランザクションの&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;features&lt;/code&gt;フィールドの名称が&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;version&lt;/code&gt;のままになっていたものを、正しく&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;features&lt;/code&gt;に修正しています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;getrawtransaction&lt;/li&gt;
+  &lt;li&gt;decoderawtransaction&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="core" /><summary type="html">ARM64ベースのコンテナで動作するTapyrus Core v0.5.1をリリース</summary></entry><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.0リリース</title><link href="http://localhost:4000/ja/2021/12/24/release-core-0.5.0/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.0リリース" /><published>2021-12-24T00:00:00+09:00</published><updated>2021-12-24T00:00:00+09:00</updated><id>http://localhost:4000/ja/2021/12/24/v0.5.0</id><content type="html" xml:base="http://localhost:4000/ja/2021/12/24/release-core-0.5.0/">&lt;p&gt;&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.0&quot;&gt;Tapyrus Core v0.5.0&lt;/a&gt;では、ブロックチェーンのレイヤー１でネイティブに動作するColored Coin（トークン）機能を追加しました。&lt;/p&gt;
 
 &lt;h2 id=&quot;主な変更点&quot;&gt;主な変更点&lt;/h2&gt;
 

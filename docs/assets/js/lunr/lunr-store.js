@@ -10,4 +10,10 @@ var store = [{
         "tags": [],
         "url": "/ja/2021/12/24/release-core-0.5.0/",
         "teaser": null
+      },{
+        "title": "Tapyrus Core v0.5.1リリース",
+        "excerpt":"ARM64アーキテクチャのコンテナで動作するTapyrus Core v0.5.1をリリースしました。   主な変更点   ARM64アーキテクチャのコンテナのサポート   バージョンv0.5.1では、TapyrusはARM64アーキテクチャベースのコンテナで動作するようになりました。   Docker HubにARM64アーキテクチャで動作可能なv0.5.1のイメージを追加しています。   secp256k1のサブモジュール化   Tapyrusが使用するsecp256k1ライブラリのリポジトリを分離し、Git submoduleとして参照するようになりました。   RPCの戻り値の名称変更   以下のRPCでトランザクションのfeaturesフィールドの名称がversionのままになっていたものを、正しくfeaturesに修正しています。      getrawtransaction   decoderawtransaction   ","categories": ["core"],
+        "tags": [],
+        "url": "/ja/2022/04/20/release-core-0.5.1/",
+        "teaser": null
       }]
