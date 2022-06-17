@@ -16,6 +16,7 @@ title: "[Ubuntu] Tapyrus Coreノード構築方法"
 ### 依存関係のインストール
 
 依存ライブラリをインストールには以下のコマンドを実行します。  
+依存ライブラリ情報は[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/dependencies.md){:target="_blank"}で確認できます。
 ```
 $ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
 ```
