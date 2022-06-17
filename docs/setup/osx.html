@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Tapyrus Documents - Tapyrus Guide</title>
+<!-- begin _includes/seo.html --><title>Tapyrus Coreノード構築方法（macOS版） - Tapyrus Guide</title>
 <meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
 
 
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja">
 <meta property="og:site_name" content="Tapyrus Guide">
-<meta property="og:title" content="Tapyrus Documents">
+<meta property="og:title" content="Tapyrus Coreノード構築方法（macOS版）">
 <meta property="og:url" content="https://site.tapyrus.chaintope.com/setup/osx">
 
 
@@ -145,7 +145,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Tapyrus Documents">
+    <meta itemprop="headline" content="Tapyrus Coreノード構築方法（macOS版）">
     
     
     
@@ -153,7 +153,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Tapyrus Documents
+          <h1 id="page-title" class="page__title" itemprop="headline">Tapyrus Coreノード構築方法（macOS版）
 </h1>
           
 
@@ -163,14 +163,10 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="macos-tapyrus-coreノード構築方法">[macOS] Tapyrus Coreノード構築方法</h1>
+        <p>この記事ではmacOS環境でのTapyrus Coreのノード構築方法を解説します。<br />
+公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md">こちら</a>です。</p>
 
-<p>この記事ではmacOS環境でのTapyrus Coreのノード構築方法を解説します。<br />
-公式のドキュメントとして以下が公開されています。<br />
-<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md">https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md</a></p>
-
-<p>本記事ではChaintopeのTapyrusテストネット（networkid 1939510133）に参加する方法を解説しています。  <br />
-異なるネットワークIDを持つ新しいネットワークを開始したい場合、<a href="">現在作成中</a>の記事を参考にしてください</p>
+<p>本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。</p>
 
 <p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。<br />
 記載されたコマンドを順に実行することでノードの構築が完了します。</p>
@@ -184,7 +180,7 @@
 <h2 id="依存関係のインストール">依存関係のインストール</h2>
 
 <p>macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。<br />
-Homebrewをインストールするには、リンクを参照してください: <a href="https://brew.sh">https://brew.sh</a></p>
+Homebrewをインストールする方法は、<a href="https://brew.sh">こちら</a>を参照してください。</p>
 
 <p>依存ライブラリをインストールには以下のコマンドを実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode
@@ -192,10 +188,9 @@ Homebrewをインストールするには、リンクを参照してください
 
 <h2 id="ビルド">ビルド</h2>
 
-<p>ホームディレクトリ配下で<a href="https://github.com/chaintope/tapyrus-core">tapyrus-core</a>のレポジトリをcloneします。<br />
+<p>ホームディレクトリ配下で<a href="https://github.com/chaintope/tapyrus-core">tapyrus-core</a>のリポジトリをcloneします。<br />
 cloneの際、<a href="https://github.com/chaintope/secp256k1">secp256k1</a>サブモジュールを同時にインストールするように、<code class="language-plaintext highlighter-rouge">--recursive</code>オプションを追加した状態で実行します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~
-$ git clone --recursive https://github.com/chaintope/tapyrus-core
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone --recursive https://github.com/chaintope/tapyrus-core
 </code></pre></div></div>
 
 <p>Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。<br />
@@ -237,44 +232,43 @@ addseeder=static-seed.tapyrus.dev.chaintope.com
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1939510133
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">genesis.1939510133</code>内に以下を書き込みます。</p>
+<p><code class="language-plaintext highlighter-rouge">genesis.1939510133</code>内に以下のテストネットのgenesisブロックを書き込みます。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01000000000000000000000000000000000000000000000000000000000000000000000044cc181bd0e95c5b999a13d1fc0d193fa8223af97511ad2098217555a841b3518f18ec2536f0bb9d6d4834fcc712e9563840fe9f089db9e8fe890bffb82165849f52ba5e01210366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b402b1ed9996920f57a425f6f9797557c0e73d0c9fbafdebcaa796b136e0946ffa98d928f8130b6a572f83da39530b13784eeb7007465b673aa95091619e7ee208501010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000002776a92231415132437447336a686f37385372457a4b6533766636647863456b4a74356e7a4188ac00000000
 </code></pre></div></div>
 
 <p>Tapyrus Coreをデーモンで起動します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ~/tapyrus-core/src/tapyrusd -daemon 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./src/tapyrusd -daemon 
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">getblockchaininfo</code>コマンドを用いて、ブロックチェーンの情報を確認します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ~/tapyrus-core/src/tapyrus-cli getblockchaininfo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./src/tapyrus-cli getblockchaininfo
 </code></pre></div></div>
 
 <p>以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できます。(詳細な数値は実行したタイミングごとに異なります)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
-  "chain": "1939510133",
-  "mode": "prod",
-  "blocks": 144,
-  "headers": 20000,
-  "bestblockhash": "568d7b74cccf162dd8c6aa143a4701330bc6e2f7cf91cc05a2ddc31d3c515246",
-  "mediantime": 1589489965,
-  "verificationprogress": 1,
-  "initialblockdownload": true,
-  "size_on_disk": 44809,
-  "pruned": false,
-  "aggregatePubkeys": [
-    {
-      "0366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b": 0
-    }
-  ],
-  "warnings": ""
-}
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">chain</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1939510133</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">prod</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blocks</span><span class="dl">"</span><span class="p">:</span> <span class="mi">144</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">bestblockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">568d7b74cccf162dd8c6aa143a4701330bc6e2f7cf91cc05a2ddc31d3c515246</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mediantime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1589489965</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">verificationprogress</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">initialblockdownload</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size_on_disk</span><span class="dl">"</span><span class="p">:</span> <span class="mi">44809</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">pruned</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">aggregatePubkeys</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">0366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">warnings</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>ノードを停止する場合、以下のコマンドを実行します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ~/tapyrus-core/src/tapyrus-cli stop
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./src/tapyrus-cli stop
 </code></pre></div></div>
 
-<h2 id="まとめ">まとめ</h2>
 <p>以上でmacOS環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。</p>
 
         

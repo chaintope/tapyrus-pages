@@ -1,17 +1,13 @@
 ---
 layout: single
 permalink: /setup/osx
-title: "Tapyrus Documents"
+title: "Tapyrus Coreノード構築方法（macOS版）"
 ---
 
-# [macOS] Tapyrus Coreノード構築方法 
-
 この記事ではmacOS環境でのTapyrus Coreのノード構築方法を解説します。  
-公式のドキュメントとして以下が公開されています。  
-[https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md)
+公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md)です。
 
-本記事ではChaintopeのTapyrusテストネット（networkid 1939510133）に参加する方法を解説しています。    
-異なるネットワークIDを持つ新しいネットワークを開始したい場合、[現在作成中]()の記事を参考にしてください    
+本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。 
 
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
 記載されたコマンドを順に実行することでノードの構築が完了します。  
@@ -26,7 +22,7 @@ $ xcode-select --install
 ## 依存関係のインストール
 
 macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。  
-Homebrewをインストールするには、リンクを参照してください: [https://brew.sh](https://brew.sh)    
+Homebrewをインストールする方法は、[こちら](https://brew.sh)を参照してください。
 
 依存ライブラリをインストールには以下のコマンドを実行します。  
 ```
@@ -35,10 +31,9 @@ $ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python q
 
 ## ビルド
 
-ホームディレクトリ配下で[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをcloneします。  
+ホームディレクトリ配下で[tapyrus-core](https://github.com/chaintope/tapyrus-core)のリポジトリをcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1)サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
 ```
-$ cd ~
 $ git clone --recursive https://github.com/chaintope/tapyrus-core
 ```
 
@@ -87,23 +82,23 @@ addseeder=static-seed.tapyrus.dev.chaintope.com
 $ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1939510133
 ```
 
-`genesis.1939510133`内に以下を書き込みます。
+`genesis.1939510133`内に以下のテストネットのgenesisブロックを書き込みます。
 ```
 01000000000000000000000000000000000000000000000000000000000000000000000044cc181bd0e95c5b999a13d1fc0d193fa8223af97511ad2098217555a841b3518f18ec2536f0bb9d6d4834fcc712e9563840fe9f089db9e8fe890bffb82165849f52ba5e01210366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b402b1ed9996920f57a425f6f9797557c0e73d0c9fbafdebcaa796b136e0946ffa98d928f8130b6a572f83da39530b13784eeb7007465b673aa95091619e7ee208501010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000002776a92231415132437447336a686f37385372457a4b6533766636647863456b4a74356e7a4188ac00000000
 ```
  
 Tapyrus Coreをデーモンで起動します。
 ```
-$ ~/tapyrus-core/src/tapyrusd -daemon 
+$ ./src/tapyrusd -daemon 
 ```
 
 `tapyrus-cli`の`getblockchaininfo`コマンドを用いて、ブロックチェーンの情報を確認します。
 ```
-$ ~/tapyrus-core/src/tapyrus-cli getblockchaininfo
+$ ./src/tapyrus-cli getblockchaininfo
 ```
 
 以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できます。(詳細な数値は実行したタイミングごとに異なります)
-```
+```javascript
 {
   "chain": "1939510133",
   "mode": "prod",
@@ -126,8 +121,7 @@ $ ~/tapyrus-core/src/tapyrus-cli getblockchaininfo
 
 ノードを停止する場合、以下のコマンドを実行します。
 ```
-$ ~/tapyrus-core/src/tapyrus-cli stop
+$ ./src/tapyrus-cli stop
 ```
 
-## まとめ
 以上でmacOS環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。
