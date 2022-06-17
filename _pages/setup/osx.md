@@ -35,7 +35,7 @@ $ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python q
 
 ## ビルド
 
-Githubから[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをcloneします。  
+Githubから[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをホームディレクトリ配下でcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1)サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
 ```
 $ cd ~
@@ -67,8 +67,7 @@ Tapyrusノードを起動する前に設定を行います。
 macOSでは`/Users/oshikawa/Library/Application\ Support/`配下に`Tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
 ```
 $ mkdir /Users/oshikawa/Library/Application\ Support/Tapyrus
-$ cd /Users/oshikawa/Library/Application\ Support/Tapyrus
-$ vim tapyrus.conf
+$ vim /Users/oshikawa/Library/Application\ Support/Tapyrus/tapyrus.conf
 ```
 
 テストネット用の設定を`tapyrus.conf`内に書き込みます。
@@ -86,7 +85,7 @@ addseeder=static-seed.tapyrus.dev.chaintope.com
 
 `Tapyrus`ディレクトリ内にgenesisブロック作成します。
 ```
-$ vim genesis.1939510133
+$ vim /Users/oshikawa/Library/Application\ Support/Tapyrus/genesis.1939510133
 ```
 
 `genesis.1939510133`内に以下を書き込みます。
@@ -96,12 +95,12 @@ $ vim genesis.1939510133
  
 Tapyrus Coreをデーモンで起動します。
 ```
-$ $HOME/tapyrus-core/src/tapyrusd -daemon 
+$ ~/tapyrus-core/src/tapyrusd -daemon 
 ```
 
 `tapyrus-cli`の`getblockchaininfo`コマンドを用いて、ブロックチェーンの情報を確認します。
 ```
-$ $HOME/tapyrus-core/src/tapyrus-cli getblockchaininfo
+$ ~/tapyrus-core/src/tapyrus-cli getblockchaininfo
 ```
 
 以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できました。(詳細な数値は実行したタイミングごとに異なります)
@@ -126,6 +125,10 @@ $ $HOME/tapyrus-core/src/tapyrus-cli getblockchaininfo
 }
 ```
 
+以下のコマンドでノードを停止できます。
+```
+$ ~/tapyrus-core/src/tapyrus-cli stop
+```
 
 ## まとめ
 以上でmacOS上でTapyrus Coreノードが立ち上がりChaintopeのTapyrusテストネットと接続ができました。
