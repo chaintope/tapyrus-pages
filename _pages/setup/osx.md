@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /setup/osx
-title: "Tapyrus API"
+title: "Tapyrus Document"
 ---
 
 # [macOS] Tapyrus Coreノード構築方法 
@@ -64,10 +64,10 @@ $ make
 
 Tapyrusノードを起動する前に設定を行います。  
 設定は`tapyrus.conf`ファイルに記述します。  
-ホームディレクトリに`.tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
+macOSでは`/Users/oshikawa/Library/Application\ Support/`配下に`Tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
 ```
-$ mkdir $HOME/.tapyrus
-$ cd $HOME/.tapyrus
+$ mkdir /Users/oshikawa/Library/Application\ Support/Tapyrus
+$ cd /Users/oshikawa/Library/Application\ Support/Tapyrus
 $ vim tapyrus.conf
 ```
 
@@ -84,7 +84,7 @@ rpcallowip=127.0.0.1
 addseeder=static-seed.tapyrus.dev.chaintope.com
 ```
 
-`.tapyrus`ディレクトリ内にgenesisブロック作成します。
+`Tapyrus`ディレクトリ内にgenesisブロック作成します。
 ```
 $ vim genesis.1939510133
 ```
