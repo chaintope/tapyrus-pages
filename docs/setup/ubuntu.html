@@ -1,0 +1,354 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Ubuntu] Tapyrus Coreノード構築方法 - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="[Ubuntu] Tapyrus Coreノード構築方法">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/setup/ubuntu">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/setup/ubuntu">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Ubuntu] Tapyrus Coreノード構築方法">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Ubuntu] Tapyrus Coreノード構築方法
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>この記事ではUbuntu 20.04 LTS環境でのTapyrus Coreのノード構築方法を解説します。<br />
+公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/build-unix.md" target="_blank">こちら</a>です。</p>
+
+<p>本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。</p>
+
+<p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。<br />
+記載されたコマンドを順に実行することでノードの構築が完了します。</p>
+
+<h3 id="依存関係のインストール">依存関係のインストール</h3>
+
+<p>依存ライブラリをインストールには以下のコマンドを実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
+</code></pre></div></div>
+
+<h2 id="ビルド">ビルド</h2>
+
+<p><a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>のリポジトリをcloneします。<br />
+cloneの際、<a href="https://github.com/chaintope/secp256k1" target="_blank">secp256k1</a>サブモジュールを同時にインストールするように、<code class="language-plaintext highlighter-rouge">--recursive</code>オプションを追加した状態で実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone --recursive https://github.com/chaintope/tapyrus-core
+</code></pre></div></div>
+
+<p>Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。<br />
+tapyrus-coreのcontribディレクトリ配下に用意された<a href="https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh" target="_blank">インストール用のスクリプト</a>を実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd tapyrus-core
+$ ./contrib/install_db4.sh `pwd`
+</code></pre></div></div>
+
+<p>以下のコマンドでビルドを実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./autogen.sh
+$ export BDB_PREFIX='/Users/$(whoami)/tapyrus-core/db4'
+$ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
+$ make
+</code></pre></div></div>
+
+<p>エラーが表示されなければビルドは完了です。</p>
+
+<h2 id="tapyrusノードを起動する">Tapyrusノードを起動する</h2>
+
+<p>Tapyrusノードを起動する前に設定を行います。設定は<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに記述します。<br />
+Ubuntuではホームディレクトリ配下に<code class="language-plaintext highlighter-rouge">.tapyrus</code>ディレクトリを作成し、その配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルを作成、編集します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/.tapyrus
+$ vim ~/.tapyrus/tapyrus.conf
+</code></pre></div></div>
+
+<p>テストネット用の設定を<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>内に書き込みます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>networkid=1939510133
+txindex=1
+server=1
+rest=1
+rpcuser=user
+rpcpassword=pass
+rpcbind=0.0.0.0
+rpcallowip=127.0.0.1
+addseeder=static-seed.tapyrus.dev.chaintope.com
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">.tapyrus</code>ディレクトリ内にgenesisブロック作成します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim ~/.tapyrus/genesis.1939510133
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">genesis.1939510133</code>内に以下のテストネットのgenesisブロックを書き込みます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01000000000000000000000000000000000000000000000000000000000000000000000044cc181bd0e95c5b999a13d1fc0d193fa8223af97511ad2098217555a841b3518f18ec2536f0bb9d6d4834fcc712e9563840fe9f089db9e8fe890bffb82165849f52ba5e01210366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b402b1ed9996920f57a425f6f9797557c0e73d0c9fbafdebcaa796b136e0946ffa98d928f8130b6a572f83da39530b13784eeb7007465b673aa95091619e7ee208501010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000002776a92231415132437447336a686f37385372457a4b6533766636647863456b4a74356e7a4188ac00000000
+</code></pre></div></div>
+
+<p>Tapyrus Coreをデーモンで起動します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./src/tapyrusd -daemon 
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">getblockchaininfo</code>コマンドを用いて、ブロックチェーンの情報を確認します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./src/tapyrus-cli getblockchaininfo
+</code></pre></div></div>
+
+<p>以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できます。(詳細な数値は実行したタイミングごとに異なります)</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">chain</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1939510133</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">prod</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blocks</span><span class="dl">"</span><span class="p">:</span> <span class="mi">144</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">bestblockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">568d7b74cccf162dd8c6aa143a4701330bc6e2f7cf91cc05a2ddc31d3c515246</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mediantime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1589489965</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">verificationprogress</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">initialblockdownload</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size_on_disk</span><span class="dl">"</span><span class="p">:</span> <span class="mi">44809</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">pruned</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">aggregatePubkeys</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">0366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">warnings</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>ノードを停止する場合、以下のコマンドを実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./src/tapyrus-cli stop
+</code></pre></div></div>
+
+<p>以上でUbuntu20.04LTS環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
