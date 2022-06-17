@@ -6,15 +6,15 @@ title: "Tapyrus API"
 
 # [macOS] Tapyrus Coreノード構築方法 
 
-この記事ではmacOSを環境でのTapyrus Coreのノード構築方法を解説します。
-公式のドキュメントとして以下が公開されています。
-https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md
+この記事ではmacOSを環境でのTapyrus Coreのノード構築方法を解説します。  
+公式のドキュメントとして以下が公開されています。  
+[https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md)
 
-本記事ではChaintopeのTapyrusテストネット（networkid 1939510133）に参加する方法を解説しています。
-異なるネットワークIDを持つ新しいネットワークを開始したい場合、[現在作成中]()の記事を参考にしてください
+本記事ではChaintopeのTapyrusテストネット（networkid 1939510133）に参加する方法を解説しています。    
+異なるネットワークIDを持つ新しいネットワークを開始したい場合、[現在作成中]()の記事を参考にしてください    
 
-また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
-記載されたコマンドを順に実行することでノードの構築が完了します。
+また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
+記載されたコマンドを順に実行することでノードの構築が完了します。  
 
 ## 準備
 
@@ -25,23 +25,24 @@ $ xcode-select --install
 
 ## 依存関係のインストール
 
-macOS 用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。
-Homebrew パッケージマネージャをインストールするには、リンクを参照してください: https://brew.sh
+macOS 用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。  
+Homebrew パッケージマネージャをインストールするには、リンクを参照してください: [https://brew.sh](https://brew.sh)    
 
-依存ライブラリをインストールには以下のコマンドを実行します。
+依存ライブラリをインストールには以下のコマンドを実行します。  
 ```
 $ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode
 ```
 
 ## ビルド
 
-Githubから[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをcloneします。
+Githubから[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1)サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
 ```
+$ cd ~
 $ git clone --recursive https://github.com/chaintope/tapyrus-core
 ```
 
-Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。
+Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。  
 tapyrus-coreのcontribディレクトリ配下に用意された[インストール用のスクリプト](https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh)を実行します。
 ```
 $ cd tapyrus-core
@@ -50,7 +51,7 @@ $ ./contrib/install_db4.sh .
 
 以下のコマンドでビルドを実行します。
 ```
-$ ./autogen
+$ ./autogen.sh
 $ export BDB_PREFIX='/Users/$(whoami)/tapyrus-core/db4'
 $ ./configure BDB_LIBS=“-L${BDB_PREFIX}/lib -ldb_cxx-4.8” BDB_CFLAGS=“-I${BDB_PREFIX}/include”
 $ make
@@ -61,8 +62,8 @@ $ make
 
 ## Tapyrusノードを起動する
 
-Tapyrusノードを起動する前に設定を行います。
-設定は`tapyrus.conf`ファイルに記述します。
+Tapyrusノードを起動する前に設定を行います。  
+設定は`tapyrus.conf`ファイルに記述します。  
 ホームディレクトリに`.tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
 ```
 $ mkdir $HOME/.tapyrus
@@ -95,12 +96,12 @@ $ vim genesis.1939510133
  
 Tapyrus Coreをデーモンで起動します。
 ```
-$ ./src/tapyrusd -daemon 
+$ $HOME/tapyrus-core/src/tapyrusd -daemon 
 ```
 
 `tapyrus-cli`の`getblockchaininfo`コマンドを用いて、ブロックチェーンの情報を確認します。
 ```
-$ ./src/tapyrus-cli getblockchaininfo
+$ $HOME/tapyrus-core/src/tapyrus-cli getblockchaininfo
 ```
 
 以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できました。(詳細な数値は実行したタイミングごとに異なります)
