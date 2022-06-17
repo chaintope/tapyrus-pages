@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /setup/osx
-title: "Tapyrus Document"
+title: "Tapyrus Documents"
 ---
 
 # [macOS] Tapyrus Coreノード構築方法 
@@ -25,8 +25,8 @@ $ xcode-select --install
 
 ## 依存関係のインストール
 
-macOS 用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。  
-Homebrew パッケージマネージャをインストールするには、リンクを参照してください: [https://brew.sh](https://brew.sh)    
+macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。  
+Homebrewをインストールするには、リンクを参照してください: [https://brew.sh](https://brew.sh)    
 
 依存ライブラリをインストールには以下のコマンドを実行します。  
 ```
@@ -35,7 +35,7 @@ $ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python q
 
 ## ビルド
 
-Githubから[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをホームディレクトリ配下でcloneします。  
+ホームディレクトリ配下で[tapyrus-core](https://github.com/chaintope/tapyrus-core)のレポジトリをcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1)サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
 ```
 $ cd ~
@@ -62,12 +62,11 @@ $ make
 
 ## Tapyrusノードを起動する
 
-Tapyrusノードを起動する前に設定を行います。  
-設定は`tapyrus.conf`ファイルに記述します。  
-macOSでは`/Users/oshikawa/Library/Application\ Support/`配下に`Tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
+Tapyrusノードを起動する前に設定を行います。設定は`tapyrus.conf`ファイルに記述します。  
+macOSでは`/Users/ユーザー名/Library/Application\ Support/`配下に`Tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
 ```
-$ mkdir /Users/oshikawa/Library/Application\ Support/Tapyrus
-$ vim /Users/oshikawa/Library/Application\ Support/Tapyrus/tapyrus.conf
+$ mkdir /Users/$(whoami)/Library/Application\ Support/Tapyrus
+$ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
 ```
 
 テストネット用の設定を`tapyrus.conf`内に書き込みます。
@@ -85,7 +84,7 @@ addseeder=static-seed.tapyrus.dev.chaintope.com
 
 `Tapyrus`ディレクトリ内にgenesisブロック作成します。
 ```
-$ vim /Users/oshikawa/Library/Application\ Support/Tapyrus/genesis.1939510133
+$ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1939510133
 ```
 
 `genesis.1939510133`内に以下を書き込みます。
@@ -103,7 +102,7 @@ $ ~/tapyrus-core/src/tapyrusd -daemon
 $ ~/tapyrus-core/src/tapyrus-cli getblockchaininfo
 ```
 
-以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できました。(詳細な数値は実行したタイミングごとに異なります)
+以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できます。(詳細な数値は実行したタイミングごとに異なります)
 ```
 {
   "chain": "1939510133",
@@ -125,10 +124,10 @@ $ ~/tapyrus-core/src/tapyrus-cli getblockchaininfo
 }
 ```
 
-以下のコマンドでノードを停止できます。
+ノードを停止する場合、以下のコマンドを実行します。
 ```
 $ ~/tapyrus-core/src/tapyrus-cli stop
 ```
 
 ## まとめ
-以上でmacOS上でTapyrus Coreノードが立ち上がりChaintopeのTapyrusテストネットと接続ができました。
+以上でmacOS環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。
