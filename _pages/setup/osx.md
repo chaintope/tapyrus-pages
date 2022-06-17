@@ -6,7 +6,7 @@ title: "Tapyrus Document"
 
 # [macOS] Tapyrus Coreノード構築方法 
 
-この記事ではmacOSを環境でのTapyrus Coreのノード構築方法を解説します。  
+この記事ではmacOS環境でのTapyrus Coreのノード構築方法を解説します。  
 公式のドキュメントとして以下が公開されています。  
 [https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md)
 
