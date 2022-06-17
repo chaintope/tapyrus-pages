@@ -193,7 +193,7 @@ $ ./contrib/install_db4.sh `pwd`
 
 <p>以下のコマンドでビルドを実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./autogen.sh
-$ export BDB_PREFIX='/home/$(whoami)/tapyrus-core/db4'
+$ export BDB_PREFIX="/home/$(whoami)/tapyrus-core/db4"
 $ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 $ make
 </code></pre></div></div>
