@@ -9,7 +9,7 @@ title: "Tapyrus Coreノード構築方法（Docker版）"
 
 本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。 
 
-Docker Hub上に公開された[tapyrus/tapysudd](https://hub.docker.com/r/tapyrus/tapyrusd){:target="_blank"}の[v0.5.1](https://hub.docker.com/layers/tapyrusd/tapyrus/tapyrusd/v0.5.1/images/sha256-0e25122fe7805ecc3a4545862befe3e0a9ec60ad211b94afa8d07d5ac2a5198c?context=explore){:target="_blank"}を使用します。
+Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyrus/tapyrusd){:target="_blank"}の[v0.5.1](https://hub.docker.com/layers/tapyrusd/tapyrus/tapyrusd/v0.5.1/images/sha256-0e25122fe7805ecc3a4545862befe3e0a9ec60ad211b94afa8d07d5ac2a5198c?context=explore){:target="_blank"}を使用します。
 
 また、本記事ではDockerのインストール手順の説明は省略しているため、Dockerがインストール済みの前提で解説を行います。
 
