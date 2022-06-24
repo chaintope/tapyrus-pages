@@ -68,6 +68,7 @@ rpcpassword=pass
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
 addseeder=static-seed.tapyrus.dev.chaintope.com
+fallbackfee=0.0002
 ```
 
 `.tapyrus`ディレクトリ内にgenesisブロック作成します。
