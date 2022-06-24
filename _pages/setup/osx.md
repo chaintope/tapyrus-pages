@@ -5,7 +5,7 @@ title: "Tapyrus Coreノード構築方法（macOS版）"
 ---
 
 この記事ではmacOS環境でのTapyrus Coreのノード構築方法を解説します。  
-公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md)です。
+公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md){:target="_blank"}です。
 
 本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。 
 
@@ -22,7 +22,7 @@ $ xcode-select --install
 ## 依存関係のインストール
 
 macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。  
-Homebrewをインストールする方法は、[こちら](https://brew.sh)を参照してください。
+Homebrewをインストールする方法は、[こちら](https://brew.sh){:target="_blank"}を参照してください。
 
 依存ライブラリをインストールには以下のコマンドを実行します。  
 ```
@@ -31,14 +31,14 @@ $ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python q
 
 ## ビルド
 
-ホームディレクトリ配下で[tapyrus-core](https://github.com/chaintope/tapyrus-core)のリポジトリをcloneします。  
-cloneの際、[secp256k1](https://github.com/chaintope/secp256k1)サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
+ホームディレクトリ配下で[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のリポジトリをcloneします。  
+cloneの際、[secp256k1](https://github.com/chaintope/secp256k1){:target="_blank"}サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
 ```
 $ git clone --recursive https://github.com/chaintope/tapyrus-core
 ```
 
 Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。  
-tapyrus-coreのcontribディレクトリ配下に用意された[インストール用のスクリプト](https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh)を実行します。
+tapyrus-coreのcontribディレクトリ配下に用意された[インストール用のスクリプト](https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh){:target="_blank"}を実行します。
 ```
 $ cd tapyrus-core
 $ ./contrib/install_db4.sh .
@@ -47,7 +47,7 @@ $ ./contrib/install_db4.sh .
 以下のコマンドでビルドを実行します。
 ```
 $ ./autogen.sh
-$ export BDB_PREFIX='/Users/$(whoami)/tapyrus-core/db4'
+$ export BDB_PREFIX="/Users/$(whoami)/tapyrus-core/db4"
 $ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 $ make
 ```
@@ -75,6 +75,7 @@ rpcpassword=pass
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
 addseeder=static-seed.tapyrus.dev.chaintope.com
+fallbackfee=0.0002
 ```
 
 `Tapyrus`ディレクトリ内にgenesisブロック作成します。

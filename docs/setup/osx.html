@@ -164,7 +164,7 @@
       <section class="page__content" itemprop="text">
         
         <p>この記事ではmacOS環境でのTapyrus Coreのノード構築方法を解説します。<br />
-公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md">こちら</a>です。</p>
+公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/build-osx.md" target="_blank">こちら</a>です。</p>
 
 <p>本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。</p>
 
@@ -180,7 +180,7 @@
 <h2 id="依存関係のインストール">依存関係のインストール</h2>
 
 <p>macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。<br />
-Homebrewをインストールする方法は、<a href="https://brew.sh">こちら</a>を参照してください。</p>
+Homebrewをインストールする方法は、<a href="https://brew.sh" target="_blank">こちら</a>を参照してください。</p>
 
 <p>依存ライブラリをインストールには以下のコマンドを実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode
@@ -188,20 +188,20 @@ Homebrewをインストールする方法は、<a href="https://brew.sh">こち�
 
 <h2 id="ビルド">ビルド</h2>
 
-<p>ホームディレクトリ配下で<a href="https://github.com/chaintope/tapyrus-core">tapyrus-core</a>のリポジトリをcloneします。<br />
-cloneの際、<a href="https://github.com/chaintope/secp256k1">secp256k1</a>サブモジュールを同時にインストールするように、<code class="language-plaintext highlighter-rouge">--recursive</code>オプションを追加した状態で実行します。</p>
+<p>ホームディレクトリ配下で<a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>のリポジトリをcloneします。<br />
+cloneの際、<a href="https://github.com/chaintope/secp256k1" target="_blank">secp256k1</a>サブモジュールを同時にインストールするように、<code class="language-plaintext highlighter-rouge">--recursive</code>オプションを追加した状態で実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone --recursive https://github.com/chaintope/tapyrus-core
 </code></pre></div></div>
 
 <p>Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。<br />
-tapyrus-coreのcontribディレクトリ配下に用意された<a href="https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh">インストール用のスクリプト</a>を実行します。</p>
+tapyrus-coreのcontribディレクトリ配下に用意された<a href="https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh" target="_blank">インストール用のスクリプト</a>を実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd tapyrus-core
 $ ./contrib/install_db4.sh .
 </code></pre></div></div>
 
 <p>以下のコマンドでビルドを実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./autogen.sh
-$ export BDB_PREFIX='/Users/$(whoami)/tapyrus-core/db4'
+$ export BDB_PREFIX="/Users/$(whoami)/tapyrus-core/db4"
 $ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
 $ make
 </code></pre></div></div>
@@ -226,6 +226,7 @@ rpcpassword=pass
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
 addseeder=static-seed.tapyrus.dev.chaintope.com
+fallbackfee=0.0002
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">Tapyrus</code>ディレクトリ内にgenesisブロック作成します。</p>
