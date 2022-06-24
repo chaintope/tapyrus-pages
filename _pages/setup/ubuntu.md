@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /setup/ubuntu
-title: "Tapyrus Coreノード構築方法（Ubuntu 20.04 LTS版）"
+title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 ---
 
 この記事ではUbuntu 20.04 LTS環境でのTapyrus Coreのノード構築方法を解説します。  
