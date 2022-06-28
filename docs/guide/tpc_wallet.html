@@ -1,0 +1,388 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>テストネットからのTPC取得＆送金方法 - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="テストネットからのTPC取得＆送金方法">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/guide/tpc_wallet">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/guide/tpc_wallet">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="テストネットからのTPC取得＆送金方法">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">テストネットからのTPC取得＆送金方法
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>本記事ではChaintopeが提供するTapyrusのテストネット（networkid 1939510133）上でTapyrusの通貨であるTPCを送受金する方法について解説します。　　
+Chaintopeが運営する<a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取り、tapyrus-coreのCLIを用いてWalletを操作し、送金やトランザクション・ブロックの詳細を確認します。　　</p>
+
+<p>本記事ではTapyrusノードの環境構築方法については解説しません。<br />
+環境構築方法については、以下の記事を参照してください。</p>
+<ul>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/osx">Tapyrus Coreノード構築方法（macOS版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/ubuntu">Tapyrus Coreノード構築方法（Ubuntu版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/docker">Tapyrus Coreノード構築方法（Docker版）</a></li>
+</ul>
+
+<h2 id="tapyrus-cliについて">tapyrus-cliについて</h2>
+
+<p>tapyrus-cli以下のような構成で入力を行います。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli [options] &lt;command&gt; [params] 
+</code></pre></div></div>
+<ul>
+  <li>option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードやWalletの名前など。</li>
+  <li>command: 実行したい操作の命令。</li>
+  <li>params: コマンドを実行する際に指定する任意の引数。</li>
+</ul>
+
+<p>tapyrus-cliコマンドの詳細は以下は<code class="language-plaintext highlighter-rouge">tapyrus-cli -h</code>で確認できます。</p>
+
+<h2 id="wallet-addressの作成">Wallet, Addressの作成</h2>
+
+<p>TPCを受け取るWalletの作成を行います。
+Walletの作成には<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">createwallet</code>コマンドを用います。
+Walletには任意の名前をつけることができ、<code class="language-plaintext highlighter-rouge">createwallet</code>の後に引数として指定します。
+以下のコマンドでは<code class="language-plaintext highlighter-rouge">wallet1</code>という名前のWalletを作成しています。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli createwallet "wallet1"
+{
+  "name": "wallet1",
+  "warning": ""
+}
+</code></pre></div></div>
+
+<p>まずはWalletの初期状態の確認を行います。<br />
+<code class="language-plaintext highlighter-rouge">getbalance</code>コマンドを用いて、所有するTPCの量を確認します。<br />
+実行時、<code class="language-plaintext highlighter-rouge">-rpcwallet</code>オプションで、使用するWalletを指定します。<br />
+<code class="language-plaintext highlighter-rouge">0.00000000</code>と表示され、コインを所有していないことが分かります。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getbalance
+0.00000000
+</code></pre></div></div>
+
+<p>更に<code class="language-plaintext highlighter-rouge">listunspent</code>コマンドを用いて、UTXOを確認します。<br />
+これも初期状態のため、空であることが確認できます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 listunspent
+[
+]
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">getnewaddress</code>コマンドを用いてアドレスを生成します。<br />
+実行すると表示される文字列が、Walletのアドレスです。<br />
+このアドレスはfaucetからのコイン受取時に使用するため、控えておいてください。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getnewaddress
+1CuXBp5f3wUAEBongA5TkMK8KehtEFaG2X
+</code></pre></div></div>
+
+<h2 id="faucetからのtpc取得">faucetからのTPC取得</h2>
+
+<p><a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取ります。</p>
+
+<p><code class="language-plaintext highlighter-rouge">Input your address</code>と表示された入力欄に先程生成したアドレスを入力し、「Get coins!」ボタンをクリックします
+<img src="/assets/images/tpc_wallet_faucet_1.png" alt="Tapyrus Testnet Faucet" /></p>
+
+<p>「Withdraw transactions」のリストに自分のアドレス宛のトランザクション情報が表示されるとTPC取得は成功です。
+<img src="/assets/images/tpc_wallet_faucet_2.png" alt="Withdraw transactions" /></p>
+
+<p>TPC取得が確定されるためには、トランザクションがSignerノードに承認され、ブロックに取り込まれるのを待つ必要があります。<br />
+Tapyrusではブロックの生成間隔はSignerノードで設定を行います。<br />
+Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）ではブロック生成間隔が10分に設定されているため、faucetからの送金トランザクションが承認されるまでしばらく待ちます。</p>
+
+<h4 id="注意">注意</h4>
+<p>Faucetに表示された<code class="language-plaintext highlighter-rouge">Current Balance</code>が0の時、TPCを取得することができません。
+その際は、補充されるのをお待ちください。</p>
+
+<h2 id="取得したtpcの確認">取得したTPCの確認</h2>
+
+<p><code class="language-plaintext highlighter-rouge">getbalance</code>コマンドを用いて、再度所有するTPCの量を確認します。<br />
+今回は<code class="language-plaintext highlighter-rouge">0.00005528</code>TPCを所有していることが確認できます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getbalance
+0.00005528
+</code></pre></div></div>
+
+<p>同様に<code class="language-plaintext highlighter-rouge">listunspent</code>コマンドを用いて、UTXOを確認します。<br />
+faucetから受け取ったがTPCとして表示されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 listunspent
+[
+  {
+    "txid": "900491de9863a56320c4fef45b056f8033873838f919a0d47832f12bf4baa5b9",
+    "vout": 0,
+    "address": "1CuXBp5f3wUAEBongA5TkMK8KehtEFaG2X",
+    "token": "TPC",
+    "amount": 0.00005528,
+    "label": "",
+    "scriptPubKey": "76a914829836445162ef8e7701fb5fa1a357b34c92be1788ac",
+    "confirmations": 11,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+</code></pre></div></div>
+
+<h2 id="送金">送金</h2>
+
+<p>次にTPCの送金方法について解説します。
+同じwalletで別のアドレスを生成し、自分自身に対して送金を行ないます。</p>
+
+<p>送金には<code class="language-plaintext highlighter-rouge">sendtoaddress</code>コマンドを用います。<br />
+<code class="language-plaintext highlighter-rouge">sendtoaddress</code>コマンドは”送金先アドレス”、”送金するTPC額”を引数として指定します。<br />
+以下のコマンドのように<code class="language-plaintext highlighter-rouge">sendtoaddress</code>に続けてコピーしたfaucetのアドレスと<code class="language-plaintext highlighter-rouge"> 0.00003528</code>TPCを指定し実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 sendtoaddress &lt;faucetのアドレス&gt; 0.00003528
+</code></pre></div></div>
+<p>実行するとハッシュ値が表示されます。<br />
+これは送金トランザクションのtransaction idです。後ほど詳細確認に使用するため控えておいてください。</p>
+
+<p>以上で送金は完了です。以降でトランザクションやブロックの詳細情報の確認を行います。</p>
+
+<h2 id="送金トランザクションブロックの詳細確認">送金トランザクション・ブロックの詳細確認</h2>
+
+<p><code class="language-plaintext highlighter-rouge">gettransaction</code>の引数には先程控えたトランザクションIDを指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 gettransaction &lt;transaction id&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getrawtransaction &lt;transaction id&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getblock &lt;block header&gt;
+</code></pre></div></div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
