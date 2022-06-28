@@ -5,7 +5,7 @@ title: "faucetからのTPC取得＆送金方法"
 ---
 
 
-本記事ではChaintopeが提供するTapyrusのテストネット（networkid 1939510133）上でTapyrusの通貨であるTPCを送受金する方法について解説します。　　
+本記事ではChaintopeが提供するTapyrusのテストネット（networkid 1939510133）上でTapyrusの通貨であるTPCを送受金する方法について解説します。  
 Chaintopeが運営する[Tapyrus Testnet Faucet](https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions){:target="_blank"}からTPCを受け取り、tapyrus-coreのCLIを用いてWalletを操作し、送金やトランザクション・ブロックの詳細を確認します。　　
 
 本記事ではTapyrusノードの環境構築方法については解説しません。  
@@ -21,11 +21,11 @@ tapyrus-cli以下のような構成で入力を行います。
 ```
 $ tapyrus-cli [options] <command> [params] 
 ```
-- option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードやWalletの名前など。
+- option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードや使用するWallet名など。
 - command: 実行したい操作の命令。
-- params: コマンドを実行する際に指定する任意の引数。
+- params: コマンドを実行する際に指定する引数。
 
-tapyrus-cliコマンドの詳細は以下は`tapyrus-cli -h`で確認できます。
+tapyrus-cliコマンドの詳細は`tapyrus-cli -h`で確認できます。
 
 ### 注意事項
 
@@ -38,7 +38,7 @@ $ <cloneしたディレクトリ>/tapyrus-core/src/tapyrus-cli <command> [params
 ```
 
 ##### Dockerを使用する場合
-Dockerを使用する場合、全てのコマンド実行時にオプションに`-conf=/etc/tapyrus/tapyrus.conf`を指定する必要があります。  
+Dockerを使用する場合、全てのコマンド実行時のオプションに`-conf=/etc/tapyrus/tapyrus.conf`を指定する必要があります。  
 (実行例)  
 ```
 $  tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf createwallet "wallet1" 
@@ -159,7 +159,7 @@ $ tapyrus-cli  -rpcwallet=wallet1 sendtoaddress 1Ky1XpDQ1NUQ5fvssZpAfmdR1nv8mz4n
 dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de
 ```
 
-実行するとハッシュ値が表示されます。
+実行するとハッシュ値が表示されます。  
 これは送金トランザクションのtransaction idです。後ほど詳細確認に使用するため控えておいてください。  
 
 

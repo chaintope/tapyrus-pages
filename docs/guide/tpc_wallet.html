@@ -163,7 +163,7 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>本記事ではChaintopeが提供するTapyrusのテストネット（networkid 1939510133）上でTapyrusの通貨であるTPCを送受金する方法について解説します。　　
+        <p>本記事ではChaintopeが提供するTapyrusのテストネット（networkid 1939510133）上でTapyrusの通貨であるTPCを送受金する方法について解説します。<br />
 Chaintopeが運営する<a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取り、tapyrus-coreのCLIを用いてWalletを操作し、送金やトランザクション・ブロックの詳細を確認します。　　</p>
 
 <p>本記事ではTapyrusノードの環境構築方法については解説しません。<br />
@@ -180,12 +180,12 @@ Chaintopeが運営する<a href="https://testnet-faucet.tapyrus.dev.chaintope.co
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli [options] &lt;command&gt; [params] 
 </code></pre></div></div>
 <ul>
-  <li>option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードやWalletの名前など。</li>
+  <li>option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードや使用するWallet名など。</li>
   <li>command: 実行したい操作の命令。</li>
-  <li>params: コマンドを実行する際に指定する任意の引数。</li>
+  <li>params: コマンドを実行する際に指定する引数。</li>
 </ul>
 
-<p>tapyrus-cliコマンドの詳細は以下は<code class="language-plaintext highlighter-rouge">tapyrus-cli -h</code>で確認できます。</p>
+<p>tapyrus-cliコマンドの詳細は<code class="language-plaintext highlighter-rouge">tapyrus-cli -h</code>で確認できます。</p>
 
 <h3 id="注意事項">注意事項</h3>
 
@@ -197,7 +197,7 @@ Chaintopeが運営する<a href="https://testnet-faucet.tapyrus.dev.chaintope.co
 </code></pre></div></div>
 
 <h5 id="dockerを使用する場合">Dockerを使用する場合</h5>
-<p>Dockerを使用する場合、全てのコマンド実行時にオプションに<code class="language-plaintext highlighter-rouge">-conf=/etc/tapyrus/tapyrus.conf</code>を指定する必要があります。<br />
+<p>Dockerを使用する場合、全てのコマンド実行時のオプションに<code class="language-plaintext highlighter-rouge">-conf=/etc/tapyrus/tapyrus.conf</code>を指定する必要があります。<br />
 (実行例)</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf createwallet "wallet1" 
 </code></pre></div></div>
@@ -304,7 +304,7 @@ faucetから受け取ったTPCがUTXOとして表示されます。</p>
 dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de
 </code></pre></div></div>
 
-<p>実行するとハッシュ値が表示されます。
+<p>実行するとハッシュ値が表示されます。<br />
 これは送金トランザクションのtransaction idです。後ほど詳細確認に使用するため控えておいてください。</p>
 
 <p>以上で送金は完了です。</p>
