@@ -166,14 +166,14 @@
 <p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。<br />
 記載されたコマンドを順に実行することでノードの構築が完了します。</p>
 
-<h3 id="依存関係のインストール">依存関係のインストール</h3>
+<h3 id="install-dependencies">依存関係のインストール</h3>
 
 <p>依存ライブラリをインストールには以下のコマンドを実行します。<br />
 依存ライブラリ情報は<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/dependencies.md" target="_blank">こちら</a>で確認できます。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
 </code></pre></div></div>
 
-<h2 id="ビルド">ビルド</h2>
+<h2 id="build">ビルド</h2>
 
 <p><a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>のリポジトリをcloneします。<br />
 cloneの際、<a href="https://github.com/chaintope/secp256k1" target="_blank">secp256k1</a>サブモジュールを同時にインストールするように、<code class="language-plaintext highlighter-rouge">--recursive</code>オプションを追加した状態で実行します。</p>
@@ -195,7 +195,7 @@ $ make
 
 <p>エラーが表示されなければビルドは完了です。</p>
 
-<h2 id="tapyrusノードを起動する">Tapyrusノードを起動する</h2>
+<h2 id="run-tapyrusd">Tapyrusノードを起動する</h2>
 
 <p>Tapyrusノードを起動する前に設定を行います。設定は<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに記述します。<br />
 Ubuntuではホームディレクトリ配下に<code class="language-plaintext highlighter-rouge">.tapyrus</code>ディレクトリを作成し、その配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルを作成、編集します。</p>

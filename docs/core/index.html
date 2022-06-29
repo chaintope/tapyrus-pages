@@ -173,7 +173,7 @@
 <p>ブロックは、フェデレーションメンバーによるブロックに対するデジタル署名により作成されます。
 このデジタル署名はブロックに<code class="language-plaintext highlighter-rouge">proof</code>としてセットされ、Tapyrus Networkの各フルノードは、この署名が有効か検証することでブロックの有効性を検証します。</p>
 
-<h3 id="署名鍵">署名鍵</h3>
+<h3 id="signing-key">署名鍵</h3>
 
 <p>ブロックの有効性検証を行う際の公開鍵は、フェデレーションメンバーの集約公開鍵を使用します。</p>
 
@@ -182,7 +182,7 @@
 この集約公開鍵はパラメーターとしてチェーンのジェネシスブロックの<code class="language-plaintext highlighter-rouge">xfield</code>に埋め込まれ、
 各フルノードは埋め込まれた集約公開鍵を使用して署名検証を行います。<sup id="fnref:key-update" role="doc-noteref"><a href="#fn:key-update" class="footnote" rel="footnote">1</a></sup></p>
 
-<h3 id="signerノード">Signerノード</h3>
+<h3 id="signer-node">Signerノード</h3>
 
 <p>Signer Networkを運営するためのノード実装として、<a href="https://github.com/chaintope/tapyrus-signer/">Tapyrus Signer</a>を提供しています。
 フルノードと一緒に実行することで、フェデレーションメンバーと通信し、ブロックの署名を完成させます。

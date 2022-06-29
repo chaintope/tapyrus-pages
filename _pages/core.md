@@ -10,7 +10,7 @@ Tapyrusは、任意のビジネスユースケースに応じて独自のブロ�
 
 ![network](/assets/images/tapyrus-network-diagram.png)
 
-## Signer Network
+## Signer Network {#signer-network}
 
 Signer Networkは、ネットワークのセットアップ時に予め定められたフェデレーションのメンバーによって運営されます。
 フェデレーションのメンバーはTapyrus Networkにブロードキャストされたトランザクションを収集、検証し、
@@ -19,7 +19,7 @@ Signer Networkは、ネットワークのセットアップ時に予め定めら
 ブロックは、フェデレーションメンバーによるブロックに対するデジタル署名により作成されます。
 このデジタル署名はブロックに`proof`としてセットされ、Tapyrus Networkの各フルノードは、この署名が有効か検証することでブロックの有効性を検証します。
 
-### 署名鍵
+### 署名鍵 {#signing-key}
 
 ブロックの有効性検証を行う際の公開鍵は、フェデレーションメンバーの集約公開鍵を使用します。
 
@@ -28,7 +28,7 @@ Signer Networkは、ネットワークのセットアップ時に予め定めら
 この集約公開鍵はパラメーターとしてチェーンのジェネシスブロックの`xfield`に埋め込まれ、
 各フルノードは埋め込まれた集約公開鍵を使用して署名検証を行います。[^key-update]
 
-### Signerノード
+### Signerノード {#signer-node}
 
 Signer Networkを運営するためのノード実装として、[Tapyrus Signer](https://github.com/chaintope/tapyrus-signer/)を提供しています。
 フルノードと一緒に実行することで、フェデレーションメンバーと通信し、ブロックの署名を完成させます。
@@ -38,7 +38,7 @@ Signer Networkを運営するためのノード実装として、[Tapyrus Signer
 ※ Tapyrusのプロトコル上、有効なSchnorr署名が作成できればよく、Tapyrus Signer以外の実装も使用可能です。
 {: .notice}
 
-## Tapyrus Network
+## Tapyrus Network {#tapyrus-network}
 
 Tapyrus Network は誰もが参加可能な共有台帳ネットワークで、ジェネシスブロックから最新のブロックまでブロックチェーンのすべての
 オンチェーンデータの提供、新規トランザクションの発行、伝播をサポートします。

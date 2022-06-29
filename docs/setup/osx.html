@@ -166,13 +166,13 @@
 <p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。<br />
 記載されたコマンドを順に実行することでノードの構築が完了します。</p>
 
-<h2 id="準備">準備</h2>
+<h2 id="preparation">準備</h2>
 
 <p>Tapyrusのビルドに必要なmacOS用のコマンドラインツールであるXcode Command Line Toolsをインストールします。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ xcode-select --install
 </code></pre></div></div>
 
-<h2 id="依存関係のインストール">依存関係のインストール</h2>
+<h2 id="install-dependencies">依存関係のインストール</h2>
 
 <p>macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。<br />
 Homebrewをインストールする方法は、<a href="https://brew.sh" target="_blank">こちら</a>を参照してください。</p>
@@ -181,7 +181,7 @@ Homebrewをインストールする方法は、<a href="https://brew.sh" target=
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode
 </code></pre></div></div>
 
-<h2 id="ビルド">ビルド</h2>
+<h2 id="build">ビルド</h2>
 
 <p>ホームディレクトリ配下で<a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>のリポジトリをcloneします。<br />
 cloneの際、<a href="https://github.com/chaintope/secp256k1" target="_blank">secp256k1</a>サブモジュールを同時にインストールするように、<code class="language-plaintext highlighter-rouge">--recursive</code>オプションを追加した状態で実行します。</p>
@@ -203,7 +203,7 @@ $ make
 
 <p>エラーが表示されなければビルドは完了です。</p>
 
-<h2 id="tapyrusノードを起動する">Tapyrusノードを起動する</h2>
+<h2 id="run-tapyrusd">Tapyrusノードを起動する</h2>
 
 <p>Tapyrusノードを起動する前に設定を行います。設定は<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに記述します。<br />
 macOSでは<code class="language-plaintext highlighter-rouge">/Users/ユーザー名/Library/Application\ Support/</code>配下に<code class="language-plaintext highlighter-rouge">Tapyrus</code>ディレクトリを作成し、その配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルを作成、編集します。</p>
