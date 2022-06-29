@@ -174,7 +174,7 @@ Chaintopeが運営する<a href="https://testnet-faucet.tapyrus.dev.chaintope.co
   <li><a href="https://site.tapyrus.chaintope.com/setup/docker">Tapyrus Coreノード構築方法（Docker版）</a></li>
 </ul>
 
-<h2 id="tapyrus-cliについて">tapyrus-cliについて</h2>
+<h2 id="about-tapyrus-cli">tapyrus-cliについて</h2>
 
 <p>tapyrus-cli以下のような構成で入力を行います。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli [options] &lt;command&gt; [params] 
@@ -187,22 +187,22 @@ Chaintopeが運営する<a href="https://testnet-faucet.tapyrus.dev.chaintope.co
 
 <p>tapyrus-cliコマンドの詳細は<code class="language-plaintext highlighter-rouge">tapyrus-cli -h</code>で確認できます。</p>
 
-<h3 id="注意事項">注意事項</h3>
+<h3 id="notes">注意事項</h3>
 
 <p>実行環境によって入力するコマンドに違いがある場合があります。</p>
 
-<h5 id="tapyrus-cliコマンド実行時のパスについて">tapyrus-cliコマンド実行時のパスについて</h5>
+<h5 id="notes-tapyrus-cli-path">tapyrus-cliコマンド実行時のパスについて</h5>
 <p><code class="language-plaintext highlighter-rouge">make install</code>を実行していない場合、<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>コマンドの実行時にパスを指定して実行する必要があります。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ &lt;cloneしたディレクトリ&gt;/tapyrus-core/src/tapyrus-cli &lt;command&gt; [params]
 </code></pre></div></div>
 
-<h5 id="dockerを使用する場合">Dockerを使用する場合</h5>
+<h5 id="notes-docker">Dockerを使用する場合</h5>
 <p>Dockerを使用する場合、全てのコマンド実行時のオプションに<code class="language-plaintext highlighter-rouge">-conf=/etc/tapyrus/tapyrus.conf</code>を指定する必要があります。<br />
 (実行例)</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf createwallet "wallet1" 
 </code></pre></div></div>
 
-<h2 id="wallet-addressの作成">Wallet, Addressの作成</h2>
+<h2 id="create-wallet-address">Wallet, Addressの作成</h2>
 
 <p>TPCを受け取るWalletの作成を行います。<br />
 Walletの作成には<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">createwallet</code>コマンドを用います。<br />
@@ -237,7 +237,7 @@ Walletには任意の名前をつけることができ、<code class="language-p
 1CuXBp5f3wUAEBongA5TkMK8KehtEFaG2X
 </code></pre></div></div>
 
-<h2 id="faucetからのtpc取得">faucetからのTPC取得</h2>
+<h2 id="get-tpc-from-faucet">faucetからのTPC取得</h2>
 
 <p><a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取ります。</p>
 
@@ -251,11 +251,11 @@ Walletには任意の名前をつけることができ、<code class="language-p
 Tapyrusではブロックの生成間隔はSignerノードで設定を行います。<br />
 Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）ではブロック生成間隔が10分に設定されているため、faucetからの送金トランザクションが承認されるまでしばらく待ちます。</p>
 
-<h4 id="注意">注意</h4>
+<h4 id="note-faucet">注意</h4>
 <p>Faucetに表示された<code class="language-plaintext highlighter-rouge">Current Balance</code>が0の時、TPCを取得することができません。<br />
 その際は、補充されるのをお待ちください。</p>
 
-<h2 id="取得したtpcの確認">取得したTPCの確認</h2>
+<h2 id="check-own-tpc">取得したTPCの確認</h2>
 
 <p><code class="language-plaintext highlighter-rouge">getbalance</code>コマンドを用いて、再度所有するTPCの量を確認します。<br />
 今回は<code class="language-plaintext highlighter-rouge">0.00005506</code>TPCを所有していることが確認できます。　　</p>
@@ -283,7 +283,7 @@ faucetから受け取ったTPCがUTXOとして表示されます。</p>
 ]
 </code></pre></div></div>
 
-<h2 id="送金">送金</h2>
+<h2 id="send-tpc">送金</h2>
 
 <p>次にTPCの送金方法について解説します。<br />
 本記事では同じwalletで別のアドレスを生成し、自分自身に対して送金を行ないます。</p>
@@ -309,7 +309,7 @@ dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de
 
 <p>以上で送金は完了です。</p>
 
-<h2 id="送金トランザクションブロックの詳細確認">送金トランザクション・ブロックの詳細確認</h2>
+<h2 id="transaction-block-details">送金トランザクション・ブロックの詳細確認</h2>
 
 <p>ここからはトランザクションやブロックの詳細情報を確認する方法を解説します。</p>
 

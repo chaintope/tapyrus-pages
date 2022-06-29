@@ -15,7 +15,7 @@ Chaintopeが運営する[Tapyrus Testnet Faucet](https://testnet-faucet.tapyrus.
  - [Tapyrus Coreノード構築方法（Docker版）](https://site.tapyrus.chaintope.com/setup/docker)
 
 
-## tapyrus-cliについて
+## tapyrus-cliについて {#about-tapyrus-cli}
 
 tapyrus-cli以下のような構成で入力を行います。
 ```
@@ -27,24 +27,24 @@ $ tapyrus-cli [options] <command> [params]
 
 tapyrus-cliコマンドの詳細は`tapyrus-cli -h`で確認できます。
 
-### 注意事項
+### 注意事項 {#notes}
 
 実行環境によって入力するコマンドに違いがある場合があります。
 
-##### tapyrus-cliコマンド実行時のパスについて
+##### tapyrus-cliコマンド実行時のパスについて {#notes-tapyrus-cli-path}
 `make install`を実行していない場合、`tapyrus-cli`コマンドの実行時にパスを指定して実行する必要があります。
 ```
 $ <cloneしたディレクトリ>/tapyrus-core/src/tapyrus-cli <command> [params]
 ```
 
-##### Dockerを使用する場合
+##### Dockerを使用する場合 {#notes-docker}
 Dockerを使用する場合、全てのコマンド実行時のオプションに`-conf=/etc/tapyrus/tapyrus.conf`を指定する必要があります。  
 (実行例)  
 ```
 $  tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf createwallet "wallet1" 
 ```
 
-## Wallet, Addressの作成
+## Wallet, Addressの作成 {#create-wallet-address}
 
 TPCを受け取るWalletの作成を行います。  
 Walletの作成には`tapyrus-cli`の`createwallet`コマンドを用います。  
@@ -84,7 +84,7 @@ $ tapyrus-cli -rpcwallet=wallet1 getnewaddress
 ```
 
 
-## faucetからのTPC取得
+## faucetからのTPC取得 {#get-tpc-from-faucet}
 
 
 [Tapyrus Testnet Faucet](https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions){:target="_blank"}からTPCを受け取ります。  
@@ -100,11 +100,11 @@ TPC取得が確定されるためには、トランザクションがSignerノ�
 Tapyrusではブロックの生成間隔はSignerノードで設定を行います。  
 Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）ではブロック生成間隔が10分に設定されているため、faucetからの送金トランザクションが承認されるまでしばらく待ちます。  
 
-#### 注意
+#### 注意 {#note-faucet}
 Faucetに表示された`Current Balance`が0の時、TPCを取得することができません。  
 その際は、補充されるのをお待ちください。  
 
-## 取得したTPCの確認
+## 取得したTPCの確認 {#check-own-tpc}
 
 `getbalance`コマンドを用いて、再度所有するTPCの量を確認します。  
 今回は`0.00005506`TPCを所有していることが確認できます。　　
@@ -134,7 +134,7 @@ $ tapyrus-cli -rpcwallet=wallet1 listunspent
 ]
 ```
 
-## 送金
+## 送金 {#send-tpc}
 
 次にTPCの送金方法について解説します。  
 本記事では同じwalletで別のアドレスを生成し、自分自身に対して送金を行ないます。   
@@ -165,7 +165,7 @@ dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de
 
 以上で送金は完了です。
 
-## 送金トランザクション・ブロックの詳細確認
+## 送金トランザクション・ブロックの詳細確認 {#transaction-block-details}
 
 ここからはトランザクションやブロックの詳細情報を確認する方法を解説します。
 
