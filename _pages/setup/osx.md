@@ -12,14 +12,14 @@ title: "Tapyrus Coreノード構築方法（macOS版）"
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
 記載されたコマンドを順に実行することでノードの構築が完了します。  
 
-## 準備
+## 準備 {#preparation}
 
 Tapyrusのビルドに必要なmacOS用のコマンドラインツールであるXcode Command Line Toolsをインストールします。
 ```
 $ xcode-select --install
 ```
 
-## 依存関係のインストール
+## 依存関係のインストール {#install-dependencies}
 
 macOS用のパッケージマネージャであるHomebrewを用いて依存ライブラリをインストールします。  
 Homebrewをインストールする方法は、[こちら](https://brew.sh){:target="_blank"}を参照してください。
@@ -29,7 +29,7 @@ Homebrewをインストールする方法は、[こちら](https://brew.sh){:tar
 $ brew install automake berkeley-db4 libtool boost miniupnpc pkg-config python qt libevent qrencode
 ```
 
-## ビルド
+## ビルド {#build}
 
 ホームディレクトリ配下で[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のリポジトリをcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1){:target="_blank"}サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
@@ -55,7 +55,7 @@ $ make
 エラーが表示されなければビルドは完了です。
 
 
-## Tapyrusノードを起動する
+## Tapyrusノードを起動する {#run-tapyrusd}
 
 Tapyrusノードを起動する前に設定を行います。設定は`tapyrus.conf`ファイルに記述します。  
 macOSでは`/Users/ユーザー名/Library/Application\ Support/`配下に`Tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。

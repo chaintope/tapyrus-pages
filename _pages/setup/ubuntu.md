@@ -13,7 +13,7 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 記載されたコマンドを順に実行することでノードの構築が完了します。  
 
 
-### 依存関係のインストール
+### 依存関係のインストール {#install-dependencies}
 
 依存ライブラリをインストールには以下のコマンドを実行します。  
 依存ライブラリ情報は[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/dependencies.md){:target="_blank"}で確認できます。
@@ -21,7 +21,7 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 $ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
 ```
 
-## ビルド
+## ビルド {#build}
 
 [tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のリポジトリをcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1){:target="_blank"}サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
@@ -47,7 +47,7 @@ $ make
 
 エラーが表示されなければビルドは完了です。
 
-## Tapyrusノードを起動する
+## Tapyrusノードを起動する {#run-tapyrusd}
 
 
 Tapyrusノードを起動する前に設定を行います。設定は`tapyrus.conf`ファイルに記述します。  

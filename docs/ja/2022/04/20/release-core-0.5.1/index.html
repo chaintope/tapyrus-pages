@@ -269,19 +269,19 @@
         
         <p>ARM64アーキテクチャのコンテナで動作する<a href="https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1">Tapyrus Core v0.5.1</a>をリリースしました。</p>
 
-<h2 id="主な変更点">主な変更点</h2>
+<h2 id="changes">主な変更点</h2>
 
-<h3 id="arm64アーキテクチャのコンテナのサポート">ARM64アーキテクチャのコンテナのサポート</h3>
+<h3 id="container-support-for-arm64">ARM64アーキテクチャのコンテナのサポート</h3>
 
 <p>バージョンv0.5.1では、TapyrusはARM64アーキテクチャベースのコンテナで動作するようになりました。</p>
 
 <p>Docker HubにARM64アーキテクチャで動作可能な<a href="https://hub.docker.com/layers/tapyrusd/tapyrus/tapyrusd/v0.5.1/images/sha256-0e25122fe7805ecc3a4545862befe3e0a9ec60ad211b94afa8d07d5ac2a5198c?context=explore">v0.5.1のイメージ</a>を追加しています。</p>
 
-<h3 id="secp256k1のサブモジュール化">secp256k1のサブモジュール化</h3>
+<h3 id="secp256k1-submodularization">secp256k1のサブモジュール化</h3>
 
 <p>Tapyrusが使用するsecp256k1ライブラリの<a href="https://github.com/chaintope/secp256k1">リポジトリを分離し</a>、Git submoduleとして参照するようになりました。</p>
 
-<h3 id="rpcの戻り値の名称変更">RPCの戻り値の名称変更</h3>
+<h3 id="rename-rpc-return-value">RPCの戻り値の名称変更</h3>
 
 <p>以下のRPCでトランザクションの<code class="language-plaintext highlighter-rouge">features</code>フィールドの名称が<code class="language-plaintext highlighter-rouge">version</code>のままになっていたものを、正しく<code class="language-plaintext highlighter-rouge">features</code>に修正しています。</p>
 

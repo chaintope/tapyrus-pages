@@ -172,7 +172,7 @@
 
 <p>また、本記事ではDockerがインストール済みの前提で解説を行います。</p>
 
-<h2 id="準備">準備</h2>
+<h2 id="preparation">準備</h2>
 
 <p>Tapyrusノードの設定ファイルを作成します。tapyrusdでは<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに設定を記述します。 <br />
 以下のコマンドで<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルの作成と設定情報の記述を行います。</p>
@@ -190,7 +190,7 @@ fallbackfee=0.0002
 </span><span class="no">EOS
 </span></code></pre></div></div>
 
-<h2 id="コンテナ作成起動">コンテナ作成・起動</h2>
+<h2 id="run-container">コンテナ作成・起動</h2>
 
 <p><code class="language-plaintext highlighter-rouge">tapyrus/tapyrusd:v0.5.1</code>のイメージを指定し、Dockerコンテナの作成・起動を行います。<br />
 コンテナ作成時に<code class="language-plaintext highlighter-rouge">-e</code>オプションを使用し<code class="language-plaintext highlighter-rouge">GENESIS_BLOCK_WITH_SIG</code>にgenesisブロック情報を設定します。</p>

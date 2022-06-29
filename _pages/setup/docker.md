@@ -13,7 +13,7 @@ Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyr
 
 また、本記事ではDockerがインストール済みの前提で解説を行います。
 
-## 準備
+## 準備 {#preparation}
 
 Tapyrusノードの設定ファイルを作成します。tapyrusdでは`tapyrus.conf`ファイルに設定を記述します。   
 以下のコマンドで`tapyrus.conf`ファイルの作成と設定情報の記述を行います。  
@@ -32,7 +32,7 @@ fallbackfee=0.0002
 EOS
 ```
 
-## コンテナ作成・起動
+## コンテナ作成・起動 {#run-container}
 
 `tapyrus/tapyrusd:v0.5.1`のイメージを指定し、Dockerコンテナの作成・起動を行います。  
 コンテナ作成時に`-e`オプションを使用し`GENESIS_BLOCK_WITH_SIG`にgenesisブロック情報を設定します。  
