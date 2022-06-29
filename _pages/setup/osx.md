@@ -54,9 +54,10 @@ $ make
 
 エラーが表示されなければビルドは完了です。
 
-(任意) インストールするにはさらに以下を実行します。
+(任意) インストールするにはさらに以下を実行します。  
+以降の解説ではインストールされている前提でコマンドを例示しています。
 ```
-$ make install
+$ sudo make install
 ```
 
 
@@ -95,12 +96,12 @@ $ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1939510133
  
 Tapyrus Coreをデーモンで起動します。
 ```
-$ ./src/tapyrusd -daemon 
+$ tapyrusd -daemon 
 ```
 
 `tapyrus-cli`の`getblockchaininfo`コマンドを用いて、ブロックチェーンの情報を確認します。
 ```
-$ ./src/tapyrus-cli getblockchaininfo
+$ tapyrus-cli getblockchaininfo
 ```
 
 以下のようなブロックチェーンの情報を確認できればTapyrus Coreが動作していることが確認できます。(詳細な数値は実行したタイミングごとに異なります)
@@ -127,7 +128,7 @@ $ ./src/tapyrus-cli getblockchaininfo
 
 ノードを停止する場合、以下のコマンドを実行します。
 ```
-$ ./src/tapyrus-cli stop
+$ tapyrus-cli stop
 ```
 
 以上でmacOS環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。
