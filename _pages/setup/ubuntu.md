@@ -74,6 +74,12 @@ $ make
 $ sudo make install
 ```
 
+(任意) インストールするにはさらに以下を実行します。  
+以降の解説ではインストールされている前提でコマンドを例示しています。
+```
+$ sudo make install
+```
+
 ## Tapyrusノードを起動する {#run-tapyrusd}
 
 
