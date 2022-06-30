@@ -12,6 +12,25 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
 記載されたコマンドを順に実行することでノードの構築が完了します。  
 
+「バイナリのインストール」と「ソースコードからのビルド」の2種類のセットアップ方法を解説します。
+
+##  (インストール方法1)バイナリのインストール {#install-binary}
+バイナリを用いたインストール方法を解説します。  
+
+[tapyrus-coreリポジトリのRelease](https://github.com/chaintope/tapyrus-core/releases)でバイナリを配布しています。  
+使用環境に応じたバイナリファイルをクリックし、ダウンロードします。　　
+![Setup Ubuntu Binary](../../assets/images/setup_ubuntu_binary.png)
+
+本記事執筆時点(2022年6月)で公開されている最新バーションが[v0.5.1](https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1)なため、以下ではx86_64のv0.5.1を用いた解説をしてます。
+
+```
+$ sudo tar xzf tapyrus-core-0.5.1-x86_64-linux-gnu.tar.gz
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin/ tapyrus-core-0.5.1/bin/*
+```
+インストールは完了です。  
+次に、[Tapyrusノードを起動する](#run-tapyrusd)を実施してください。
+
+## (インストール方法2) ソースコードからのビルド {#install-source-code}
 
 ### 依存関係のインストール {#install-dependencies}
 
@@ -21,7 +40,7 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 $ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
 ```
 
-## ビルド {#build}
+### ビルド {#build}
 
 [tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のリポジトリをcloneします。  
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1){:target="_blank"}サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
@@ -45,7 +64,8 @@ $ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PR
 $ make
 ```
 
-エラーが表示されなければビルドは完了です。
+エラーが表示されなければビルドは完了です。  
+次に、[Tapyrusノードを起動する](#run-tapyrusd)を実施してください。
 
 (任意) インストールするにはさらに以下を実行します。  
 以降の解説ではインストールされている前提でコマンドを例示しています。
