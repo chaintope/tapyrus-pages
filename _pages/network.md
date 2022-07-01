@@ -64,18 +64,8 @@ $ tapyrus-cli [options] <command> [params]
 ```
 - option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードや使用するウォレット名など。
 - command: 実行したい操作の命令。
-- params: コマンドを実行する際に指定する引数。
-
-tapyrus-cliの各コマンドの詳細は`tapyrus-cli -h`で確認できます。
-
-##### Dockerを使用する場合の注意事項 {#notes-docker}
-Dockerを使用する場合、全てのコマンド実行時のオプションに`-conf=/etc/tapyrus/tapyrus.conf`を指定する必要があります。  
-(実行例)  
-```
-$ tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf createwallet "wallet1" 
-```
-
-## ウォレット, アドレスの作成 {#create-wallet-address}
+- params: コマンドを実行する際
+hint: Use 'git am --show-current-patch' to see the fa#create-wallet-address}
 
 TPCを受け取るウォレットの作成を行います。  
 ウォレットの作成には`tapyrus-cli`の`createwallet`コマンドを用います。  
