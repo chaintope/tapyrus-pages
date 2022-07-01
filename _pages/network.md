@@ -20,16 +20,15 @@ Chaintopeが運営するテスト用のネットワークは`1939510133`をネ�
 
 #### Tapyrusモード
 Tapyrusネットワークは、`prod`と`dev`の2種類のモードがあります。  
-Tapyrusでは異なるネットワークIDを持つ新しいTapyrusプロダクション用のネットワークである、`prod`モードネットワークを作成することができます。  
 したがって、Chaintopeが運営するテスト用のネットワークは`prod`モードです。  
 実験用に1つのTapyrusノードを起動する場合は`dev`モードを指定します。  
 
 #### マジックバイト
-マジックバイトは、Tapyrusネットワーク上のノード間で送信される個別のネットワーク・メッセージを識別する方法として使用されます。  
+マジックバイトはTapyrusネットワーク上のノード間で送信される個別のネットワーク・メッセージを識別する方法として使用されます。  
 Chaintopeが運営するテスト用のネットワークでは`0x74839A75`をマジックバイトとして使用します。  
 
 #### Tapyrus-seeder
-[Tapyrus-seeder](https://github.com/chaintope/tapyrus-seeder){:target="_blank"}は、Tapyrusネットワーク用のクローラーで、内蔵のDNSサーバーを介して、信頼できるノードのリストを公開します。  
+[Tapyrus-seeder](https://github.com/chaintope/tapyrus-seeder){:target="_blank"}は、Tapyrusネットワーク用のクローラーで、内蔵のDNSサーバーを介して信頼できるノードのリストを公開します。  
 Chaintopeが運営するテスト用のネットワークは`static-seed.tapyrus.dev.chaintope.com`をseederとして利用します。  
 
 #### ジェネシスブロック
