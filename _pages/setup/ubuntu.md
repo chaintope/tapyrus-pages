@@ -14,7 +14,7 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 
 「ビルド済みのバイナリの利用」と「ソースコードからのビルド」の2種類のセットアップ方法を解説します。
 
-##  (インストール方法1)ビルド済みのバイナリの利用 {#install-binary}
+##  (インストール方法1) ビルド済みのバイナリの利用 {#install-binary}
 バイナリを用いたインストール方法を解説します。  
 
 [tapyrus-coreリポジトリのRelease](https://github.com/chaintope/tapyrus-core/releases){:target="_blank"}でバイナリを配布しています。  
