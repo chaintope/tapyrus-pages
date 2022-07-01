@@ -12,26 +12,26 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
 記載されたコマンドを順に実行することでノードの構築が完了します。  
 
-「バイナリのインストール」と「ソースコードからのビルド」の2種類のセットアップ方法を解説します。
+「ビルド済みのバイナリの利用」と「ソースコードからのビルド」の2種類のセットアップ方法を解説します。
 
-##  (インストール方法1)バイナリのインストール {#install-binary}
+##  (インストール方法1)ビルド済みのバイナリの利用 {#install-binary}
 バイナリを用いたインストール方法を解説します。  
 
 [tapyrus-coreリポジトリのRelease](https://github.com/chaintope/tapyrus-core/releases){:target="_blank"}でバイナリを配布しています。  
 使用環境に応じたバイナリファイルをクリックし、ダウンロードします。　　
-![Setup Ubuntu Binary](../../assets/images/setup_ubuntu_binary.png)
+![Setup Ubuntu Binary](/assets/images/setup_ubuntu_binary.png)
 
-本記事執筆時点(2022年6月)で公開されている最新バーションが[v0.5.1](https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1){:target="_blank"}なため、以下ではx86_64のv0.5.1を用いた解説をしてます。
+本記事執筆時点(2022年6月)で公開されている最新バーションが[v0.5.1](https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1){:target="_blank"}なため、以下のコマンドはx86_64のv0.5.1の圧縮ファイルを解凍する例です。
+```
+$ tar xzf tapyrus-core-0.5.1-x86_64-linux-gnu.tar.gz
+```
+解凍したあとのbin以下にパスを通してください。  
 
-```
-$ sudo tar xzf tapyrus-core-0.5.1-x86_64-linux-gnu.tar.gz
-$ sudo install -m 0755 -o root -g root -t /usr/local/bin/ tapyrus-core-0.5.1/bin/*
-```
-インストールは完了です。  
+以上でインストールは完了です。  
 次に、[Tapyrusノードを起動する](#run-tapyrusd)を実施してください。
 
 ## (インストール方法2) ソースコードからのビルド {#install-source-code}
-弊社がGithubに公開している[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のソースコードを用いたインストール方法を解説します。
+Githubに公開されている[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のソースコードを用いたインストール方法を解説します。
 
 ### 依存関係のインストール {#install-dependencies}
 
