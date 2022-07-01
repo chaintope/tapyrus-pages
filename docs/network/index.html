@@ -163,7 +163,297 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>WIP</p>
+        <p>Tapyrusは誰でもすぐに動作検証ができるよう、テスト用のネットワークおよび、そのネットワークで使用するコインを配布するfaucetを公開しています。</p>
+
+<h2 id="テスト用ネットワーク">テスト用ネットワーク</h2>
+<p>Chaintopeが運営するテスト用のネットワークは以下のようなパラメータを持ちます。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ネットワークID</th>
+      <th>Tapyrusモード</th>
+      <th>マジックバイト</th>
+      <th>Tapyrus-seeder</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1939510133</td>
+      <td>prod</td>
+      <td>0x74839A75</td>
+      <td>static-seed.tapyrus.dev.chaintope.com</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="ネットワークid">ネットワークID</h4>
+<p>Tapyrusでは複数のプロダクションネットワークを構築することができます。<br />
+ネットワークIDは、それぞれのTapyrusネットワーク識別子です。<br />
+Chaintopeが運営するテスト用のネットワークは<code class="language-plaintext highlighter-rouge">1939510133</code>をネットワークIDとして持ちます。</p>
+
+<h4 id="tapyrusモード">Tapyrusモード</h4>
+<p>Tapyrusネットワークは、<code class="language-plaintext highlighter-rouge">prod</code>と<code class="language-plaintext highlighter-rouge">dev</code>の2種類のモードがあります。<br />
+Tapyrusでは異なるネットワークIDを持つ新しいTapyrusプロダクション用のネットワークである、<code class="language-plaintext highlighter-rouge">prod</code>モードネットワークを作成することができます。<br />
+したがって、Chaintopeが運営するテスト用のネットワークは<code class="language-plaintext highlighter-rouge">prod</code>モードです。<br />
+実験用に1つのTapyrusノードを起動する場合は<code class="language-plaintext highlighter-rouge">dev</code>モードを指定します。</p>
+
+<h4 id="マジックバイト">マジックバイト</h4>
+<p>マジックバイトは、Tapyrusネットワーク上のノード間で送信される個別のネットワーク・メッセージを識別する方法として使用されます。<br />
+Chaintopeが運営するテスト用のネットワークでは<code class="language-plaintext highlighter-rouge">0x74839A75</code>をマジックバイトとして使用します。</p>
+
+<h4 id="tapyrus-seeder">Tapyrus-seeder</h4>
+<p><a href="https://github.com/chaintope/tapyrus-seeder" target="_blank">Tapyrus-seeder</a>は、Tapyrusネットワーク用のクローラーで、内蔵のDNSサーバーを介して、信頼できるノードのリストを公開します。<br />
+Chaintopeが運営するテスト用のネットワークは<code class="language-plaintext highlighter-rouge">static-seed.tapyrus.dev.chaintope.com</code>をseederとして利用します。</p>
+
+<h4 id="ジェネシスブロック">ジェネシスブロック</h4>
+<p>各Tapyrusネットワークは一意のジェネシスブロックを持ちます。<br />
+Chaintopeが運営するテスト用のネットワークのジェネシスブロックは以下です。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01000000000000000000000000000000000000000000000000000000000000000000000044cc181bd0e95c5b999a13d1fc0d193fa8223af97511ad2098217555a841b3518f18ec2536f0bb9d6d4834fcc712e9563840fe9f089db9e8fe890bffb82165849f52ba5e01210366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b402b1ed9996920f57a425f6f9797557c0e73d0c9fbafdebcaa796b136e0946ffa98d928f8130b6a572f83da39530b13784eeb7007465b673aa95091619e7ee208501010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000002776a92231415132437447336a686f37385372457a4b6533766636647863456b4a74356e7a4188ac00000000
+</code></pre></div></div>
+
+<h2 id="tapyrus-testnet-faucet">Tapyrus Testnet Faucet</h2>
+<p>Chaintopeが提供するTapyrusのテスト用ネットワークのfaucetとして<a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>を運営しています。<br />
+faucetからは誰でもテストネット用の通貨を取得することができます。</p>
+
+<h2 id="faucetからのtpc取得送金方法">faucetからのTPC取得＆送金方法</h2>
+<p>ここからはChaintopeが提供するTapyrusのテストネット(ID: 1939510133)上でTapyrusの通貨であるTPCを送受金する方法について解説します。<br />
+<a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取り、tapyrus-coreのCLIを用いてWalletを操作し、送金やトランザクション・ブロックの詳細を確認します。　　</p>
+
+<p>本記事ではTapyrusノードの環境構築方法については解説しません。<br />
+環境構築方法については、以下の記事を参照してください。</p>
+<ul>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/osx">Tapyrus Coreノード構築方法（macOS版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/ubuntu">Tapyrus Coreノード構築方法（Ubuntu版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/docker">Tapyrus Coreノード構築方法（Docker版）</a></li>
+</ul>
+
+<h2 id="about-tapyrus-cli">tapyrus-cliについて</h2>
+
+<p>tapyrus-cli以下のような構成で入力を行います。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli [options] &lt;command&gt; [params] 
+</code></pre></div></div>
+<ul>
+  <li>option: コマンドを実行する際に指定する任意の設定。RPC操作を行なうユーザー名・パスワードや使用するWallet名など。</li>
+  <li>command: 実行したい操作の命令。</li>
+  <li>params: コマンドを実行する際に指定する引数。</li>
+</ul>
+
+<p>tapyrus-cliコマンドの詳細は<code class="language-plaintext highlighter-rouge">tapyrus-cli -h</code>で確認できます。</p>
+
+<h3 id="notes">注意事項</h3>
+
+<p>実行環境によって入力するコマンドに違いがある場合があります。</p>
+
+<h5 id="notes-tapyrus-cli-path">tapyrus-cliコマンド実行時のパスについて</h5>
+<p><code class="language-plaintext highlighter-rouge">make install</code>を実行していない場合、<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>コマンドの実行時にパスを指定して実行する必要があります。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ &lt;cloneしたディレクトリ&gt;/tapyrus-core/src/tapyrus-cli &lt;command&gt; [params]
+</code></pre></div></div>
+
+<h5 id="notes-docker">Dockerを使用する場合</h5>
+<p>Dockerを使用する場合、全てのコマンド実行時のオプションに<code class="language-plaintext highlighter-rouge">-conf=/etc/tapyrus/tapyrus.conf</code>を指定する必要があります。<br />
+(実行例)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf createwallet "wallet1" 
+</code></pre></div></div>
+
+<h2 id="create-wallet-address">Wallet, Addressの作成</h2>
+
+<p>TPCを受け取るWalletの作成を行います。<br />
+Walletの作成には<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">createwallet</code>コマンドを用います。<br />
+Walletには任意の名前をつけることができ、<code class="language-plaintext highlighter-rouge">createwallet</code>の後に引数として指定します。<br />
+以下のコマンドでは<code class="language-plaintext highlighter-rouge">wallet1</code>という名前のWalletを作成しています。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli createwallet "wallet1"
+{
+  "name": "wallet1",
+  "warning": ""
+}
+</code></pre></div></div>
+
+<p>Walletの初期状態の確認を行います。<br />
+<code class="language-plaintext highlighter-rouge">getbalance</code>コマンドを用いて、所有するTPCの量を確認します。<br />
+実行時、<code class="language-plaintext highlighter-rouge">-rpcwallet</code>オプションで使用するWalletを指定します。<br />
+<code class="language-plaintext highlighter-rouge">0.00000000</code>と表示され、TPCを所有していないことが分かります。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getbalance
+0.00000000
+</code></pre></div></div>
+
+<p>さらに<code class="language-plaintext highlighter-rouge">listunspent</code>コマンドを用いて、UTXOを確認します。<br />
+これも初期状態のため、空であることが確認できます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 listunspent
+[
+]
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">getnewaddress</code>コマンドを用いてアドレスを生成します。<br />
+実行すると表示される文字列がWalletのアドレスです。<br />
+このアドレスはfaucetからのコイン受取時に使用するため控えておいてください。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getnewaddress
+1CuXBp5f3wUAEBongA5TkMK8KehtEFaG2X
+</code></pre></div></div>
+
+<h2 id="get-tpc-from-faucet">faucetからのTPC取得</h2>
+
+<p><a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取ります。</p>
+
+<p><code class="language-plaintext highlighter-rouge">Input your address</code>と表示された入力欄に先程生成したアドレスを入力し、「Get coins!」ボタンをクリックします。<br />
+<img src="/assets/images/tpc_wallet_faucet_1.png" alt="Tapyrus Testnet Faucet" /></p>
+
+<p>「Withdraw transactions」のリストに自分のアドレス宛のトランザクション情報が表示されるとTPC取得は成功です。<br />
+<img src="/assets/images/tpc_wallet_faucet_2.png" alt="Withdraw transactions" /></p>
+
+<p>TPC取得が確定されるためには、トランザクションがSignerノードに承認され、ブロックに取り込まれるのを待つ必要があります。<br />
+Tapyrusではブロックの生成間隔はSignerノードで設定を行います。<br />
+Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）ではブロック生成間隔が10分に設定されているため、faucetからの送金トランザクションが承認されるまでしばらく待ちます。</p>
+
+<h4 id="note-faucet">注意</h4>
+<p>Faucetに表示された<code class="language-plaintext highlighter-rouge">Current Balance</code>が0の時、TPCを取得することができません。<br />
+その際は、補充されるのをお待ちください。</p>
+
+<h2 id="check-own-tpc">取得したTPCの確認</h2>
+
+<p><code class="language-plaintext highlighter-rouge">getbalance</code>コマンドを用いて、再度所有するTPCの量を確認します。<br />
+今回は<code class="language-plaintext highlighter-rouge">0.00005506</code>TPCを所有していることが確認できます。　　</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getbalance
+0.00005506
+</code></pre></div></div>
+
+<p>同様に<code class="language-plaintext highlighter-rouge">listunspent</code>コマンドを用いて、UTXOを確認します。<br />
+faucetから受け取ったTPCがUTXOとして表示されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 listunspent
+[
+  {
+    "txid": "8631dbf501ebfbfea02908c2ec8e33b52f61adac3e9ca88ba4fe7aed845e084a",
+    "vout": 0,
+    "address": "16xEUxgJt7PNZpuXB8w5y7XUzdLnGwZPnP",
+    "token": "TPC",
+    "amount": 0.00005506,
+    "label": "",
+    "scriptPubKey": "76a914414ac2d636c7f55d2dcbbc9e568675450d222e0f88ac",
+    "confirmations": 1,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+]
+</code></pre></div></div>
+
+<h2 id="send-tpc">送金</h2>
+
+<p>次にTPCの送金方法について解説します。<br />
+本記事では同じwalletで別のアドレスを生成し、自分自身に対して送金を行ないます。</p>
+
+<p>再度<code class="language-plaintext highlighter-rouge">getnewaddress</code>を実行し、新しいアドレスを生成します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getnewaddress
+1Ky1XpDQ1NUQ5fvssZpAfmdR1nv8mz4nu4
+</code></pre></div></div>
+
+<p>送金には<code class="language-plaintext highlighter-rouge">sendtoaddress</code>コマンドを用います。<br />
+<code class="language-plaintext highlighter-rouge">sendtoaddress</code>コマンドは”送金先アドレス”、”送金するTPC額”を引数として指定します。<br />
+以下のコマンドのように<code class="language-plaintext highlighter-rouge">sendtoaddress</code>に続けて新しいアドレスと<code class="language-plaintext highlighter-rouge"> 0.00001</code>TPCを指定し実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 sendtoaddress &lt;新しいアドレス&gt; 0.00001
+</code></pre></div></div>
+
+<p>(実行例)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli  -rpcwallet=wallet1 sendtoaddress 1Ky1XpDQ1NUQ5fvssZpAfmdR1nv8mz4nu4 0.00001
+dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de
+</code></pre></div></div>
+
+<p>実行するとハッシュ値が表示されます。<br />
+これは送金トランザクションのtransaction idです。後ほど詳細確認に使用するため控えておいてください。</p>
+
+<p>以上で送金は完了です。</p>
+
+<h2 id="transaction-block-details">送金トランザクション・ブロックの詳細確認</h2>
+
+<p>ここからはトランザクションやブロックの詳細情報を確認する方法を解説します。</p>
+
+<p>トランザクションの生データを確認するためには<code class="language-plaintext highlighter-rouge">getrawtransaction</code>コマンドを用います。<br />
+<code class="language-plaintext highlighter-rouge">getrawtransaction</code>の引数には先程控えておいたtransaction idを指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getrawtransaction &lt;transaction id&gt;
+</code></pre></div></div>
+
+<p>実行すると以下のように、トランザクションのhex値を取得することができます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01000000014a085e84ed7afea48ba89c3eacad612fb5338eecc20829a0fefbeb01f5db3186000000006a47304402200d0b007d0b8bd98bee2b6a83c3eed8b4878504d82f41c29bdde920c64f06ee0202200ea47cc0962f669a6c584d6c2f3d3dd16bc72ce6afaa0cc5e80175a20ba8a246012102d1242435f408c12dc15cfcb6b47cf9a2cdffb6daa39aa282192f9746755a192bfeffffff01e8030000000000001976a914d00a005f614520d52cec8fce25029ef52c46e73888ac71350300
+</code></pre></div></div>
+
+<p>トランザクションの詳細情報確認には<code class="language-plaintext highlighter-rouge">gettransaction</code>コマンドを実行します。<br />
+同様にtransaction idを引数に指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 gettransaction &lt;transaction id&gt;
+</code></pre></div></div>
+
+<p>実行すると以下のように、JSON形式のトランザクション情報が確認できます。<br />
+<code class="language-plaintext highlighter-rouge">blockhash</code>項目に表示されているハッシュ値をコピーします。<br />
+（以下の例では<code class="language-plaintext highlighter-rouge">175b461c789561a7aa48d27b5a6b8552020c1eb6ec8a271e6a2fb4b76d132d54</code>）</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">amount</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.00000000</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">fee</span><span class="dl">"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.00004506</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">confirmations</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">175b461c789561a7aa48d27b5a6b8552020c1eb6ec8a271e6a2fb4b76d132d54</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blockindex</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blocktime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1656406240</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">walletconflicts</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">time</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1656406145</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">timereceived</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1656406145</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">bip125-replaceable</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">no</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">details</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1Ky1XpDQ1NUQ5fvssZpAfmdR1nv8mz4nu4</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">category</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">send</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">amount</span><span class="dl">"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.00001000</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">label</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">fee</span><span class="dl">"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.00004506</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">abandoned</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1Ky1XpDQ1NUQ5fvssZpAfmdR1nv8mz4nu4</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">category</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">receive</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">amount</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.00001000</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">label</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">01000000014a085e84ed7afea48ba89c3eacad612fb5338eecc20829a0fefbeb01f5db3186000000006a47304402200d0b007d0b8bd98bee2b6a83c3eed8b4878504d82f41c29bdde920c64f06ee0202200ea47cc0962f669a6c584d6c2f3d3dd16bc72ce6afaa0cc5e80175a20ba8a246012102d1242435f408c12dc15cfcb6b47cf9a2cdffb6daa39aa282192f9746755a192bfeffffff01e8030000000000001976a914d00a005f614520d52cec8fce25029ef52c46e73888ac71350300</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>次に送金トランザクションが含まれたブロックの情報を確認します。<br />
+<code class="language-plaintext highlighter-rouge">getblock</code>コマンドの引数として先程控えておいた<code class="language-plaintext highlighter-rouge">blockhash</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=wallet1 getblock &lt;blockhash&gt;
+</code></pre></div></div>
+
+<p>以下のように、ブロックの詳細情報がJSON形式で表示されます。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">hash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">175b461c789561a7aa48d27b5a6b8552020c1eb6ec8a271e6a2fb4b76d132d54</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">confirmations</span><span class="dl">"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">strippedsize</span><span class="dl">"</span><span class="p">:</span> <span class="mi">453</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">453</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">weight</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1812</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">:</span> <span class="mi">210290</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">features</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">featuresHex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">00000001</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">merkleroot</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">839b019457fd077ea601f91848731bd215a31da9c3d8ffc6065ced5d2a85ce89</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">immutablemerkleroot</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">a1b949ea0a8ecb8c4637ff9be4ca5ee7bf320dea5f202e960acd8c3840c9c89e</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">tx</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">4b10b754429643c5ab1fb540dddb662fbd438ca38dfa00da3c3e8bf09aaee58c</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">dae37f4deada8f75a8aa3ab3ec262a26682152b6ec2f83972fd83b93768427de</span><span class="dl">"</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">time</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1656406240</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mediantime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1656404762</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">xfieldType</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">proof</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">43c07f8efce0165005bc9c205ee19de0fa471b18c2b20f60c03642185ee2bc50a0669ecff5b293e9a6b88e3b626498129b41d7172ed8cf48cf42c8cb4b8f8449</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">nTx</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">previousblockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">49490f16f51fb5dff8b8d961a3fcc18ed47981919021a9729ae04043d29899c4</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">nextblockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">681b9666a6c01a76eb0cd8fdb97cdc3cc325fde531c2fcacb72fe9c0d6ec7974</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>以上で、faucetからのTPC取得＆送金とその確認は完了です。</p>
 
         
       </section>
