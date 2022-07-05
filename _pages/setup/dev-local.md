@@ -125,7 +125,6 @@ $ echo <genesisブロックの値> > ~/.tapyrus/genesis.1905960821
 $ echo <genesisブロックの値> >  /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
 ```
 
-
 ## Tapyrusノードを起動する {#run-tapyrusd}
 
 以下のコマンドを実行し、Tapyrus Coreを起動します。  
