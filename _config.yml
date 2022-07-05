@@ -57,6 +57,7 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - scripts/
 
 destination: ./docs
 minimal_mistakes_skin: "contrast"
