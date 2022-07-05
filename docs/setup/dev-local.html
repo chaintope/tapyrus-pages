@@ -77,12 +77,7 @@
 
 
 
-    <!-- start custom head snippets -->
-
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
-
-<!-- end custom head snippets -->
-
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
   </head>
 
   <body class="layout--single">
@@ -169,7 +164,7 @@
 <p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。<br />
 記載されたコマンドを順に実行することでdevモードでTapyrusノード起動が完了します。</p>
 
-<h2 id="前提">前提</h2>
+<h2 id="prerequisites">前提</h2>
 
 <p>本記事では鍵導出のため、rubyライブラリの<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyrusrb</a>を用います。<br />
 事前にruby 3.0をインストールして置いてください。<br />
@@ -180,7 +175,7 @@
   <li><a href="https://site.tapyrus.chaintope.com/setup/ubuntu">Tapyrus Coreノード構築方法（Ubuntu版）</a></li>
 </ul>
 
-<h2 id="データディレクトリ設定ファイル作成">データディレクトリ・設定ファイル作成</h2>
+<h2 id="create-dir-conf">データディレクトリ・設定ファイル作成</h2>
 
 <p><code class="language-plaintext highlighter-rouge">/var/lib/</code>ディレクトリ配下に、ブロックチェーンのデータを保存する<code class="language-plaintext highlighter-rouge">tapyrus-dev</code>ディレクトリを作成します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mkdir /var/lib/tapyrus-dev
@@ -203,7 +198,7 @@ rpcallowip=127.0.0.1
 EOF'
 </code></pre></div></div>
 
-<h2 id="鍵導出">鍵導出</h2>
+<h2 id="derive-key">鍵導出</h2>
 
 <p>鍵導出の方法は様々ありますが、本記事では<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyruseb</a>ライブラリを用います。<br />
 <a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb" target="_blank">Github上の鍵導出用Rubyファイル(generate_key_pair.rb)</a>をダウンロードしてください。<br />
@@ -230,7 +225,7 @@ EOF'
 
 <p>また、将来的に<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>に<code class="language-plaintext highlighter-rouge">createkey</code>コマンドの実装を予定しており、上記のような手順を用いずにコマンドラインからの鍵導出が可能になります。</p>
 
-<h2 id="genesisブロックの生成">genesisブロックの生成</h2>
+<h2 id="generate-genesis-block">genesisブロックの生成</h2>
 
 <p>genesisブロックの生成を行ないます。<br />
 genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。<br />
@@ -242,7 +237,7 @@ genesisブロックの生成には<code class="language-plaintext highlighter-ro
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vim /var/lib/tapyrus-dev/genesis.1905960821
 </code></pre></div></div>
 
-<h2 id="tapyrusノードを起動する">Tapyrusノードを起動する</h2>
+<h2 id="run-tapyrusd">Tapyrusノードを起動する</h2>
 
 <p>以下のコマンドを実行し、Tapyrus Coreを起動します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo tapyrusd -datadir=/var/lib/tapyrus-dev -conf=/etc/tapyrus/tapyrus.conf

@@ -10,7 +10,7 @@ title: "Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）"
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
 記載されたコマンドを順に実行することでdevモードでTapyrusノード起動が完了します。  
 
-## 前提
+## 前提 {#prerequisites}
 
 本記事では鍵導出のため、rubyライブラリの[tapyrusrb](https://github.com/chaintope/tapyrusrb){:target="_blank"}を用います。  
 事前にruby 3.0をインストールして置いてください。  
@@ -20,7 +20,7 @@ title: "Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）"
  - [Tapyrus Coreノード構築方法（Ubuntu版）](https://site.tapyrus.chaintope.com/setup/ubuntu)
 
 
-## データディレクトリ・設定ファイル作成
+## データディレクトリ・設定ファイル作成 {#create-dir-conf}
 
 `/var/lib/`ディレクトリ配下に、ブロックチェーンのデータを保存する`tapyrus-dev`ディレクトリを作成します。  
 ```
@@ -45,7 +45,7 @@ rpcallowip=127.0.0.1
 EOF'
 ```
 
-## 鍵導出
+## 鍵導出 {#derive-key}
 
 鍵導出の方法は様々ありますが、本記事では[tapyruseb](https://github.com/chaintope/tapyrusrb){:target="_blank"}ライブラリを用います。  
 [Github上の鍵導出用Rubyファイル(generate_key_pair.rb)](https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb){:target="_blank"}をダウンロードしてください。  
@@ -76,7 +76,7 @@ Use key_type parameter instead of compressed. compressed parameter removed in th
 また、将来的に`tapyrus-genesis`に`createkey`コマンドの実装を予定しており、上記のような手順を用いずにコマンドラインからの鍵導出が可能になります。  
 
 
-## genesisブロックの生成
+## genesisブロックの生成 {#generate-genesis-block}
 
 genesisブロックの生成を行ないます。  
 genesisブロックの生成には`tapyrus-genesis`コマンドを用います。  
@@ -90,7 +90,7 @@ $ tapyrus-genesis -dev -signblockprivatekey=<秘密鍵> -signblockpubkey=<公開
 $ sudo vim /var/lib/tapyrus-dev/genesis.1905960821
 ```
 
-## Tapyrusノードを起動する
+## Tapyrusノードを起動する {#run-tapyrusd}
 
 以下のコマンドを実行し、Tapyrus Coreを起動します。  
 ```
