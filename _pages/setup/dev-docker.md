@@ -35,8 +35,8 @@ $ gem install tapyrus
 require 'tapyrus'
 
 Tapyrus.chain_params = :dev
-key_pair = Tapyrus::Secp256k1::Ruby.generate_key
-puts "秘密鍵(WIF): #{Tapyrus::Key.new(priv_key: key_pair.priv_key).to_wif}"
+key_pair = Tapyrus::Key.generate
+puts "秘密鍵(WIF): #{key_pair.to_wif}"
 puts "公開鍵： #{key_pair.pubkey}"
 ```
 
@@ -48,7 +48,6 @@ $ ruby generate_key_pair.rb
 実行すると以下のような出力が表示されます。  
  `<秘密鍵>`, `<公開鍵>`に表示されている文字列の値を控えておきます。  
 ```
-Use key_type parameter instead of compressed. compressed parameter removed in the future.
 秘密鍵(WIF): <秘密鍵>
 公開鍵： <公開鍵>
 ```

@@ -185,8 +185,8 @@
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'tapyrus'</span>
 
 <span class="no">Tapyrus</span><span class="p">.</span><span class="nf">chain_params</span> <span class="o">=</span> <span class="ss">:dev</span>
-<span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Secp256k1</span><span class="o">::</span><span class="no">Ruby</span><span class="p">.</span><span class="nf">generate_key</span>
-<span class="nb">puts</span> <span class="s2">"秘密鍵(WIF): </span><span class="si">#{</span><span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">priv_key: </span><span class="n">key_pair</span><span class="p">.</span><span class="nf">priv_key</span><span class="p">).</span><span class="nf">to_wif</span><span class="si">}</span><span class="s2">"</span>
+<span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
+<span class="nb">puts</span> <span class="s2">"秘密鍵(WIF): </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_wif</span><span class="si">}</span><span class="s2">"</span>
 <span class="nb">puts</span> <span class="s2">"公開鍵： </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">pubkey</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div></div>
 
@@ -196,8 +196,7 @@
 
 <p>実行すると以下のような出力が表示されます。<br />
  <code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>に表示されている文字列の値を控えておきます。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use key_type parameter instead of compressed. compressed parameter removed in the future.
-秘密鍵(WIF): &lt;秘密鍵&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): &lt;秘密鍵&gt;
 公開鍵： &lt;公開鍵&gt;
 </code></pre></div></div>
 
