@@ -229,11 +229,13 @@ EOF'
 
 <p>genesisブロックの生成を行ないます。<br />
 genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。<br />
-<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。</p>
+<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。<br />
+実行すると表示される文字列の値がgenesisブロックです。<br />
+genesisブロックの値は次に使用するため控えておいてください。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -dev -signblockprivatekey=&lt;秘密鍵&gt; -signblockpubkey=&lt;公開鍵&gt; 
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">/var/lib/tapyrus-dev</code>ディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロック情報を書き込みます。</p>
+<p><code class="language-plaintext highlighter-rouge">/var/lib/tapyrus-dev</code>ディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vim /var/lib/tapyrus-dev/genesis.1905960821
 </code></pre></div></div>
 

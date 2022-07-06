@@ -81,11 +81,13 @@ Use key_type parameter instead of compressed. compressed parameter removed in th
 genesisブロックの生成を行ないます。  
 genesisブロックの生成には`tapyrus-genesis`コマンドを用います。  
 `-dev`でdevモードであることを指定し、控えておいた`<秘密鍵>`を`signblockprivatekey`に、`<公開鍵>`を`signblockpubkey`にオプションとして指定して以下のコマンドを実行します。  
+実行すると表示される文字列の値がgenesisブロックです。  
+genesisブロックの値は次に使用するため控えておいてください。
 ```
 $ tapyrus-genesis -dev -signblockprivatekey=<秘密鍵> -signblockpubkey=<公開鍵> 
 ```
 
-`/var/lib/tapyrus-dev`ディレクトリ配下の`genesis.1905960821`ファイルにgenesisブロック情報を書き込みます。  
+`/var/lib/tapyrus-dev`ディレクトリ配下の`genesis.1905960821`ファイルにgenesisブロックの値を書き込みます。  
 ```
 $ sudo vim /var/lib/tapyrus-dev/genesis.1905960821
 ```
