@@ -48,6 +48,11 @@ EOF'
 ## 鍵導出 {#derive-key}
 
 鍵導出の方法は様々ありますが、本記事では[tapyruseb](https://github.com/chaintope/tapyrusrb){:target="_blank"}ライブラリを用います。  
+以下のコマンドでtapyrusebのgemをインストールします。
+```
+$ gem install tapyrus
+```
+
 [Github上の鍵導出用Rubyファイル(generate_key_pair.rb)](https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb){:target="_blank"}をダウンロードしてください。  
 ファイルには以下のようなコードが書かれています。  
 
