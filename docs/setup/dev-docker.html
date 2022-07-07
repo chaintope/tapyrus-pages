@@ -168,7 +168,7 @@
 
 <h2 id="prerequisites">前提</h2>
 <p>本記事ではDockerがインストール済みの前提で解説を行います。<br />
-また、本記事では鍵導出のため、rubyライブラリの<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyrusrb</a>を用います。<br />
+また、本記事では鍵導出のため、rubyライブラリの<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyrusrb</a>を用います。
 事前にruby 3.0をインストールして置いてください。<br />
 <code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルはデフォルトでdevモード用のものがコンテナ内に生成されるため、作成は不要です。</p>
 
@@ -179,7 +179,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install tapyrus
 </code></pre></div></div>
 
-<p><a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb" target="_blank">Github上の鍵導出用Rubyファイル(generate_key_pair.rb)</a>をダウンロードしてください。<br />
+<p><a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb" target="_blank">Github上の鍵導出用Rubyファイル(generate_key_pair.rb)</a>をダウンロードしてください。
 ファイルには以下のようなコードが書かれています。</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'tapyrus'</span>
@@ -194,7 +194,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby generate_key_pair.rb
 </code></pre></div></div>
 
-<p>実行すると以下のような出力が表示されます。<br />
+<p>実行すると以下のような出力が表示されます。
  <code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>に表示されている文字列の値を控えておきます。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): &lt;秘密鍵&gt;
 公開鍵： &lt;公開鍵&gt;
@@ -205,9 +205,9 @@
 <h2 id="generate-genesis-block">genesisブロックの生成</h2>
 
 <p><code class="language-plaintext highlighter-rouge">tapyrus/tapyrusd:v0.5.1</code>のイメージを指定し、genesisブロックの生成を行ないます。<br />
-genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。<br />
-<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。<br />
-実行すると表示される文字列の値がgenesisブロックです。<br />
+genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。
+<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。
+実行すると表示される文字列の値がgenesisブロックです。
 genesisブロックの値は次に使用するため控えておいてください。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run tapyrus/tapyrusd:v0.5.1 tapyrus-genesis -dev -signblockpubkey=&lt;公開鍵&gt; -signblockprivatekey=&lt;秘密鍵&gt;
 </code></pre></div></div>
