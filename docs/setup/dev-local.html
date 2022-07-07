@@ -161,14 +161,14 @@
         <p>この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。<br />
 公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/getting_started.md#how-to-start-tapyrus-in-dev-mode" target="_blank">こちら</a>です。</p>
 
-<p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。<br />
+<p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
 記載されたコマンドを順に実行することでdevモードでTapyrusノード起動が完了します。</p>
 
 <h2 id="prerequisites">前提</h2>
 
 <p>本記事では鍵導出のため、rubyライブラリの<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyrusrb</a>を用います。<br />
 事前にruby 3.0をインストールして置いてください。<br />
-また、本記事ではTapyrusノードの環境構築方法については解説しません。<br />
+また、本記事ではTapyrusノードの環境構築方法については解説しません。
 環境構築方法については、以下のそれぞれの記事の「ビルド」項目までを実行してください。</p>
 <ul>
   <li><a href="https://site.tapyrus.chaintope.com/setup/osx">Tapyrus Coreノード構築方法（macOS版）</a></li>
@@ -177,13 +177,35 @@
 
 <h2 id="create-dir-conf">データディレクトリ・設定ファイル作成</h2>
 
-<p><code class="language-plaintext highlighter-rouge">/var/lib/</code>ディレクトリ配下に、ブロックチェーンのデータを保存する<code class="language-plaintext highlighter-rouge">tapyrus-dev</code>ディレクトリを作成します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mkdir /var/lib/tapyrus-dev
+<p>ディレクトリ配下に、ブロックチェーンのデータを保存する<code class="language-plaintext highlighter-rouge">tapyrus-dev</code>ディレクトリを作成します。<br />
+（Ubuntu環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/.tapyrus
+</code></pre></div></div>
+
+<p>（MacOS環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir /Users/$(whoami)/Library/Application\ Support/Tapyrus
 </code></pre></div></div>
 
 <p>Tapyrusノードの設定を<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに記述します。<br />
-以下のコマンドを実行し、<code class="language-plaintext highlighter-rouge">/etc/tapyrus/</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルが生成されます。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo bash -c 'cat &lt;&lt;EOF &gt;  /etc/tapyrus/tapyrus.conf
+以下のコマンドを実行し、<code class="language-plaintext highlighter-rouge">/etc/tapyrus/</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルが生成されます。
+（Ubuntu環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash -c 'cat &lt;&lt;EOF &gt;  ~/.tapyrus/tapyrus.conf
+networkid=1905960821
+dev=1
+[dev]
+server=1
+keypool=1
+discover=0
+rpcuser=user
+rpcpassword=pass
+bind=127.0.0.1
+rpcbind=0.0.0.0
+rpcallowip=127.0.0.1
+EOF'
+</code></pre></div></div>
+
+<p>（MacOS環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash -c 'cat &lt;&lt;EOF &gt;  /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
 networkid=1905960821
 dev=1
 [dev]
@@ -205,7 +227,7 @@ EOF'
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install tapyrus
 </code></pre></div></div>
 
-<p><a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb" target="_blank">Github上の鍵導出用Rubyファイル(generate_key_pair.rb)</a>をダウンロードしてください。<br />
+<p><a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb" target="_blank">Github上の鍵導出用Rubyファイル(generate_key_pair.rb)</a>をダウンロードしてください。
 ファイルには以下のようなコードが書かれています。</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'tapyrus'</span>
@@ -220,10 +242,9 @@ EOF'
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby generate_key_pair.rb
 </code></pre></div></div>
 
-<p>実行すると以下のような出力が表示されます。<br />
+<p>実行すると以下のような出力が表示されます。
  <code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>に表示されている文字列の値を控えておきます。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use key_type parameter instead of compressed. compressed parameter removed in the future.
-秘密鍵(WIF): &lt;秘密鍵&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): &lt;秘密鍵&gt;
 公開鍵： &lt;公開鍵&gt;
 </code></pre></div></div>
 
@@ -232,25 +253,29 @@ EOF'
 <h2 id="generate-genesis-block">genesisブロックの生成</h2>
 
 <p>genesisブロックの生成を行ないます。<br />
-genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。<br />
-<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。<br />
-実行すると表示される文字列の値がgenesisブロックです。<br />
+genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。
+<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。
+実行すると表示される文字列の値がgenesisブロックです。
 genesisブロックの値は次に使用するため控えておいてください。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -dev -signblockprivatekey=&lt;秘密鍵&gt; -signblockpubkey=&lt;公開鍵&gt; 
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">/var/lib/tapyrus-dev</code>ディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo vim /var/lib/tapyrus-dev/genesis.1905960821
+<p><code class="language-plaintext highlighter-rouge">/var/lib/tapyrus-dev</code>ディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。
+（Ubuntu環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim ~/.tapyrus/genesis.1905960821
+</code></pre></div></div>
+<p>（MacOS環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
 </code></pre></div></div>
 
 <h2 id="run-tapyrusd">Tapyrusノードを起動する</h2>
 
 <p>以下のコマンドを実行し、Tapyrus Coreを起動します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo tapyrusd -datadir=/var/lib/tapyrus-dev -conf=/etc/tapyrus/tapyrus.conf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  tapyrusd
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">getblockchaininfo</code>コマンドを用いて、ブロックチェーンの情報を確認します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -datadir=/var/lib/tapyrus-dev -conf=/etc/tapyrus/tapyrus.conf getblockchaininfo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli getblockchaininfo
 </code></pre></div></div>
 
 <p>以下のようなブロックチェーンの情報を確認できればTapyrus Coreがdevモードで動作していることが確認できます。(詳細な数値は環境ごとに異なります)</p>
@@ -275,7 +300,7 @@ genesisブロックの値は次に使用するため控えておいてくださ�
 </code></pre></div></div>
 
 <p>ノードを停止する場合、以下のコマンドを実行します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf stop
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli stop
 </code></pre></div></div>
 
 <p>以上でMacOS &amp; Ubuntu環境でTapyrus Coreノードがdevモードで立ち上がりました。</p>
