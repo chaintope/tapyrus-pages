@@ -13,7 +13,7 @@ title: "Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）"
 ## 前提 {#prerequisites}
 
 本記事では鍵導出のため、rubyライブラリの[tapyrusrb](https://github.com/chaintope/tapyrusrb){:target="_blank"}を用います。  
-事前にruby 3.0をインストールして置いてください。  
+事前にruby 3.0をインストールして置いてください。
 また、本記事ではTapyrusノードの環境構築方法については解説しません。
 環境構築方法については、以下のそれぞれの記事の「ビルド」項目までを実行してください。
  - [Tapyrus Coreノード構築方法（macOS版）](https://site.tapyrus.chaintope.com/setup/osx)
@@ -34,7 +34,7 @@ $ mkdir /Users/$(whoami)/Library/Application\ Support/Tapyrus
 ```
 
 Tapyrusノードの設定を`tapyrus.conf`ファイルに記述します。  
-以下のコマンドを実行し、`/etc/tapyrus/`ディレクトリ配下に`tapyrus.conf`ファイルが生成されます。
+以下のコマンドを実行し、`/etc/tapyrus/`ディレクトリ配下に`tapyrus.conf`ファイルが生成されます。  
 （Ubuntu環境）
 ```
 $ bash -c 'cat <<EOF >  ~/.tapyrus/tapyrus.conf
