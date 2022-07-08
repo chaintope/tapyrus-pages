@@ -198,7 +198,10 @@ Chaintopeが運営するテスト用のネットワークは<code class="languag
 
 <h4 id="magic-byte">マジックバイト</h4>
 <p>マジックバイトはTapyrusネットワーク上のノード間で送信される個別のネットワーク・メッセージを識別する方法として使用されます。
-Chaintopeが運営するテスト用のネットワークでは<code class="language-plaintext highlighter-rouge">0x74839A75</code>をマジックバイトとして使用します。</p>
+Chaintopeが運営するテスト用のネットワークでは<code class="language-plaintext highlighter-rouge">0x74839A75</code>をマジックバイトとして使用します。
+マジックバイトは、ネットワークIDから以下の計算式で算出されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(マジックバイト) = 33550335 + (ネットワークID)
+</code></pre></div></div>
 
 <h4 id="tapyrus-seeder">Tapyrus-seeder</h4>
 <p><a href="https://github.com/chaintope/tapyrus-seeder" target="_blank">Tapyrus-seeder</a>は、Tapyrusネットワーク用のクローラーで、内蔵のDNSサーバーを介して信頼できるノードのリストを公開します。
@@ -283,7 +286,7 @@ faucetからは誰でもテストネット用の通貨を取得することが�
 
 <h2 id="get-tpc-from-faucet">faucetからのTPC取得</h2>
 <p><a href="https://testnet-faucet.tapyrus.dev.chaintope.com/tapyrus/transactions" target="_blank">Tapyrus Testnet Faucet</a>からTPCを受け取ります。<br />
-通過の単位はBTC, satoshiの関係がそのままｃ、tapyrusという単位になっており、TPC、tapyrusを比較すると<code class="language-plaintext highlighter-rouge">0.00000001 TPC = 1 tapyrus</code>となります。</p>
+通過の単位はBTC, satoshiの関係がそのままTPC、tapyrusという単位になっており、それぞれを比較すると<code class="language-plaintext highlighter-rouge">0.00000001 TPC = 1 tapyrus</code>となります。</p>
 
 <p><code class="language-plaintext highlighter-rouge">Input your address</code>と表示された入力欄に先程生成したアドレスを入力し、「Get coins!」ボタンをクリックします。<br />
 <img src="/assets/images/tpc_wallet_faucet_1.png" alt="Tapyrus Testnet Faucet" /></p>

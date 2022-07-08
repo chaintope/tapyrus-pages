@@ -24,7 +24,11 @@ Tapyrusでは、プロダクション環境用の`prod`と開発環境用`dev`�
 
 #### マジックバイト {#magic-byte}
 マジックバイトはTapyrusネットワーク上のノード間で送信される個別のネットワーク・メッセージを識別する方法として使用されます。
-Chaintopeが運営するテスト用のネットワークでは`0x74839A75`をマジックバイトとして使用します。  
+Chaintopeが運営するテスト用のネットワークでは`0x74839A75`をマジックバイトとして使用します。
+マジックバイトは、ネットワークIDから以下の計算式で算出されます。
+```
+(マジックバイト) = 33550335 + (ネットワークID)
+```
 
 #### Tapyrus-seeder {#tapyrus-seeder}
 [Tapyrus-seeder](https://github.com/chaintope/tapyrus-seeder){:target="_blank"}は、Tapyrusネットワーク用のクローラーで、内蔵のDNSサーバーを介して信頼できるノードのリストを公開します。
