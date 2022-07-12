@@ -28,7 +28,7 @@ rpcpassword=rpcpassword
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
 addseeder=static-seed.tapyrus.dev.chaintope.com
-fallbackfee=0.0002
+fallbackfee=0.00001
 EOS
 ```
 
