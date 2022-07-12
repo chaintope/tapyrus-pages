@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://site.tapyrus.chaintope.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://site.tapyrus.chaintope.com/" rel="alternate" type="text/html" /><updated>2022-06-17T10:10:11+09:00</updated><id>https://site.tapyrus.chaintope.com/feed.xml</id><title type="html">Tapyrus Guide</title><subtitle>TapyrusおよびTapyrus APIに関する技術情報サイトです。</subtitle><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.1リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.1リリース" /><published>2022-04-20T00:00:00+09:00</published><updated>2022-04-20T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2022/04/20/v0.5.1</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/">&lt;p&gt;ARM64アーキテクチャのコンテナで動作する&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1&quot;&gt;Tapyrus Core v0.5.1&lt;/a&gt;をリリースしました。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://site.tapyrus.chaintope.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://site.tapyrus.chaintope.com/" rel="alternate" type="text/html" /><updated>2022-07-12T10:33:14+09:00</updated><id>https://site.tapyrus.chaintope.com/feed.xml</id><title type="html">Tapyrus Guide</title><subtitle>TapyrusおよびTapyrus APIに関する技術情報サイトです。</subtitle><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.1リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.1リリース" /><published>2022-04-20T00:00:00+09:00</published><updated>2022-04-20T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2022/04/20/v0.5.1</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/">&lt;p&gt;ARM64アーキテクチャのコンテナで動作する&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1&quot;&gt;Tapyrus Core v0.5.1&lt;/a&gt;をリリースしました。&lt;/p&gt;
 
-&lt;h2 id=&quot;主な変更点&quot;&gt;主な変更点&lt;/h2&gt;
+&lt;h2 id=&quot;changes&quot;&gt;主な変更点&lt;/h2&gt;
 
-&lt;h3 id=&quot;arm64アーキテクチャのコンテナのサポート&quot;&gt;ARM64アーキテクチャのコンテナのサポート&lt;/h3&gt;
+&lt;h3 id=&quot;container-support-for-arm64&quot;&gt;ARM64アーキテクチャのコンテナのサポート&lt;/h3&gt;
 
 &lt;p&gt;バージョンv0.5.1では、TapyrusはARM64アーキテクチャベースのコンテナで動作するようになりました。&lt;/p&gt;
 
 &lt;p&gt;Docker HubにARM64アーキテクチャで動作可能な&lt;a href=&quot;https://hub.docker.com/layers/tapyrusd/tapyrus/tapyrusd/v0.5.1/images/sha256-0e25122fe7805ecc3a4545862befe3e0a9ec60ad211b94afa8d07d5ac2a5198c?context=explore&quot;&gt;v0.5.1のイメージ&lt;/a&gt;を追加しています。&lt;/p&gt;
 
-&lt;h3 id=&quot;secp256k1のサブモジュール化&quot;&gt;secp256k1のサブモジュール化&lt;/h3&gt;
+&lt;h3 id=&quot;secp256k1-submodularization&quot;&gt;secp256k1のサブモジュール化&lt;/h3&gt;
 
 &lt;p&gt;Tapyrusが使用するsecp256k1ライブラリの&lt;a href=&quot;https://github.com/chaintope/secp256k1&quot;&gt;リポジトリを分離し&lt;/a&gt;、Git submoduleとして参照するようになりました。&lt;/p&gt;
 
-&lt;h3 id=&quot;rpcの戻り値の名称変更&quot;&gt;RPCの戻り値の名称変更&lt;/h3&gt;
+&lt;h3 id=&quot;rename-rpc-return-value&quot;&gt;RPCの戻り値の名称変更&lt;/h3&gt;
 
 &lt;p&gt;以下のRPCでトランザクションの&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;features&lt;/code&gt;フィールドの名称が&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;version&lt;/code&gt;のままになっていたものを、正しく&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;features&lt;/code&gt;に修正しています。&lt;/p&gt;
 
@@ -21,9 +21,9 @@
   &lt;li&gt;decoderawtransaction&lt;/li&gt;
 &lt;/ul&gt;</content><author><name></name></author><category term="core" /><summary type="html">ARM64ベースのコンテナで動作するTapyrus Core v0.5.1をリリース</summary></entry><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.0リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2021/12/24/release-core-0.5.0/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.0リリース" /><published>2021-12-24T00:00:00+09:00</published><updated>2021-12-24T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2021/12/24/v0.5.0</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2021/12/24/release-core-0.5.0/">&lt;p&gt;&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.0&quot;&gt;Tapyrus Core v0.5.0&lt;/a&gt;では、ブロックチェーンのレイヤー１でネイティブに動作するColored Coin（トークン）機能を追加しました。&lt;/p&gt;
 
-&lt;h2 id=&quot;主な変更点&quot;&gt;主な変更点&lt;/h2&gt;
+&lt;h2 id=&quot;changes&quot;&gt;主な変更点&lt;/h2&gt;
 
-&lt;h3 id=&quot;ネイティブcolored-coin機能&quot;&gt;ネイティブColored Coin機能&lt;/h3&gt;
+&lt;h3 id=&quot;native-colored-coin-feature&quot;&gt;ネイティブColored Coin機能&lt;/h3&gt;
 
 &lt;p&gt;トークンを取引する機能はこれまで、Bitcoinでも既存のトランザクションにオーバーレイする形のトークンプロトコルが複数展開されており、
 特にEthereumではERC20の登場以来、多数のトークンコントラクトがデプロイされています。
@@ -47,9 +47,9 @@ TapyrusのColored Coinはレイヤー１のコンセンサスルールでトー�
 
 &lt;p&gt;仕様の詳細については、&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/raw/master/doc/tapyrus/Tapyrus_Technical_Overview_ja.pdf&quot;&gt;Tapyrusの技術概要のP.14&lt;/a&gt;にてご確認頂けます。&lt;/p&gt;</content><author><name></name></author><category term="core" /><summary type="html">ネイティブColored Coin機能を搭載したTapyrus Core v0.5.0をリリース</summary></entry><entry xml:lang="ja"><title type="html">Tapyrus Core v0.4.0リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2020/05/25/release-core-0.4.0/" rel="alternate" type="text/html" title="Tapyrus Core v0.4.0リリース" /><published>2020-05-15T00:00:00+09:00</published><updated>2020-05-15T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2020/05/25/v0.4.0</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2020/05/25/release-core-0.4.0/">&lt;p&gt;&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.4.0&quot;&gt;Tapyrus Core v0.4.0&lt;/a&gt;, &lt;a href=&quot;https://github.com/chaintope/tapyrus-signer/releases/tag/v0.4.0&quot;&gt;Tapyrus Signer v0.4.0&lt;/a&gt;では以下の新しい機能が利用できるようになりました。&lt;/p&gt;
 
-&lt;h2 id=&quot;主な変更点&quot;&gt;主な変更点&lt;/h2&gt;
+&lt;h2 id=&quot;changes&quot;&gt;主な変更点&lt;/h2&gt;
 
-&lt;h3 id=&quot;フェデレーション管理機能&quot;&gt;フェデレーション管理機能&lt;/h3&gt;
+&lt;h3 id=&quot;federation-management&quot;&gt;フェデレーション管理機能&lt;/h3&gt;
 
 &lt;p&gt;Tapyrusでは、ブロックの生成を予め定められた複数の署名者（フェデレーション）の多重署名によって行います。
 Signerはチェーンのセットアップ時に予め決定され、各Signerの公開鍵を集約した集約公開鍵がジェネシスブロックのブロックヘッダーに記載されています。
@@ -66,7 +66,7 @@ Signerはチェーンのセットアップ時に予め決定され、各Signer�
 
 &lt;p&gt;具体的なSignerの更新手順については、こちらの&lt;a href=&quot;https://github.com/chaintope/tapyrus-signer/blob/v0.4.0/doc/federation.md#how-to-update-federation&quot;&gt;ドキュメント&lt;/a&gt;を参照ください。&lt;/p&gt;
 
-&lt;h3 id=&quot;独自ネットワークの構成&quot;&gt;独自ネットワークの構成&lt;/h3&gt;
+&lt;h3 id=&quot;build-custom--networks&quot;&gt;独自ネットワークの構成&lt;/h3&gt;
 
 &lt;p&gt;Tapyrusは利用する各業界毎に異なるTapyrusネットワークを構成し、使用するブロックチェーンです。
 これまでは、独自ネットワークを構成する際には、Tapyrusのソースコードを変更しビルドする必要がありましたが、
@@ -77,7 +77,7 @@ v0.4.0から設定ファイルで独自ネットワークを構成する機能�
 
 &lt;p&gt;その他、詳しい内容についてはリリースノートを、ノードの起動方法については、Getting Startedを参照してください。&lt;/p&gt;
 
-&lt;h2 id=&quot;testnetの更新&quot;&gt;Testnetの更新&lt;/h2&gt;
+&lt;h2 id=&quot;testnet-update&quot;&gt;Testnetの更新&lt;/h2&gt;
 
 &lt;p&gt;v0.4.0のリリースに伴い、Chaintopeが提供するTestnetもリセットされているのでご注意ください。
 Chaintopeが運用するTestnetについては、Testnetのジェネシスブロックのファイルを作成し、
