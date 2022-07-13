@@ -158,7 +158,8 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。<br />
+        <p>この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。おm−ドとは
+devモードとは開発やテストの際、ローカルでSignerを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
 公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/getting_started.md#how-to-start-tapyrus-in-dev-mode" target="_blank">こちら</a>です。</p>
 
 <p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
@@ -189,7 +190,7 @@
 <p>Tapyrusノードの設定を<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに記述します。<br />
 以下のコマンドを実行し、<code class="language-plaintext highlighter-rouge">/etc/tapyrus/</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルが生成されます。<br />
 （Ubuntu環境）</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash -c 'cat &lt;&lt;EOF &gt;  ~/.tapyrus/tapyrus.conf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat &lt;&lt;EOF &gt;  ~/.tapyrus/tapyrus.conf
 networkid=1905960821
 dev=1
 [dev]
@@ -201,11 +202,11 @@ rpcpassword=pass
 bind=127.0.0.1
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
-EOF'
+EOF
 </code></pre></div></div>
 
 <p>（MacOS環境）</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash -c 'cat &lt;&lt;EOF &gt;  /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat &lt;&lt;EOF &gt;  /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
 networkid=1905960821
 dev=1
 [dev]
@@ -217,7 +218,7 @@ rpcpassword=pass
 bind=127.0.0.1
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
-EOF'
+EOF
 </code></pre></div></div>
 
 <h2 id="derive-key">鍵導出</h2>
@@ -262,10 +263,10 @@ genesisブロックの値は次に使用するため控えておいてくださ�
 
 <p><code class="language-plaintext highlighter-rouge">/var/lib/tapyrus-dev</code>ディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。
 （Ubuntu環境）</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim ~/.tapyrus/genesis.1905960821
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo &lt;genesisブロックの値&gt; &gt; ~/.tapyrus/genesis.1905960821
 </code></pre></div></div>
 <p>（MacOS環境）</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo &lt;genesisブロックの値&gt; &gt;  /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
 </code></pre></div></div>
 
 <h2 id="run-tapyrusd">Tapyrusノードを起動する</h2>
@@ -299,11 +300,30 @@ genesisブロックの値は次に使用するため控えておいてくださ�
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h2 id="generate-block">ブロックの生成</h2>
+<p>devモードではSignerノードが存在しないため、コマンドを実行しブロックの生成を行なう必要があります。
+まずはブロック生成に用いるアドレスを生成します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli  getnewaddress
+</code></pre></div></div>
+
+<p>ブロックの生成には<code class="language-plaintext highlighter-rouge">generatetoaddress</code>コマンドを用います。<br />
+引数として、<code class="language-plaintext highlighter-rouge">生成するブロックの数</code> <code class="language-plaintext highlighter-rouge">アドレス</code>、<code class="language-plaintext highlighter-rouge">秘密鍵</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli generatetoaddress 1 &lt;アドレス&gt; &lt;秘密鍵&gt;
+</code></pre></div></div>
+
+<p>以下のような配列で文字列のブロックハッシュが表示されるとブロックの生成は成功です。(詳細な値は実行した環境ごとに異なります)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  "95879e38c65c010b7cf9d734dbcdffd8ec59db33cdd943ab627dc9789686e6b9"
+]
+</code></pre></div></div>
+
+<h2 id="stop-tapyrusd">ノードの停止</h2>
 <p>ノードを停止する場合、以下のコマンドを実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli stop
 </code></pre></div></div>
 
 <p>以上でMacOS &amp; Ubuntu環境でTapyrus Coreノードがdevモードで立ち上がりました。</p>
+
 
         
       </section>

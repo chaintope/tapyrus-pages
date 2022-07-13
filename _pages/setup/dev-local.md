@@ -4,7 +4,8 @@ permalink: /setup/dev-local
 title: "Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）"
 ---
 
-この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。  
+この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。おm−ドとは
+devモードとは開発やテストの際、ローカルでSignerを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
 公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/getting_started.md#how-to-start-tapyrus-in-dev-mode){:target="_blank"}です。  
 
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
@@ -37,7 +38,7 @@ Tapyrusノードの設定を`tapyrus.conf`ファイルに記述します。
 以下のコマンドを実行し、`/etc/tapyrus/`ディレクトリ配下に`tapyrus.conf`ファイルが生成されます。  
 （Ubuntu環境）
 ```
-$ bash -c 'cat <<EOF >  ~/.tapyrus/tapyrus.conf
+$ cat <<EOF >  ~/.tapyrus/tapyrus.conf
 networkid=1905960821
 dev=1
 [dev]
@@ -49,12 +50,12 @@ rpcpassword=pass
 bind=127.0.0.1
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
-EOF'
+EOF
 ```
 
 （MacOS環境）
 ```
-$ bash -c 'cat <<EOF >  /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
+$ cat <<EOF >  /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
 networkid=1905960821
 dev=1
 [dev]
@@ -66,7 +67,7 @@ rpcpassword=pass
 bind=127.0.0.1
 rpcbind=0.0.0.0
 rpcallowip=127.0.0.1
-EOF'
+EOF
 ```
 
 ## 鍵導出 {#derive-key}
@@ -118,11 +119,11 @@ $ tapyrus-genesis -dev -signblockprivatekey=<秘密鍵> -signblockpubkey=<公開
 `/var/lib/tapyrus-dev`ディレクトリ配下の`genesis.1905960821`ファイルにgenesisブロックの値を書き込みます。
 （Ubuntu環境）
 ```
-$ vim ~/.tapyrus/genesis.1905960821
+$ echo <genesisブロックの値> > ~/.tapyrus/genesis.1905960821
 ```
 （MacOS環境）
 ```
-$ vim /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
+$ echo <genesisブロックの値> >  /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
 ```
 
 
@@ -160,9 +161,32 @@ $ tapyrus-cli getblockchaininfo
 }
 ```
 
+## ブロックの生成 {#generate-block}
+devモードではSignerノードが存在しないため、コマンドを実行しブロックの生成を行なう必要があります。
+まずはブロック生成に用いるアドレスを生成します。
+```
+$ tapyrus-cli  getnewaddress
+```
+
+ブロックの生成には`generatetoaddress`コマンドを用います。  
+引数として、`生成するブロックの数` `アドレス`、`秘密鍵`を指定します。
+```
+$ tapyrus-cli generatetoaddress 1 <アドレス> <秘密鍵>
+```
+
+以下のような配列で文字列のブロックハッシュが表示されるとブロックの生成は成功です。(詳細な値は実行した環境ごとに異なります)
+```
+[
+  "95879e38c65c010b7cf9d734dbcdffd8ec59db33cdd943ab627dc9789686e6b9"
+]
+```
+
+## ノードの停止 {#stop-tapyrusd}
 ノードを停止する場合、以下のコマンドを実行します。  
 ```
 $ tapyrus-cli stop
 ```
 
 以上でMacOS & Ubuntu環境でTapyrus Coreノードがdevモードで立ち上がりました。  
+
+
