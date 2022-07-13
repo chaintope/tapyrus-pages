@@ -4,7 +4,8 @@ permalink: /setup/dev-docker
 title: "Tapyrus Coreノード devモード起動方法（Docker版）"
 ---
 
-この記事ではDocker環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。  
+この記事ではDocker環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。 
+devモードとは開発やテストの際、ローカルでSignerを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
 公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/docker_image.md#dev-mode){:target="_blank"}です。  
 
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
@@ -103,9 +104,30 @@ $ docker exec tapyrus_node_dev tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf getbl
 }
 ```
 
+以上でDocker環境でTapyrus Coreノードがdevモードで立ち上がりました。
+
+## ブロックの生成 {#generate-block}
+devモードではSignerノードが存在しないため、コマンドを実行しブロックの生成を行なう必要があります。
+まずはブロック生成に用いるアドレスを生成します。
+```
+$ docker exec tapyrus_node_dev tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf getnewaddress
+```
+
+ブロックの生成には`generatetoaddress`コマンドを用います。  
+引数として、`生成するブロックの数` `アドレス`、`秘密鍵`を指定します。
+```
+$  docker exec tapyrus_node_dev tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf generatetoaddress 1 <アドレス> <秘密鍵>
+```
+
+以下のような配列で文字列のブロックハッシュが表示されるとブロックの生成は成功です。(詳細な値は実行した環境ごとに異なります)
+```
+[
+  "95879e38c65c010b7cf9d734dbcdffd8ec59db33cdd943ab627dc9789686e6b9"
+]
+```
+
+## ノードの停止 {#stop-tapyrusd}
 コンテナを停止する場合、以下のコマンドを実行します。
 ```
 $ docker stop tapyrus_node_dev
 ```
-
-以上でDocker環境でTapyrus Coreノードがdevモードで立ち上がりました。
