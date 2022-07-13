@@ -158,8 +158,8 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。おm−ドとは
-devモードとは開発やテストの際、ローカルでSignerを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
+        <p>この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。
+devモードとは開発やテストの際、ローカルでSigner Networkを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
 公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/getting_started.md#how-to-start-tapyrus-in-dev-mode" target="_blank">こちら</a>です。</p>
 
 <p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
@@ -252,8 +252,7 @@ EOF
 <p>また、将来的に<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>に<code class="language-plaintext highlighter-rouge">createkey</code>コマンドの実装を予定しており、上記のような手順を用いずにコマンドラインからの鍵導出が可能になります。</p>
 
 <h2 id="generate-genesis-block">genesisブロックの生成</h2>
-
-<p>genesisブロックの生成を行ないます。<br />
+<p><code class="language-plaintext highlighter-rouge">dev</code>モードで動作するためのチェーンのgenesisブロックの生成を行ないます。<br />
 genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。
 <code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。
 実行すると表示される文字列の値がgenesisブロックです。
@@ -261,7 +260,7 @@ genesisブロックの値は次に使用するため控えておいてくださ�
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -dev -signblockprivatekey=&lt;秘密鍵&gt; -signblockpubkey=&lt;公開鍵&gt; 
 </code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">/var/lib/tapyrus-dev</code>ディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。
+<p>Tapyrus Coreのデフォルトディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。
 （Ubuntu環境）</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo &lt;genesisブロックの値&gt; &gt; ~/.tapyrus/genesis.1905960821
 </code></pre></div></div>
@@ -307,8 +306,8 @@ genesisブロックの値は次に使用するため控えておいてくださ�
 </code></pre></div></div>
 
 <p>ブロックの生成には<code class="language-plaintext highlighter-rouge">generatetoaddress</code>コマンドを用います。<br />
-引数として、<code class="language-plaintext highlighter-rouge">生成するブロックの数</code> <code class="language-plaintext highlighter-rouge">アドレス</code>、<code class="language-plaintext highlighter-rouge">秘密鍵</code>を指定します。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli generatetoaddress 1 &lt;アドレス&gt; &lt;秘密鍵&gt;
+引数として、<code class="language-plaintext highlighter-rouge">生成するブロックの数</code> <code class="language-plaintext highlighter-rouge">ブロック報酬を受け取るアドレス</code>、<code class="language-plaintext highlighter-rouge">genesisブロックの生成に使用した秘密鍵</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli generatetoaddress 1 &lt;ブロック報酬を受け取るアドレス&gt; &lt;genesisブロックの生成に使用した秘密鍵&gt;
 </code></pre></div></div>
 
 <p>以下のような配列で文字列のブロックハッシュが表示されるとブロックの生成は成功です。(詳細な値は実行した環境ごとに異なります)</p>

@@ -4,8 +4,8 @@ permalink: /setup/dev-local
 title: "Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）"
 ---
 
-この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。おm−ドとは
-devモードとは開発やテストの際、ローカルでSignerを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
+この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。
+devモードとは開発やテストの際、ローカルでSigner Networkを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
 公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/getting_started.md#how-to-start-tapyrus-in-dev-mode){:target="_blank"}です。  
 
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
@@ -106,8 +106,7 @@ $ ruby generate_key_pair.rb
 
 
 ## genesisブロックの生成 {#generate-genesis-block}
-
-genesisブロックの生成を行ないます。  
+`dev`モードで動作するためのチェーンのgenesisブロックの生成を行ないます。  
 genesisブロックの生成には`tapyrus-genesis`コマンドを用います。
 `-dev`でdevモードであることを指定し、控えておいた`<秘密鍵>`を`signblockprivatekey`に、`<公開鍵>`を`signblockpubkey`にオプションとして指定して以下のコマンドを実行します。
 実行すると表示される文字列の値がgenesisブロックです。
@@ -116,7 +115,7 @@ genesisブロックの値は次に使用するため控えておいてくださ�
 $ tapyrus-genesis -dev -signblockprivatekey=<秘密鍵> -signblockpubkey=<公開鍵> 
 ```
 
-`/var/lib/tapyrus-dev`ディレクトリ配下の`genesis.1905960821`ファイルにgenesisブロックの値を書き込みます。
+Tapyrus Coreのデフォルトディレクトリ配下の`genesis.1905960821`ファイルにgenesisブロックの値を書き込みます。
 （Ubuntu環境）
 ```
 $ echo <genesisブロックの値> > ~/.tapyrus/genesis.1905960821
@@ -169,9 +168,9 @@ $ tapyrus-cli  getnewaddress
 ```
 
 ブロックの生成には`generatetoaddress`コマンドを用います。  
-引数として、`生成するブロックの数` `アドレス`、`秘密鍵`を指定します。
+引数として、`生成するブロックの数` `ブロック報酬を受け取るアドレス`、`genesisブロックの生成に使用した秘密鍵`を指定します。
 ```
-$ tapyrus-cli generatetoaddress 1 <アドレス> <秘密鍵>
+$ tapyrus-cli generatetoaddress 1 <ブロック報酬を受け取るアドレス> <genesisブロックの生成に使用した秘密鍵>
 ```
 
 以下のような配列で文字列のブロックハッシュが表示されるとブロックの生成は成功です。(詳細な値は実行した環境ごとに異なります)
