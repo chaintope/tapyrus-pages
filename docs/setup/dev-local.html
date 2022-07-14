@@ -1,0 +1,416 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版） - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/setup/dev-local">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/setup/dev-local">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>この記事ではMacOS/Ubuntu環境上に、devモードでTapyrus Coreノードを起動する方法を解説します。
+devモードとは開発やテストの際、ローカルでSigner Networkを用いずTapyrus Core単体でブロックの生成を行い、単一のTapyrusノードを実行するための開発用環境です。
+公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/getting_started.md#how-to-start-tapyrus-in-dev-mode" target="_blank">こちら</a>です。</p>
+
+<p>また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
+記載されたコマンドを順に実行することでdevモードでTapyrusノード起動が完了します。</p>
+
+<h2 id="prerequisites">前提</h2>
+
+<p>本記事では鍵導出のため、rubyライブラリの<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyrusrb</a>を用います。<br />
+事前にruby 3.0をインストールして置いてください。
+また、本記事ではTapyrusノードの環境構築方法については解説しません。
+環境構築方法については、以下のそれぞれの記事の「ビルド」項目までを実行してください。</p>
+<ul>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/osx">Tapyrus Coreノード構築方法（macOS版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/ubuntu">Tapyrus Coreノード構築方法（Ubuntu版）</a></li>
+</ul>
+
+<h2 id="create-dir-conf">データディレクトリ・設定ファイル作成</h2>
+
+<p>ディレクトリ配下に、ブロックチェーンのデータを保存する<code class="language-plaintext highlighter-rouge">tapyrus-dev</code>ディレクトリを作成します。<br />
+（Ubuntu環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/.tapyrus
+</code></pre></div></div>
+
+<p>（MacOS環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir /Users/$(whoami)/Library/Application\ Support/Tapyrus
+</code></pre></div></div>
+
+<p>Tapyrusノードの設定を<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルに記述します。<br />
+以下のコマンドを実行し、<code class="language-plaintext highlighter-rouge">/etc/tapyrus/</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルが生成されます。<br />
+（Ubuntu環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat &lt;&lt;EOF &gt;  ~/.tapyrus/tapyrus.conf
+networkid=1905960821
+dev=1
+[dev]
+server=1
+keypool=1
+discover=0
+rpcuser=user
+rpcpassword=pass
+bind=127.0.0.1
+rpcbind=0.0.0.0
+rpcallowip=127.0.0.1
+EOF
+</code></pre></div></div>
+
+<p>（MacOS環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat &lt;&lt;EOF &gt;  /Users/$(whoami)/Library/Application\ Support/Tapyrus/tapyrus.conf
+networkid=1905960821
+dev=1
+[dev]
+server=1
+keypool=1
+discover=0
+rpcuser=user
+rpcpassword=pass
+bind=127.0.0.1
+rpcbind=0.0.0.0
+rpcallowip=127.0.0.1
+EOF
+</code></pre></div></div>
+
+<h2 id="derive-key">鍵導出</h2>
+
+<p>鍵導出の方法は様々ありますが、本記事では<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyruseb</a>ライブラリを用います。<br />
+以下のコマンドでtapyrusebのgemをインストールします。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install tapyrus
+</code></pre></div></div>
+
+<p><a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb" target="_blank">Github上の鍵導出用Rubyファイル(generate_key_pair.rb)</a>をダウンロードしてください。
+ファイルには以下のようなコードが書かれています。</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'tapyrus'</span>
+
+<span class="no">Tapyrus</span><span class="p">.</span><span class="nf">chain_params</span> <span class="o">=</span> <span class="ss">:dev</span>
+<span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
+<span class="nb">puts</span> <span class="s2">"秘密鍵(WIF): </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_wif</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span> <span class="s2">"公開鍵： </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">pubkey</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>以下のようにファイルの実行、もしくはRubyの対話モード(irb)で上記コードを一行づつ実行してください。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby generate_key_pair.rb
+</code></pre></div></div>
+
+<p>実行すると以下のような出力が表示されます。
+ <code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>に表示されている文字列の値を控えておきます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): &lt;秘密鍵&gt;
+公開鍵： &lt;公開鍵&gt;
+</code></pre></div></div>
+
+<p>また、将来的に<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>に<code class="language-plaintext highlighter-rouge">createkey</code>コマンドの実装を予定しており、上記のような手順を用いずにコマンドラインからの鍵導出が可能になります。</p>
+
+<h2 id="generate-genesis-block">genesisブロックの生成</h2>
+<p><code class="language-plaintext highlighter-rouge">dev</code>モードで動作するためのチェーンのgenesisブロックの生成を行ないます。<br />
+genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。
+<code class="language-plaintext highlighter-rouge">-dev</code>でdevモードであることを指定し、控えておいた<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockprivatekey</code>に、<code class="language-plaintext highlighter-rouge">&lt;公開鍵&gt;</code>を<code class="language-plaintext highlighter-rouge">signblockpubkey</code>にオプションとして指定して以下のコマンドを実行します。
+実行すると表示される文字列の値がgenesisブロックです。
+genesisブロックの値は次に使用するため控えておいてください。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -dev -signblockprivatekey=&lt;秘密鍵&gt; -signblockpubkey=&lt;公開鍵&gt; 
+</code></pre></div></div>
+
+<p>Tapyrus Coreのデフォルトディレクトリ配下の<code class="language-plaintext highlighter-rouge">genesis.1905960821</code>ファイルにgenesisブロックの値を書き込みます。
+（Ubuntu環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo &lt;genesisブロックの値&gt; &gt; ~/.tapyrus/genesis.1905960821
+</code></pre></div></div>
+<p>（MacOS環境）</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo &lt;genesisブロックの値&gt; &gt;  /Users/$(whoami)/Library/Application\ Support/Tapyrus/genesis.1905960821
+</code></pre></div></div>
+
+<h2 id="run-tapyrusd">Tapyrusノードを起動する</h2>
+
+<p>以下のコマンドを実行し、Tapyrus Coreを起動します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  tapyrusd
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">getblockchaininfo</code>コマンドを用いて、ブロックチェーンの情報を確認します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli getblockchaininfo
+</code></pre></div></div>
+
+<p>以下のようなブロックチェーンの情報を確認できればTapyrus Coreがdevモードで動作していることが確認できます。(詳細な数値は環境ごとに異なります)</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">chain</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1905960821</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dev</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blocks</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">bestblockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">bffcb5d2c676dfcedf08ec2837d91f45db31430bc8f2c77952516ceafa858f55</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mediantime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1656999523</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">verificationprogress</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">initialblockdownload</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size_on_disk</span><span class="dl">"</span><span class="p">:</span> <span class="mi">298</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">pruned</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">aggregatePubkeys</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">0311a61fba9dbc48e91fe9b14bf8507733adf99688b7731bac1cbaf1b3c170b645</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">warnings</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="generate-block">ブロックの生成</h2>
+<p>devモードではSignerノードが存在しないため、コマンドを実行しブロックの生成を行なう必要があります。
+まずはブロック生成に用いるアドレスを生成します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli  getnewaddress
+</code></pre></div></div>
+
+<p>ブロックの生成には<code class="language-plaintext highlighter-rouge">generatetoaddress</code>コマンドを用います。<br />
+引数として、<code class="language-plaintext highlighter-rouge">生成するブロックの数</code> <code class="language-plaintext highlighter-rouge">ブロック報酬を受け取るアドレス</code>、<code class="language-plaintext highlighter-rouge">genesisブロックの生成に使用した秘密鍵</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli generatetoaddress 1 &lt;ブロック報酬を受け取るアドレス&gt; &lt;genesisブロックの生成に使用した秘密鍵&gt;
+</code></pre></div></div>
+
+<p>以下のような配列で文字列のブロックハッシュが表示されるとブロックの生成は成功です。(詳細な値は実行した環境ごとに異なります)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  "95879e38c65c010b7cf9d734dbcdffd8ec59db33cdd943ab627dc9789686e6b9"
+]
+</code></pre></div></div>
+
+<h2 id="stop-tapyrusd">ノードの停止</h2>
+<p>ノードを停止する場合、以下のコマンドを実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli stop
+</code></pre></div></div>
+
+<p>以上でMacOS &amp; Ubuntu環境でTapyrus Coreノードがdevモードで立ち上がりました。</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
