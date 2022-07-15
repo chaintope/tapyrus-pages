@@ -61,6 +61,8 @@ Bitcoinの参照実装である[Bitcoin Core](https://github.com/bitcoin/bitcoin
 * [Tapyrus Coreノード構築方法（Ubuntu版）](/setup/ubuntu)
 * [Tapyrus Coreノード構築方法（macOS版）](/setup/osx)
 * [Tapyrus Coreノード構築方法（Docker版）](/setup/docker)
+* [Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）](/setup/dev-local)
+* [Tapyrus Coreノード devモード起動方法（Docker版）](/setup/dev-docker)
 
 [^key-update]: フェデレーションメンバーに変更がある場合、切り替わりのブロックの`xfield`にメンバー変更後の集約公開鍵がセットされ、それ以降のブロックでは更新された集約公開鍵を使用して署名検証が行われます。
 [^threshold]: [http://cacr.uwaterloo.ca/techreports/2001/corr2001-13.ps](http://cacr.uwaterloo.ca/techreports/2001/corr2001-13.ps)
