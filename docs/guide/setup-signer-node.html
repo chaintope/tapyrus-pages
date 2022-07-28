@@ -1,0 +1,551 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tapyrus Signerノードセットアップ方法 - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="Tapyrus Signerノードセットアップ方法">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/guide/setup-signer-node">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/guide/setup-signer-node">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tapyrus Signerノードセットアップ方法">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Tapyrus Signerノードセットアップ方法
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>この記事ではTapyrus Signerノードをセットアップする方法を解説します。 
+公式ドキュメントは<a href="https://github.com/chaintope/tapyrus-signer/blob/master/doc/setup.md" target="_blank">こちら</a>です。</p>
+
+<h2 id="assumption">前提</h2>
+<p>本記事で使用するTapyus Signerの<a href="https://github.com/chaintope/tapyrus-signer.git">参照実装</a>はrustで実装されているため、事前にrustの実行環境を準備してください。</p>
+
+<h2 id="signer-network-structure">Signer Networkの構成</h2>
+<p>本記事では3名のSignerノードによるSigner Networkの構築方法を解説します。
+各ノードは以下のように名付けます。</p>
+<ul>
+  <li>Alice</li>
+  <li>Bob</li>
+  <li>Carol</li>
+</ul>
+
+<p>Signerノードの数は、3名以上であり、かつ奇数であれば上限はありません。
+また、本記事では閾値を2に設定します。
+ターミナルで3つのタブを開き、それぞれ</p>
+
+<h2 id="overall-flow">全体の流れ</h2>
+<ul>
+  <li><a href="#install">Step1. インストール</a></li>
+  <li><a href="#createkey">Step2. キーペアの作成 (Alice, Bob, Carol)</a></li>
+  <li><a href="#createnodevss">Step3. VSSの生成 (Alice, Bob, Carol)</a></li>
+  <li><a href="#aggregate">Step4. 集約公開回鍵の生成 (Alice, Bob, Carol)</a></li>
+  <li><a href="#generate-genesis-block">Step5. genesisブロックの生成</a></li>
+  <li><a href="#createblockvss">Step6. Block VSSの生成 (Alice, Bob, Carol)</a></li>
+  <li><a href="#sign-genesis-block">Step7. genesisブロックへの署名 (Alice, Bob, Carol)</a></li>
+  <li><a href="#compute-sig">Step8. genesisブロックの署名を計算する (Alice)</a></li>
+  <li><a href="{#generate-genesis-networkid">Step9. genesis.networkidファイルの作成</a></li>
+</ul>
+
+<h2 id="about-tapyrus-setup">tapyrus-setupについて</h2>
+<p>Signerのセットアップには、<code class="language-plaintext highlighter-rouge">tapyrus-setup</code>コマンドを実行します。
+tapyrus-setupでは、以下のような構成でコマンドを実行します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup [subcommands] &lt;options&gt;
+</code></pre></div></div>
+<p>tapyrus-setupの各コマンドの詳細は<code class="language-plaintext highlighter-rouge">tapyrus-setup -h</code>で確認できます。</p>
+
+<h2 id="install">Step1. インストール</h2>
+<p><a href="https://github.com/chaintope/tapyrus-signer">tapyrus-signer</a>をcloneし、ディレクトリを移動します。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/chaintope/tapyrus-signer.git
+$ cd tapyrus-signer
+$ cargo build --release\
+$ sudo cp target/release/tapyrus-setup /usr/bin/
+</code></pre></div></div>
+
+<h2 id="createkey">Step2. キーペアの作成</h2>
+<p>まずはsecp256k1楕円曲線に基づく秘密鍵、公開鍵のキーペアを作成します。
+キーペアの生成には<code class="language-plaintext highlighter-rouge">createkey</code>コマンドを使用します。
+WIF形式の秘密鍵と公開鍵のHex値が出力されます。以下をAlice, Bob, Carolのそれぞれで実行してください。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup createkey
+&lt;秘密鍵&gt; &lt;公開鍵&gt;
+</code></pre></div></div>
+
+<h5 id="createkey-example">入出力例</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup createkey
+&gt; L3CUPgEmeHP1uMGC6q4cpuwpZvRCVWR3NegG3cE4ZBy9EY4osWCX 0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342
+</code></pre></div></div>
+
+<h2 id="createnodevss">Step3. ノードVSSの生成</h2>
+<p>ノードVSSを生成します。</p>
+
+<h4 id="createnodevss-input">入力</h4>
+<p>ノードVSSの生成には<code class="language-plaintext highlighter-rouge">createnodevss</code>コマンドを使用します。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--public-key</code>オプションに<a href="#createkey">Step2</a>で生成したそれぞれのSignerの公開鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--private-key</code>オプションにはコマンドを実行するSignerノードの秘密鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--threshold</code>にはブロックの署名生成に必要な署名数の閾値を指定します。本記事では閾値に<code class="language-plaintext highlighter-rouge">2</code>を指定します。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup createnodevss \
+--public-key=&lt;Aliceの公開鍵&gt; --public-key=&lt;Bobの公開鍵&gt; --public-key=&lt;Carolの公開鍵&gt; \
+--private-key=&lt;コマンド実行者の秘密鍵&gt; \
+--threshold=&lt;閾値&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>このコマンドをAlice, Bob, Carolのそれぞれで実行します。</p>
+
+<h4 id="createnodevss-output">出力</h4>
+<p>コマンドを実行すると、各公開鍵に対応したノードVSSが出力されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Aliceの公開鍵&gt;:&lt;AliceのノードVSS&gt;
+&lt;Bobの公開鍵&gt;:&lt;BobのノードVSS&gt;
+&lt;Carolの公開鍵&gt;:&lt;CarolのノードVSS&gt;
+</code></pre></div></div>
+
+<h5 id="createnodevss-example">入出力例</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup createnodevss \
+  --public-key=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342 \
+  --public-key=0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f9868 \
+  --public-key=02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed48 \
+  --private-key=L3CUPgEmeHP1uMGC6q4cpuwpZvRCVWR3NegG3cE4ZBy9EY4osWCX \
+  --threshold=2
+&gt; 0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342:0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa444b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa4
+&gt; 02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed48:0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b4434202a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed48000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44a23d730e5f3d48bc68739bfc6c4cf86df273d5b821eb3abc9859f558ddf5e02e44b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44a23d730e5f3d48bc68739bfc6c4cf86df273d5b821eb3abc9859f558ddf5e02e
+&gt; 0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f9868:0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f9868000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f449a2a8f8a8fbd5b93520065cc3b169c2812c2205302ada25b790d983fb468c5b844b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f449a2a8f8a8fbd5b93520065cc3b169c2812c2205302ada25b790d983fb468c5b8
+</code></pre></div></div>
+
+<h2 id="aggregate">Step4. 集約公開回鍵の生成</h2>
+<p><a href="#createnodevss">Step3</a>で生成したノードVSSを元に集約公開鍵とノードの秘密シェアを生成します。</p>
+
+<h4 id="aggregate-input">入力</h4>
+<p><code class="language-plaintext highlighter-rouge">aggregate</code>コマンドを使用し、引数には<code class="language-plaintext highlighter-rouge">--vss</code>と<code class="language-plaintext highlighter-rouge">--private-key</code>を指定します。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--private-key</code>にはコマンドを実行するSignerノードの秘密鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--vss</code>オプションに<a href="#createnodevss">Step3のノードVSSの生成</a>で<code class="language-plaintext highlighter-rouge">createnodevss</code>コマンドを実行し生成した、各ノードでコマンドを実行するSignerノードの秘密鍵と対応する公開鍵とセットで出力されたノードVSSをそれぞれ指定します。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup aggregate \
+--vss=&lt;Aliceが生成したコマンド実行者のノードVSS&gt; --vss=&lt;Bobが生成したコマンド実行者のノードVSS&gt; --vss=&lt;Carolが生成したコマンド実行者のノードVSS&gt; \
+--private-key=&lt;コマンド実行者の秘密鍵&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>このコマンドをAlice, Bob, Carolのそれぞれで実行します。</p>
+
+<h4 id="aggregate-output">出力</h4>
+<p>コマンドを実行すると集約公開鍵とノードの秘密シェアが出力されます。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;集約公開鍵&gt; &lt;ノードの秘密シェア&gt;
+</code></pre></div></div>
+
+<h5 id="aggregate-example">入出力例</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup aggregate \
+  --vss=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa444b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa4 \
+  --vss=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa444b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa4 \
+  --vss=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa444b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa4 \
+  --private-key=L3CUPgEmeHP1uMGC6q4cpuwpZvRCVWR3NegG3cE4ZBy9EY4osWCX
+&gt; 02b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9 58b72dffcc114db48291d10a611e13546b4f444bccf234bc132a63b88c9b34c1
+</code></pre></div></div>
+
+<h2 id="generate-genesis-block">Step5. genesisブロックの生成</h2>
+<p>genesisブロックの生成を行ないます。<br />
+genesisブロックの生成には<a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>をインストールする必要があります。(ビルドする必要はありません)
+genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-signblockpubkey</code>オプションに<a href="#aggregate">Step4</a>で生成した集約公開鍵を指定します。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -signblockpubkey=&lt;集約公開鍵&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h5 id="createblockvss-example">入出力例</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -signblockpubkey=02b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9
+&gt; 010000000000000000000000000000000000000000000000000000000000000000000000c30fc7bfabe904aecc6db258736b0f52150a43aa3b09bf27fdcb12677684003013c741355a4217988fca4948326a9e737c9899eb7958f3081c1f8e40b18db4c18046d762012102b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb90001010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000001976a914a02d5bb5a1be6b923adf53d079b6e9ede53e4ef988ac00000000
+</code></pre></div></div>
+
+<h2 id="createblockvss">Step6. ブロックVSSの生成</h2>
+<p>ブロックVSSを生成します。</p>
+
+<h4 id="createblockvss-input">入力</h4>
+<p>ブロックVSSの生成には<code class="language-plaintext highlighter-rouge">createblockvss</code>を指定します。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--public-key</code>オプションにそれぞれのSignerの公開鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--private-key</code>オプションにはコマンドを実行者の秘密鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--threshold</code>オプションで閾値を指定します。本記事では閾値には<code class="language-plaintext highlighter-rouge">2</code>を指定します。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup createblockvss \
+--public-key=&lt;Aliceの公開鍵&gt; --public-key=&lt;Bobの公開鍵&gt; --public-key=&lt;Carolの公開鍵&gt; \
+--private-key=&lt;コマンド実行者の秘密鍵&gt; \
+--threshold=&lt;閾値&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>このコマンドをAlice, Bob, Carolのそれぞれで実行します。</p>
+
+<h4 id="createblockvss-output">出力</h4>
+<p>コマンドを実行すると、各公開鍵に対応したブロックVSSが出力されます。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Aliceの公開鍵&gt;:&lt;AliceのブロックVSS&gt;
+&lt;Bobの公開鍵&gt;:&lt;BobのブロックVSS&gt;
+&lt;Carolの公開鍵&gt;:&lt;CarolのブロックVSS&gt;
+</code></pre></div></div>
+
+<h5 id="createblockvss-example">入出力例</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup createblockvss \
+  --public-key=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342 \
+  --public-key=0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f9868 \
+  --public-key=02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed48 \
+  --private-key=L3CUPgEmeHP1uMGC6q4cpuwpZvRCVWR3NegG3cE4ZBy9EY4osWCX \
+  --threshold=2
+&gt; 0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342:0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b4434200020d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c75488b74a2edda67467e32b5d84aed833ae9323065079e342808d49b8ba63f453a11c2d69a540d0da7abe7e4c736343d7b70332266d2f815a8fb66b58b9dd472b3d4a93ac4841e15dd05d9ba5cd3cdea9c9fd733d8bd6eb494a23fd4ececefecbe1c6a9440cfe2fac0a445701e4fd99ae597b8f5445d1497237f6ddcb1d7c462ff30d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c7547748b5d122598b981cd4a27b5127cc516cdcf9af861cbd7f72b647449c0ba88ec3d00453ff72bbf15d1e6cfa1b92e574b1e62ec224c3179592ed531a6f9f9d4e4ce69d212f4f05f36af093ae4ab5bd382ce3725f5e1885160256341b49cefb5a68ff2eaa02cc098ee2c01aa7ddbaa28a9ab79af6684fc33b5499e7c81ada5503
+&gt; 02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed48:0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b4434202a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed4800020d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c75488b74a2edda67467e32b5d84aed833ae9323065079e342808d49b8ba63f453a11c2d69a540d0da7abe7e4c736343d7b70332266d2f815a8fb66b58b9dd472b3d4a93ac4841e15dd05d9ba5cd3cdea9c9fd733d8bd6eb494a23fd4ececefecbe18e8de4f2373fbb5ab72fd75755290ab8b9d1d1a7980642bd8caa56c5c5f24f9d0d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c7547748b5d122598b981cd4a27b5127cc516cdcf9af861cbd7f72b647449c0ba88ec3d00453ff72bbf15d1e6cfa1b92e574b1e62ec224c3179592ed531a6f9f9d4e4ce69d212f4f05f36af093ae4ab5bd382ce3725f5e1885160256341b49cefb5ad0c3007bcab7afd796fe61c2617f9710b80d2fea2be387ed4a72b0789818790e
+&gt; 0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f9868:0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f986800020d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c75488b74a2edda67467e32b5d84aed833ae9323065079e342808d49b8ba63f453a11c2d69a540d0da7abe7e4c736343d7b70332266d2f815a8fb66b58b9dd472b3d4a93ac4841e15dd05d9ba5cd3cdea9c9fd733d8bd6eb494a23fd4ececefecbe1567285d7704fcaab2a08acc9acb86717f8144f095ec313432276e26e0f9e6f470d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c7547748b5d122598b981cd4a27b5127cc516cdcf9af861cbd7f72b647449c0ba88ec3d00453ff72bbf15d1e6cfa1b92e574b1e62ec224c3179592ed531a6f9f9d4e4ce69d212f4f05f36af093ae4ab5bd382ce3725f5e1885160256341b49cefb5a3886d24d92a356204b3ca8dce5448b981ab3e7f7402eac6380791a9c45205bd8
+</code></pre></div></div>
+
+<h2 id="sign-genesis-block">Step7. genesisブロックへの署名</h2>
+<p><a href="#generate-genesis-block">Step5</a>で生成したgenesisブロックに対して、各Signerのローカル署名を作成します。</p>
+
+<h4 id="sign-genesis-block-input">入力</h4>
+<p>ローカル署名の作成には<code class="language-plaintext highlighter-rouge">sign</code>コマンドを用います。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--block-vss</code>に各ノードでコマンドを実行するSignerノードの秘密鍵と対応する公開鍵とセットで出力されたブロックVSSをそれぞれ指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--aggregated-public-key</code>オプションで集約公開鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--node-secret-share</code>オプションで<a href="#aggregate">Step4</a>で生成したコマンド実行者のノードの秘密シェアを指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--private-key</code>オプションでコマンド実行者の秘密鍵をしていします。</li>
+  <li><code class="language-plaintext highlighter-rouge">--block</code>オプションで<a href="#generate-genesis-block">Step5</a>で生成したgenesisブロックを指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--threshold</code>オプションで閾値を指定します。本記事では閾値には<code class="language-plaintext highlighter-rouge">2</code>を指定します。</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup sign \
+  --block-vss=&lt;Aliceが生成したコマンド実行者のVSS&gt; \
+  --block-vss=&lt;Bobが生成したコマンド実行者のブロックVSS&gt; \
+  --block-vss=&lt;Carolが生成したコマンド実行者のブロックVSS&gt; \
+  --aggregated-public-key=&lt;集約公開鍵&gt; \ 
+  --node-secret-share=&lt;コマンド実行者の秘密シェア&gt; \
+  --private-key=&lt;コマンド実行者の秘密鍵&gt; \
+  --block=&lt;genesisブロック&gt; \
+  --threshold=&lt;閾値&gt;
+</code></pre></div></div>
+
+<p>このコマンドをAlice, Bob, Carolのそれぞれで実行します。</p>
+
+<h4 id="sign-genesis-block-output">出力</h4>
+<p>コマンドを実行すると、コマンド実行者が生成したローカル署名が生成されます。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;コマンド実行者のローカル署名&gt;
+</code></pre></div></div>
+
+<h5 id="sign-genesis-block-signer-example">入出力例</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup sign \
+  --block-vss=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b4434200020d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c75488b74a2edda67467e32b5d84aed833ae9323065079e342808d49b8ba63f453a11c2d69a540d0da7abe7e4c736343d7b70332266d2f815a8fb66b58b9dd472b3d4a93ac4841e15dd05d9ba5cd3cdea9c9fd733d8bd6eb494a23fd4ececefecbe1c6a9440cfe2fac0a445701e4fd99ae597b8f5445d1497237f6ddcb1d7c462ff30d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c7547748b5d122598b981cd4a27b5127cc516cdcf9af861cbd7f72b647449c0ba88ec3d00453ff72bbf15d1e6cfa1b92e574b1e62ec224c3179592ed531a6f9f9d4e4ce69d212f4f05f36af093ae4ab5bd382ce3725f5e1885160256341b49cefb5a68ff2eaa02cc098ee2c01aa7ddbaa28a9ab79af6684fc33b5499e7c81ada5503 \
+  --block-vss=0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f98680244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420002a9c569b4e8e08bbcebf36cd741c7131a9d7a7d1290cd8e1bf1ac0704931f8362490f66310dbe0ceb43b73a973d0d26be975b729d79733cd152fef4ae7ef247a995e8ebe4766775fc651e7b540dda5350447c490b6126574ec5f4b81ddb99801b06c01ffb9f3d3a164ebf718c197e2713d35195ef20b01d24f83634e3ef498d098e8acb1e2377f3301252ed45e22735ad6be12bae18c00f7ed693007f9c71627aa9c569b4e8e08bbcebf36cd741c7131a9d7a7d1290cd8e1bf1ac0704931f8362b6f099cef241f314bc48c568c2f2d94168a48d62868cc32ead010b50810db486bb282a91c688b5d03ff748ba8f399e008713b7d2c000ea8529e36f09a38054855150646a9b561cbcd81ec1aab1a1e753d7d031dfac7511143371da93cbe0999d5f13091e1490e08f757bd7ad5ecaf05fcd0bc72b69d5f92348ee71b4c15110e2 \
+  --block-vss=02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed480244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420002118d674f5a238a9481b3d755db4d81b608e5cca2705c802053c509f19eb48ee25f40122e1427f3e102b9a2e425939452100c69847efe20120b9a1914c7a4a2573571818ff838721f66308ca9d9b91949dd33cdd663de3ebbf0580bee641b50184a5fb9a73f081a8da9568542186b8b6201715edbac23fedab1500f0ea1be8eab006668c13e041fe2dfcd2f7e231d76b7e93a8314a8272df28ce7507f4f45177c118d674f5a238a9481b3d755db4d81b608e5cca2705c802053c509f19eb48ee2a0bfedd1ebd80c1efd465d1bda6c6badeff3967b8101dfedf465e6ea385b59d80b078bc1ada92e254eb23834320f0af5259392567443184ad9725084d04cb480d97e0cdfaae77f847af6b347249aee51e1bbe2dffb3d281d1062508404d4ab1eb4149dceeb2e11c4b43caa6e4e693272c99e3ab17e8b58f3f306d77f13fbc33b \
+  --aggregated-public-key=02b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9 \
+  --node-secret-share=58b72dffcc114db48291d10a611e13546b4f444bccf234bc132a63b88c9b34c1 \
+  --private-key=L3CUPgEmeHP1uMGC6q4cpuwpZvRCVWR3NegG3cE4ZBy9EY4osWCX \
+  --block=010000000000000000000000000000000000000000000000000000000000000000000000c30fc7bfabe904aecc6db258736b0f52150a43aa3b09bf27fdcb12677684003013c741355a4217988fca4948326a9e737c9899eb7958f3081c1f8e40b18db4c18046d762012102b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb90001010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000001976a914a02d5bb5a1be6b923adf53d079b6e9ede53e4ef988ac00000000 \
+  --threshold=2
+&gt; 45e89b81b0268c7c82be4b84fdeaee224de5122cc5ecb7aaffadd8953de3fabca3a2a3dba83b87bba16320e51701df85787a82555912017aeff71eb3a651d4330244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342
+</code></pre></div></div>
+
+<h2 id="compute-sig">Step8. genesisブロックの署名を計算する</h2>
+<p>各Signerが生成したローカル署名から、genesisブロックに対して集約署名を生成します。
+このコマンドは各ノードで行なう必要がありますが、出力結果は同じなため、今回はAliceのみで実行します。
+そのため、以下におけるコマンド実行者はAliceに当たります。</p>
+
+<h4 id="compute-sig-input">入力</h4>
+<p>集約署名の生成には<code class="language-plaintext highlighter-rouge">computesig</code>コマンドを指定します。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--sig</code>オプションに<a href="#sign-genesis-block">Step7</a>で各Signerが作成したローカル署名を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--private-key</code>オプションにコマンド実行者（Alice）の秘密鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--block</code>オプションに<a href="#generate-genesis-block">Step5</a>で生成したgenesisブロックを指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--block-vss</code>オプションに各ノードでコマンドを実行するSignerノードの秘密鍵と対応する公開鍵とセットで出力されたブロックVSSをそれぞれ指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--node-vss</code>オプションに各ノードでコマンドを実行するSignerノードの秘密鍵と対応する公開鍵とセットで出力されたノードVSSをそれぞれ指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--aggregated-public-key</code>オプションに集約公開鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--node-secret-share</code>オプションに<a href="#aggregate">Step4</a>で生成したコマンド実行者のノード(Alice)の秘密シェアを指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">--threshold</code>オプションで閾値を指定します。本記事では閾値には<code class="language-plaintext highlighter-rouge">2</code>を指定します。</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup computesig \
+  --sig=&lt;Aliceのローカル署名&gt; --sig=&lt;Bobのローカル署名&gt; --sig=&lt;Carolのローカル署名&gt; \
+  --private-key=&lt;コマンド実行者の秘密鍵&gt; \
+  --block=&lt;genesisブロック&gt; \
+  --block-vss=&lt;コマンド実行者のブロックVSS&gt; --block-vss=&lt;Bobが生成したコマンド実行者のブロックVSS&gt; --block-vss=&lt;Carolが生成したのコマンド実行者のブロックVSS&gt; \
+  --node-vss=&lt;コマンド実行者のノードVSS&gt; --block-vss=&lt;Bobが生成したコマンド実行者のノードVSS&gt; --block-vss=&lt;Carolが生成したのコマンド実行者のノードVSS&gt; \
+  --aggregated-public-key=&lt;集約公開鍵&gt; \
+  --node-secret-share=&lt;コマンド実行者のノードの秘密シェア&gt; \
+  --threshold=&lt;閾値&gt;
+</code></pre></div></div>
+
+<h4 id="compute-sig-output">出力</h4>
+<p>コマンドを実行すると集約署名が付与されたgenesisブロックが出力されます。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;署名付きgenesisブロック&gt;
+</code></pre></div></div>
+
+<h5 id="compute-sig-example">入出力例</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup computesig \
+  --sig=45e89b81b0268c7c82be4b84fdeaee224de5122cc5ecb7aaffadd8953de3fabca3a2a3dba83b87bba16320e51701df85787a82555912017aeff71eb3a651d4330244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342 \
+  --sig=3dd264f0ccd98e1cc57a47da38e187e4b82a16944a7395717e9a276f577715eea3a2a3dba83b87bba16320e51701df85787a82555912017aeff71eb3a651d43302a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed48 \
+  --sig=35bc2e5fe98c8fbd0836442f73d821a7226f1afbcefa7337fd867649710a3120a3a2a3dba83b87bba16320e51701df85787a82555912017aeff71eb3a651d4330344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f9868 \
+  --private-key=L3CUPgEmeHP1uMGC6q4cpuwpZvRCVWR3NegG3cE4ZBy9EY4osWCX \
+  --block=010000000000000000000000000000000000000000000000000000000000000000000000c30fc7bfabe904aecc6db258736b0f52150a43aa3b09bf27fdcb12677684003013c741355a4217988fca4948326a9e737c9899eb7958f3081c1f8e40b18db4c18046d762012102b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb90001010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000001976a914a02d5bb5a1be6b923adf53d079b6e9ede53e4ef988ac00000000 \
+  --block-vss=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b4434200020d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c75488b74a2edda67467e32b5d84aed833ae9323065079e342808d49b8ba63f453a11c2d69a540d0da7abe7e4c736343d7b70332266d2f815a8fb66b58b9dd472b3d4a93ac4841e15dd05d9ba5cd3cdea9c9fd733d8bd6eb494a23fd4ececefecbe1c6a9440cfe2fac0a445701e4fd99ae597b8f5445d1497237f6ddcb1d7c462ff30d6902381257c8395090c0dd2df2269ecc472627fb99672dd5f838f67526c7547748b5d122598b981cd4a27b5127cc516cdcf9af861cbd7f72b647449c0ba88ec3d00453ff72bbf15d1e6cfa1b92e574b1e62ec224c3179592ed531a6f9f9d4e4ce69d212f4f05f36af093ae4ab5bd382ce3725f5e1885160256341b49cefb5a68ff2eaa02cc098ee2c01aa7ddbaa28a9ab79af6684fc33b5499e7c81ada5503 \
+  --block-vss=0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f98680244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420002a9c569b4e8e08bbcebf36cd741c7131a9d7a7d1290cd8e1bf1ac0704931f8362490f66310dbe0ceb43b73a973d0d26be975b729d79733cd152fef4ae7ef247a995e8ebe4766775fc651e7b540dda5350447c490b6126574ec5f4b81ddb99801b06c01ffb9f3d3a164ebf718c197e2713d35195ef20b01d24f83634e3ef498d098e8acb1e2377f3301252ed45e22735ad6be12bae18c00f7ed693007f9c71627aa9c569b4e8e08bbcebf36cd741c7131a9d7a7d1290cd8e1bf1ac0704931f8362b6f099cef241f314bc48c568c2f2d94168a48d62868cc32ead010b50810db486bb282a91c688b5d03ff748ba8f399e008713b7d2c000ea8529e36f09a38054855150646a9b561cbcd81ec1aab1a1e753d7d031dfac7511143371da93cbe0999d5f13091e1490e08f757bd7ad5ecaf05fcd0bc72b69d5f92348ee71b4c15110e2 \
+  --block-vss=02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed480244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420002118d674f5a238a9481b3d755db4d81b608e5cca2705c802053c509f19eb48ee25f40122e1427f3e102b9a2e425939452100c69847efe20120b9a1914c7a4a2573571818ff838721f66308ca9d9b91949dd33cdd663de3ebbf0580bee641b50184a5fb9a73f081a8da9568542186b8b6201715edbac23fedab1500f0ea1be8eab006668c13e041fe2dfcd2f7e231d76b7e93a8314a8272df28ce7507f4f45177c118d674f5a238a9481b3d755db4d81b608e5cca2705c802053c509f19eb48ee2a0bfedd1ebd80c1efd465d1bda6c6badeff3967b8101dfedf465e6ea385b59d80b078bc1ada92e254eb23834320f0af5259392567443184ad9725084d04cb480d97e0cdfaae77f847af6b347249aee51e1bbe2dffb3d281d1062508404d4ab1eb4149dceeb2e11c4b43caa6e4e693272c99e3ab17e8b58f3f306d77f13fbc33b \
+  --node-vss=0244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342000244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa444b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342ae46a2f969561b55c6c1f9d0b5cd5a22f3cf10b7e58c367a0ed7fd4639d036c2f31e34dad1e7976521a5f34ca3801c4f6f12ed28d91fb0f8b89e70a1bd1449e560b5883b8e1c16b9451973cf9ee0ea5ab5f658071c7a51e3b817ca432aa30f44aa5056922ebd35e57ee6d22c9d8354b3d2258b1d4128d31db7a652720782faa4 \
+  --node-vss=0344e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f98680244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b44342000244e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f986899837470106ef438ac15958551e05837fa58edb0e692b2268158a0ff2185298d4983fb2a9d6071b542364dad99ea3a20eb30b1d3b463455575e2d47201129fad24f6acfd5f54a3afa7325619b7c23b3e175b28c970e6ed47a3c6cfd21adf9ef3033c01a45d5c5e2026029ac6b657f780a8a46c7dea500f18880da04be5e6773544e060779264b530897dadd8f8190b0b4ae09d640ecfeaf60105145c7f7f986899837470106ef438ac15958551e05837fa58edb0e692b2268158a0ff2185298d4983fb2a9d6071b542364dad99ea3a20eb30b1d3b463455575e2d47201129fad24f6acfd5f54a3afa7325619b7c23b3e175b28c970e6ed47a3c6cfd21adf9ef3033c01a45d5c5e2026029ac6b657f780a8a46c7dea500f18880da04be5e67735 \
+  --node-vss=02a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed480244b1830ed3be7faa697b57accdadc41f0367b46f3e6b8c323777cba737b443420002a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed4808733c8356963207a0dc3ba176d7e20ed69487908f119a3e4fcb662356a0373ea3655037dce5642b4c34ebb281e877151b5bc81abab140f8eab5f22e6db227752e820837f845852a46c37488a32c41e182be703d237001e501212466962efc8eab2ad5c93ff7b9aedda864170d42c71eab34299750c1f2c19348cf876f680429a274ba5e6da6a5bea692754f32c9cf184392daaba66d3bbec421fbceef25ed4808733c8356963207a0dc3ba176d7e20ed69487908f119a3e4fcb662356a0373ea3655037dce5642b4c34ebb281e877151b5bc81abab140f8eab5f22e6db227752e820837f845852a46c37488a32c41e182be703d237001e501212466962efc8eab2ad5c93ff7b9aedda864170d42c71eab34299750c1f2c19348cf876f680429 \
+  --aggregated-public-key=02b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9 \
+  --node-secret-share=58b72dffcc114db48291d10a611e13546b4f444bccf234bc132a63b88c9b34c1 \
+  --threshold=2
+&gt; 010000000000000000000000000000000000000000000000000000000000000000000000c30fc7bfabe904aecc6db258736b0f52150a43aa3b09bf27fdcb12677684003013c741355a4217988fca4948326a9e737c9899eb7958f3081c1f8e40b18db4c18046d762012102b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9405737a9e12ccff7b4810195837295481b93a5ef6bd7dd50d36843ae3c0e77f6cb4dfed21293738adc40024f2fc2f4545fe3a00dc54165d9e480c189bb2450df8a01010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000001976a914a02d5bb5a1be6b923adf53d079b6e9ede53e4ef988ac00000000
+</code></pre></div></div>
+
+<h2 id="generate-genesis-networkid">Step9. genesisブロックファイルの作成</h2>
+<p>genesisブロックファイルの作成を行います。
+新しく作成するTapyrus NetworkのネットワークIDを決めます。<br />
+networkidはすでに使用されているネットワークID以外の数値であれば自由に設定可能です。
+<code class="language-plaintext highlighter-rouge">genesis.&lt;ネットワークID&gt;</code>という名前のファイルを作成し、<a href="#compute-sig">Step8</a>で生成した集約署名が付与されたgenesisブロックを保存します。</p>
+
+<p>以上でSignerノードのセットアップは完了です。
+次に <a href="setup_custom_network.md">Tapyrus Custom Network構築方法</a>を元にカスタムネットワークの構築を行います。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
