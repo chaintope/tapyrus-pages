@@ -1,0 +1,651 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Colerd Coin発行・転送・焼却ガイド - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="Colerd Coin発行・転送・焼却ガイド">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/guide/colored-coin">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/guide/colored-coin">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Colerd Coin発行・転送・焼却ガイド">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Colerd Coin発行・転送・焼却ガイド
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>この記事ではTapyrus上でColerd Coinを発行し、転送、焼却を行なう方法について解説します。
+公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/colored_coin_ja.md" target="_blank">こちら</a>です。</p>
+
+<h2 id="仕様概要">仕様概要</h2>
+<p>TapyrusにおいてColored Coinは、Bitcoin Scriptを拡張し、<code class="language-plaintext highlighter-rouge">OP_COLOR</code>opcodeを実装したことにより実現されています。
+スクリプト内に<code class="language-plaintext highlighter-rouge">OP_COLOR</code>opcodeが現れると、スタックの一番上の要素がCOLOR識別子として使われます。後述するルールに従ったCOLOR識別子を持つことにより以下の三種類のトークンが発行可能です。</p>
+<ul>
+  <li>再発行可能なトークン</li>
+  <li>再発行不可能なトークン</li>
+  <li>NFT</li>
+</ul>
+
+<p>既存のP2PKHとP2SHをカラーリングした以下のタイプのscriptPubkeyをサポートしています。</p>
+
+<p>CP2PKH(Colored P2PKH)：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;COLOR識別子&gt; OP_COLOR OP_DUP OP_HASH160 &lt;公開鍵のハッシュ値&gt; OP_EQUALVERIFY OP_CHECKSIG
+</code></pre></div></div>
+
+<p>CP2SH(Colored P2SH)：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;COLOR識別子&gt; OP_COLOR OP_HASH160 &lt;H(redeem script)&gt; OP_EQUAL
+</code></pre></div></div>
+
+<h3 id="color識別子">COLOR識別子</h3>
+<p>COLOR識別子は1バイトのTYPEと、32バイトのPAYLOADで構成されます。
+COLOR識別子が現在サポートするタイプと、対応するペイロードは以下の通りです。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>TYPE</th>
+      <th>定義</th>
+      <th>PAYLOAD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0xC1</td>
+      <td>再発行可能なトークン</td>
+      <td>発行インプットのscriptPubkeyのSHA256値である32バイトのデータ</td>
+    </tr>
+    <tr>
+      <td>0xC2</td>
+      <td>再発行不可能なトークン</td>
+      <td>発行インプットのOutPointのSHA256値である32バイトのデータ</td>
+    </tr>
+    <tr>
+      <td>0xC3</td>
+      <td>NFT</td>
+      <td>発行インプットのOutPointのSHA256値である32バイトのデータ</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="トークンの発行">トークンの発行</h3>
+<p>UTXO から上記のルールをベースに COLOR 識別子を導出し、CP2PKH、CP2SHなどのスクリプトをセットしたトランザクション作成し、公開します。</p>
+
+<h3 id="トークンの送付">トークンの送付</h3>
+<p>トークンを持つUTXOをインプットにしたトランザクションを作成し、 送金先のアドレスに対して、インプットのトークンと同じCOLOR識別子と<code class="language-plaintext highlighter-rouge">OP_COLOR</code>opcodeを付与したアウトプットを追加します。</p>
+
+<h3 id="トークンの焼却">トークンの焼却</h3>
+<p>焼却するトークンを持つUTXOと手数料用のTPCを持つUTXOをインプットにしたトランザクションを作成し、 手数料を差し引いたTPCのお釣りを受け取るアウトプットを追加します。</p>
+
+<p>また、上記３つのトークン処理を１つのトランザクションを組み合わせることも可能です。</p>
+
+<p>各組み合わせおよび有効/無効のパターンについては、<a href="https://docs.google.com/spreadsheets/d/1hYEe5YVz5NiMzBD2cTYLWdOEPVUkTmVIRp8ytypdr2g/">こちら</a>の資料に掲載されています。</p>
+
+<h2 id="コマンド概要">コマンド概要</h2>
+<p>ここからは実際にTapyrusを用いて、Colerd Coinを発行し、転送、焼却を行なう方法について解説します。</p>
+
+<h2 id="前提">前提</h2>
+<p>本記事ではTapyrusノードの環境構築方法については解説しません。
+環境構築方法については、以下の記事を参照してください。</p>
+<ul>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/osx">Tapyrus Coreノード構築方法（macOS版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/ubuntu">Tapyrus Coreノード構築方法（Ubuntu版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/docker">Tapyrus Coreノード構築方法（Docker版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/dev-docker">Tapyrus Coreノード devモード起動方法（Docker版）</a></li>
+  <li><a href="https://site.tapyrus.chaintope.com/setup/dev-local">Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）</a></li>
+</ul>
+
+<h2 id="準備">準備</h2>
+<p>walletを作成し、TPCの受け取りを行なうアドレスを生成します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli createwallet test
+$ tapyrus-cli -rpcwallet=test getnewaddress
+&lt;アドレス&gt;
+</code></pre></div></div>
+
+<p>以降のコマンド実行時には、使用するウォレットを明示する<code class="language-plaintext highlighter-rouge">-rpcwallet=test</code>オプションを指定します。
+本記事ではTPCの受け取り方法については解説しません。ネットワークに応じた方法で、TPCの受け取りを行っておください。</p>
+
+<h2 id="発行">発行</h2>
+
+<p>トークンの発行には<code class="language-plaintext highlighter-rouge">issuetoken</code>コマンドを用います。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli issuetoken &lt;トークンタイプ&gt; &lt;トークン発行量&gt; &lt;transaction id/scriptpubkey&gt; &lt;index&gt; 
+</code></pre></div></div>
+
+<ul>
+  <li>“トークンタイプ”(数値, <strong>必須</strong>): 以下のトークンの種類に応じた数値を入力することで、発行するトークンの種類を指定します。
+    <ul>
+      <li>1: 再発行可能なトークン</li>
+      <li>2: 再発行不可能なトークン</li>
+      <li>3: NFT</li>
+    </ul>
+  </li>
+  <li>“トークン発行量”(数値, <strong>必須</strong>): 発行するトークンの量。</li>
+  <li>“scriptpubkey/transaction id”(文字列, 任意): 発行するトークンの種類によって引数に指定する値が異なります。任意の引数ですがトークンの種類にしたがって、以下のどちらかを必ず指定する必要があります。
+    <ul>
+      <li>“scriptpubkey”:  再発行可能なトークン</li>
+      <li>“transaction id”: 再発行不可能なトークン/NFT</li>
+    </ul>
+  </li>
+  <li>“index”(数値, 任意): トランザクションのアウトプットのindex。再発行不可能なトークン/NFTの場合必ず指定する必要があります。</li>
+</ul>
+
+<h3 id="再発行可能なトークン">再発行可能なトークン</h3>
+<p>再発行可能トークンには<code class="language-plaintext highlighter-rouge">scriptPubKey</code>を取得する必要があります。
+<code class="language-plaintext highlighter-rouge">getaddressinfo</code>コマンドを用いて引数に先程生成したアドレスを指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli getaddressinfo &lt;アドレス&gt;
+</code></pre></div></div>
+
+<h5 id="入力例">入力例</h5>
+<p><code class="language-plaintext highlighter-rouge">getaddressinfo</code>コマンドを実行し、出力されたJSONオブジェクトの<code class="language-plaintext highlighter-rouge">scriptPubKey</code>項目を控えておきます。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">getaddressinfo</span> <span class="nx">mhSs9ykDVWbPvUw12iG3KspEYbWaBLB54y</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">mhSs9ykDVWbPvUw12iG3KspEYbWaBLB54y</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">76a914152a4c370331b0409a065cd40654bb9250af36a788ac</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">ismine</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">iswatchonly</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">isscript</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">istoken</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">pubkey</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">03fb35352aadde959f80299e2cd4a2770fbcdd8b8b5315eedb4b8937d58b7f3873</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">iscompressed</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">label</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">timestamp</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1659570172</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">hdkeypath</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">m/0'/0'/0'</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">hdseedid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">16d50d225a9e7446d0765b870c459b5d03e6cd9c</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">hdmasterkeyid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">16d50d225a9e7446d0765b870c459b5d03e6cd9c</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">labels</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">purpose</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">receive</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">issuetoken</code>コマンドを用いて再発行可能なトークンを発行します。
+<code class="language-plaintext highlighter-rouge">トークンタイプ</code>には<code class="language-plaintext highlighter-rouge">1</code>を指定し、任意の<code class="language-plaintext highlighter-rouge">トークン発行量</code>を指定します。次に先程控えた<code class="language-plaintext highlighter-rouge">scriptPubKey</code>指定します。<code class="language-plaintext highlighter-rouge">index</code>引数は指定しません。
+実行するとJSON形式のオブジェクトが出力されます。<code class="language-plaintext highlighter-rouge">color</code>プロパティがCOLOR識別子で、<code class="language-plaintext highlighter-rouge">txids</code>配列に表示されるのがカラードコインの発行トランザクションとお釣りトラザクションの<code class="language-plaintext highlighter-rouge">txid</code>です。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">issuetoken</span> <span class="mi">1</span> <span class="mi">100</span> <span class="mi">76</span><span class="nx">a914152a4c370331b0409a065cd40654bb9250af36a788ac</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">txids</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">4cc4699206fd0f0e2966663a7981d22b182933691fb1b1d9e6e0ffe68462effc</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">875a6a0c18e7ac566a9db0173718406440440ff9f0dd6d4f031c2ac1aba72285</span><span class="dl">"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="再発行不可能なトークンnon-reissuable-token">再発行不可能なトークン(NON-REISSUABLE Token)</h3>
+<p>トークンの発行に使用する未使用のトランザクション情報の確認に<code class="language-plaintext highlighter-rouge">listunspent</code>コマンドを用います。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">listunspent</span>
+<span class="p">[</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">986db9c02763f5bf266eee0325610d0d245102d7be461ddc7ed21ddd2eb7a2f0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">mma9LALzWZTapAMxB9gN1CDCbNhJxuCwQr</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">amount</span><span class="dl">"</span><span class="p">:</span> <span class="mf">50.00000000</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">label</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">76a914426b371b81a6da4b5ee616de7f7328b36fb813ec88ac</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">confirmations</span><span class="dl">"</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">spendable</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">solvable</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">safe</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">txid</code>に表示されている値と<code class="language-plaintext highlighter-rouge">vout</code>に表示されている値を指定します。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">issuetoken</span> <span class="mi">2</span> <span class="mi">1000</span> <span class="mi">986</span><span class="nx">db9c02763f5bf266eee0325610d0d245102d7be461ddc7ed21ddd2eb7a2f0</span> <span class="mi">0</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c25f652da6dd59ea3fe064fc32c2a8299d0decd30a5a176bae1922a4cce1f5ac93</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">82ef88fbbc7009d5ec8f60a488643c8843e75c3cea5e19a6b9598867689908b7</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="nftnon-fungible-token">NFT(NON-FUNGIBLE token)</h3>
+<p>NFTでは<code class="language-plaintext highlighter-rouge">トークン発行量</code>は<code class="language-plaintext highlighter-rouge">1</code>を指定しなければいけません。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">issuetoken</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">1769</span><span class="nx">ee16bcaf7a09bb26dace6e87cc491d05fe8c7049fb2c7a03375b424265cd</span> <span class="mi">0</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c3e580f95dc615babb8d12da873e941b1f78dd474390fd3635856475cae8db07e0</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">f3ba60ade2fff547de546bc74121ccd9b2f60b44ac538297a6b552683fe6d8cc</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="詳細確認">詳細確認</h2>
+<p>発行したトークンを確認します。
+<code class="language-plaintext highlighter-rouge">listunspent</code>を実行し、<code class="language-plaintext highlighter-rouge">token</code>プロパティに<code class="language-plaintext highlighter-rouge">TPC</code>ではなく、COLOR識別子が表示されているオブジェクトがトークンの情報です。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">listunspent</span>
+<span class="p">[</span>
+    <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c1121dd7b1903e06d064d878a217360fa56242032af372e6b62b00d36367682b</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">address</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2oLLFe3GXLW3nNGJZyJFJhfopsWT93SpnRkiA4cVHniVekbDeT6ntBMZhjCCcWFuHsmPptnCCqgs1E23</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c165120022f13a32940ace3dfebd4fef9843e3e7888445ae93374b5625a06e56f2</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">amount</span><span class="dl">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">label</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">21c165120022f13a32940ace3dfebd4fef9843e3e7888445ae93374b5625a06e56f2bca914ef9aed45043c3956181d82511c9bb63a26c5d28187</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">confirmations</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">spendable</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">solvable</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">safe</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>コマンドの所有量確認には<code class="language-plaintext highlighter-rouge">getbalance</code>コマンドを用います。
+引数に<code class="language-plaintext highlighter-rouge">false</code>とCOLOR識別子を指定し、実行すると指定したトークンの所有量が表示されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test getbalance false c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720
+100
+</code></pre></div></div>
+
+<p>COLOR識別子だけを取得したい場合、<code class="language-plaintext highlighter-rouge">getcolor</code>コマンドを用います。
+<code class="language-plaintext highlighter-rouge">トークンタイプ</code>、<code class="language-plaintext highlighter-rouge">transaction id/scriptpubkey</code>、<code class="language-plaintext highlighter-rouge">index</code>を引数に指定し実行すると、COLOR識別子が出力されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli getcolor &lt;トークンタイプ&gt;  &lt;transaction id/scriptpubkey&gt; &lt;index&gt; 
+</code></pre></div></div>
+
+<h5 id="入出力例">入出力例</h5>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test getcolor 3 fc57e9162eb049cc343d734860026300fb68488b4e3b157cc083526255736770 0
+c3ba0a3d75ab880bf7458623859a6ca5cbc61947eba06042331b03da6b8114cc28
+</code></pre></div></div>
+
+<h2 id="転送">転送</h2>
+<p>COLOR識別子に対応したアドレスを生成する必要があります。
+COLOR識別子を引数に、<code class="language-plaintext highlighter-rouge">getrawchangeaddress</code>コマンドを実行します。
+実行すると通常のアドレスよりも長いCOLOR識別子に対応したアドレスが出力されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test getrawchangeaddress c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720
+22VKiyVLbGxG1cC5xhBh79awwAJoAPnM8LNVnBSK9SJvsgEM1aAPCQSn35w2mVvFf8PmzEa3uVWgKwpY
+</code></pre></div></div>
+
+<p>トークンの転送は<code class="language-plaintext highlighter-rouge">transfertoken</code>コマンドを用います。
+引数に<code class="language-plaintext highlighter-rouge">転送先のCOLOR識別子に対応したアドレス</code>と<code class="language-plaintext highlighter-rouge">転送するトークンの量</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli transfertoken &lt;COLOR識別子に対応したアドレス&gt; &lt;トークン転送量&gt;
+</code></pre></div></div>
+
+<h5 id="入出力例-1">入出力例</h5>
+<p>コマンドを実行すると<code class="language-plaintext highlighter-rouge">transaction id</code>が出力されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test transfertoken 22VKiyVLbGxG1cC5xhBh79awwAJoAPnM8LNVnBSK9SJvsgEM1aAPCQSn35w2mVvFf8PmzEa3uVWgKwpY 10
+9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e
+</code></pre></div></div>
+
+<pre><code class="language-Javascript">$ tapyrus-cli -rpcwallet=test getrawtransaction 9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e true
+{
+  "txid": "9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e",
+  "hash": "baf9bd2857d208697099dd0e1a53cced6374e4e899072b93b2d0b675232f367c",
+  "features": 1,
+  "size": 225,
+  "locktime": 13,
+  "vin": [
+    {
+      "txid": "f0b7521cd97fab5ad32aa9890e199f50cb9bb632c536dd26cc1dcb0640c23517",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "3044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb[ALL] 036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224",
+        "hex": "473044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb0121036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224"
+      },
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "token": "TPC",
+      "value": 10.00000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 4ea4cd4b223d847df2520adb5d82db5880bd68dc OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a9144ea4cd4b223d847df2520adb5d82db5880bd68dc88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mngnReyGQygcMKqxZ7Dxaz8GsAtp1uaiFZ"
+        ]
+      }
+    },
+    {
+      "token": "TPC",
+      "value": 39.99965840,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 7a62af89f484a79c22dd8e89fd059d0fe7b9b947 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a9147a62af89f484a79c22dd8e89fd059d0fe7b9b94788ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mrg4xG2XYmHv6HznaESXsZHtfgPZq8WaTa"
+        ]
+      }
+    }
+  ],
+  "hex": "01000000011735c24006cb1dcc26dd36c532b69bcb509f190e89a92ad35aab7fd91c52b7f0010000006a473044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb0121036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224feffffff0200ca9a3b000000001976a9144ea4cd4b223d847df2520adb5d82db5880bd68dc88ac90a26aee000000001976a9147a62af89f484a79c22dd8e89fd059d0fe7b9b94788ac0d000000",
+  "blockhash": "9ee26cf50986361fa713dee4ad0a9fff2503814b3e659eddfd3a783ae3f742e3",
+  "confirmations": 3,
+  "time": 1659661981,
+  "blocktime": 1659661981
+}
+</code></pre>
+
+<h2 id="焼却">焼却</h2>
+<p>トークンの焼却には<code class="language-plaintext highlighter-rouge">burntoken</code>コマンドを用います。
+引数には焼却するトークンの<code class="language-plaintext highlighter-rouge">COLOR識別子</code>と<code class="language-plaintext highlighter-rouge">焼却量</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli burntoken &lt;COLOR識別子&gt; &lt;焼却量&gt;
+</code></pre></div></div>
+
+<h5 id="入出力例-2">入出力例</h5>
+<p>コマンドを実行すると<code class="language-plaintext highlighter-rouge">transaction id</code>が出力されます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test burntoken c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720 10
+f9784313ce52f6ee0bde2d1b18cd6687ef1c88e4fae06d805a1b244a5a6cb631
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">getrawtransaction</code>コマンドでトランザクションの詳細が確認できます。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">getrawtransaction</span> <span class="nx">f9784313ce52f6ee0bde2d1b18cd6687ef1c88e4fae06d805a1b244a5a6cb631</span> <span class="kc">true</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">f9784313ce52f6ee0bde2d1b18cd6687ef1c88e4fae06d805a1b244a5a6cb631</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">hash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">3780762b18abc0e213920711b8be702138b2c06e2564d8e9304f4a65c429b20b</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">features</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">327</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">locktime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">vin</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptSig</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">304402202e622eb6cb42108ab20ed5f53ca71d8ece4b6b6233a63bad339b975181ad943a0220706640d4282bec18ed065074d0742fa5a299c3c63d5d853efddb482334d6d9e8[ALL] 0285ec8aa4b0b9410fa87d4eb7d3273690011a315500c4549327800357d9f81309</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">47304402202e622eb6cb42108ab20ed5f53ca71d8ece4b6b6233a63bad339b975181ad943a0220706640d4282bec18ed065074d0742fa5a299c3c63d5d853efddb482334d6d9e801210285ec8aa4b0b9410fa87d4eb7d3273690011a315500c4549327800357d9f81309</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">sequence</span><span class="dl">"</span><span class="p">:</span> <span class="mi">4294967294</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">875a6a0c18e7ac566a9db0173718406440440ff9f0dd6d4f031c2ac1aba72285</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptSig</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">76a9145266eb758353619fe3d58c2fdbde91c75073653588ac</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1976a9145266eb758353619fe3d58c2fdbde91c75073653588ac</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">sequence</span><span class="dl">"</span><span class="p">:</span> <span class="mi">4294967294</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">n</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720 OP_COLOR OP_DUP OP_HASH160 29817222b1f04bd02e82043042e14b60adc5b37f OP_EQUALVERIFY OP_CHECKSIG</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">21c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720bc76a91429817222b1f04bd02e82043042e14b60adc5b37f88ac</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">reqSigs</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">coloredpubkeyhash</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">addresses</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">"</span><span class="s2">22VKiyVLbGxG1cC5xhBh79awwAJoAPnM8LNVnBSK9SJvsgE1yvrpspfMMPoatKV7jc7Nd4eT5ZwmyHQY</span><span class="dl">"</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="mf">9.99993460</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">n</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OP_DUP OP_HASH160 29817222b1f04bd02e82043042e14b60adc5b37f OP_EQUALVERIFY OP_CHECKSIG</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">76a91429817222b1f04bd02e82043042e14b60adc5b37f88ac</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">reqSigs</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pubkeyhash</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">addresses</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">"</span><span class="s2">mjJR4ySFZSj2Bg5PUshiDWEkffaTS9VeEx</span><span class="dl">"</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">01000000024ea2bc530da76b996950e291194d8122273ffefc77424de330ba0b0984f31697000000006a47304402202e622eb6cb42108ab20ed5f53ca71d8ece4b6b6233a63bad339b975181ad943a0220706640d4282bec18ed065074d0742fa5a299c3c63d5d853efddb482334d6d9e801210285ec8aa4b0b9410fa87d4eb7d3273690011a315500c4549327800357d9f81309feffffff8522a7abc12a1c034f6dddf0f90f44406440183717b09d6a56ace7180c6a5a87000000001a1976a9145266eb758353619fe3d58c2fdbde91c75073653588acfeffffff025a000000000000003c21c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720bc76a91429817222b1f04bd02e82043042e14b60adc5b37f88ac74b09a3b000000001976a91429817222b1f04bd02e82043042e14b60adc5b37f88ac0f000000</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="再発行">再発行</h2>
+<p>再発行可能なトークンの再発行方法について解説します。
+<code class="language-plaintext highlighter-rouge">reissuetoken</code>コマンドを用います。引数に<code class="language-plaintext highlighter-rouge">再発行可能なトークンのCOLOR識別子</code>と<code class="language-plaintext highlighter-rouge">再発行するトークンの数</code>を指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli reissuetoken &lt;再発行可能なトークンのCOLOR識別子&gt; &lt;再発行数&gt;
+</code></pre></div></div>
+
+<h5 id="入出力例-3">入出力例</h5>
+<p>再発行可能なトークンの<code class="language-plaintext highlighter-rouge">issuetoken</code>コマンド実行時と同様のJSON形式のオブジェクトが出力されます。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">reissuetoken</span> <span class="nx">c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720</span> <span class="mi">50</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">txids</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">58ac30f98618ba16911fd2e5d42fb3eb0696db048446e196fc083639c886e867</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">31a0622546efa94e82acd59eb847c00c8a8cfa114fa320a9ae74ba687d5f95bf</span><span class="dl">"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
