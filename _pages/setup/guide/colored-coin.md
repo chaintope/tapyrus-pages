@@ -381,9 +381,9 @@ $ tapyrus-cli -rpcwallet=test getrawtransaction f9784313ce52f6ee0bde2d1b18cd6687
 
 ## 再発行
 再発行可能なトークンの再発行方法について解説します。
-`reissuetoken`コマンドを用います。引数に`再発行可能なトークンのCOLOR識別子`と`再発行するトークンの数`を指定します。
+`reissuetoken`コマンドを用います。引数に`再発行可能なトークンのCOLOR識別子`と`再発行するトークンの量`を指定します。
 ```
-tapyrus-cli reissuetoken <再発行可能なトークンのCOLOR識別子> <再発行数>
+tapyrus-cli reissuetoken <再発行可能なトークンのCOLOR識別子> <再発行量>
 ```
 
 ##### 入出力例
