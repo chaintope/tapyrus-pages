@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Colerd Coin発行・転送・焼却ガイド - Tapyrus Guide</title>
+<!-- begin _includes/seo.html --><title>Colored Coin発行・転送・焼却ガイド - Tapyrus Guide</title>
 <meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
 
 
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja">
 <meta property="og:site_name" content="Tapyrus Guide">
-<meta property="og:title" content="Colerd Coin発行・転送・焼却ガイド">
+<meta property="og:title" content="Colored Coin発行・転送・焼却ガイド">
 <meta property="og:url" content="https://site.tapyrus.chaintope.com/guide/colored-coin">
 
 
@@ -140,7 +140,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Colerd Coin発行・転送・焼却ガイド">
+    <meta itemprop="headline" content="Colored Coin発行・転送・焼却ガイド">
     
     
     
@@ -148,7 +148,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Colerd Coin発行・転送・焼却ガイド
+          <h1 id="page-title" class="page__title" itemprop="headline">Colored Coin発行・転送・焼却ガイド
 </h1>
           
 
@@ -158,7 +158,7 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>この記事ではTapyrus上でColerd Coinを発行し、転送、焼却を行なう方法について解説します。
+        <p>この記事ではTapyrus上でColored Coinを発行し、転送、焼却を行なう方法について解説します。
 公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/colored_coin_ja.md" target="_blank">こちら</a>です。</p>
 
 <h2 id="仕様概要">仕様概要</h2>
@@ -225,7 +225,7 @@ COLOR識別子が現在サポートするタイプと、対応するペイロー
 <p>各組み合わせおよび有効/無効のパターンについては、<a href="https://docs.google.com/spreadsheets/d/1hYEe5YVz5NiMzBD2cTYLWdOEPVUkTmVIRp8ytypdr2g/">こちら</a>の資料に掲載されています。</p>
 
 <h2 id="コマンド概要">コマンド概要</h2>
-<p>ここからは実際にTapyrusを用いて、Colerd Coinを発行し、転送、焼却を行なう方法について解説します。</p>
+<p>ここからは実際にTapyrusを用いて、Colored Coinを発行し、転送、焼却を行なう方法について解説します。</p>
 
 <h2 id="前提">前提</h2>
 <p>本記事ではTapyrusノードの環境構築方法については解説しません。
@@ -411,61 +411,61 @@ COLOR識別子を引数に、<code class="language-plaintext highlighter-rouge">
 9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e
 </code></pre></div></div>
 
-<pre><code class="language-Javascript">$ tapyrus-cli -rpcwallet=test getrawtransaction 9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e true
-{
-  "txid": "9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e",
-  "hash": "baf9bd2857d208697099dd0e1a53cced6374e4e899072b93b2d0b675232f367c",
-  "features": 1,
-  "size": 225,
-  "locktime": 13,
-  "vin": [
-    {
-      "txid": "f0b7521cd97fab5ad32aa9890e199f50cb9bb632c536dd26cc1dcb0640c23517",
-      "vout": 1,
-      "scriptSig": {
-        "asm": "3044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb[ALL] 036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224",
-        "hex": "473044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb0121036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224"
-      },
-      "sequence": 4294967294
-    }
-  ],
-  "vout": [
-    {
-      "token": "TPC",
-      "value": 10.00000000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 4ea4cd4b223d847df2520adb5d82db5880bd68dc OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a9144ea4cd4b223d847df2520adb5d82db5880bd68dc88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "mngnReyGQygcMKqxZ7Dxaz8GsAtp1uaiFZ"
-        ]
-      }
-    },
-    {
-      "token": "TPC",
-      "value": 39.99965840,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 7a62af89f484a79c22dd8e89fd059d0fe7b9b947 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a9147a62af89f484a79c22dd8e89fd059d0fe7b9b94788ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "mrg4xG2XYmHv6HznaESXsZHtfgPZq8WaTa"
-        ]
-      }
-    }
-  ],
-  "hex": "01000000011735c24006cb1dcc26dd36c532b69bcb509f190e89a92ad35aab7fd91c52b7f0010000006a473044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb0121036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224feffffff0200ca9a3b000000001976a9144ea4cd4b223d847df2520adb5d82db5880bd68dc88ac90a26aee000000001976a9147a62af89f484a79c22dd8e89fd059d0fe7b9b94788ac0d000000",
-  "blockhash": "9ee26cf50986361fa713dee4ad0a9fff2503814b3e659eddfd3a783ae3f742e3",
-  "confirmations": 3,
-  "time": 1659661981,
-  "blocktime": 1659661981
-}
-</code></pre>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">getrawtransaction</span> <span class="mi">9716</span><span class="nx">f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e</span> <span class="kc">true</span>
+<span class="p">{</span>
+  <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">hash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">baf9bd2857d208697099dd0e1a53cced6374e4e899072b93b2d0b675232f367c</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">features</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">225</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">locktime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">vin</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">txid</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">f0b7521cd97fab5ad32aa9890e199f50cb9bb632c536dd26cc1dcb0640c23517</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptSig</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">3044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb[ALL] 036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">473044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb0121036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">sequence</span><span class="dl">"</span><span class="p">:</span> <span class="mi">4294967294</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">vout</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="mf">10.00000000</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">n</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OP_DUP OP_HASH160 4ea4cd4b223d847df2520adb5d82db5880bd68dc OP_EQUALVERIFY OP_CHECKSIG</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">76a9144ea4cd4b223d847df2520adb5d82db5880bd68dc88ac</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">reqSigs</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pubkeyhash</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">addresses</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">"</span><span class="s2">mngnReyGQygcMKqxZ7Dxaz8GsAtp1uaiFZ</span><span class="dl">"</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">token</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">TPC</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">value</span><span class="dl">"</span><span class="p">:</span> <span class="mf">39.99965840</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">n</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">scriptPubKey</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">asm</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OP_DUP OP_HASH160 7a62af89f484a79c22dd8e89fd059d0fe7b9b947 OP_EQUALVERIFY OP_CHECKSIG</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">76a9147a62af89f484a79c22dd8e89fd059d0fe7b9b94788ac</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">reqSigs</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pubkeyhash</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">addresses</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">"</span><span class="s2">mrg4xG2XYmHv6HznaESXsZHtfgPZq8WaTa</span><span class="dl">"</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">hex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">01000000011735c24006cb1dcc26dd36c532b69bcb509f190e89a92ad35aab7fd91c52b7f0010000006a473044022030eb1b84969f5a915f662ff8295ac474414cb634b0328b861964e0ee29d60db502207106b0d80f62fca32e9d4f025037a45dd010a907796ab1da7be7dd6b25849bfb0121036dc26ec69ccbedc4549ab12bd89d1c49d4e6a5f2b9240ae7a81d76ac99480224feffffff0200ca9a3b000000001976a9144ea4cd4b223d847df2520adb5d82db5880bd68dc88ac90a26aee000000001976a9147a62af89f484a79c22dd8e89fd059d0fe7b9b94788ac0d000000</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9ee26cf50986361fa713dee4ad0a9fff2503814b3e659eddfd3a783ae3f742e3</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">confirmations</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">time</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1659661981</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">blocktime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1659661981</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h2 id="焼却">焼却</h2>
 <p>トークンの焼却には<code class="language-plaintext highlighter-rouge">burntoken</code>コマンドを用います。

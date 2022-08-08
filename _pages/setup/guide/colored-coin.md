@@ -1,10 +1,10 @@
 ---
 layout: single
 permalink: /guide/colored-coin
-title: "Colerd Coin発行・転送・焼却ガイド"
+title: "Colored Coin発行・転送・焼却ガイド"
 ---
 
-この記事ではTapyrus上でColerd Coinを発行し、転送、焼却を行なう方法について解説します。
+この記事ではTapyrus上でColored Coinを発行し、転送、焼却を行なう方法について解説します。
 公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/colored_coin_ja.md){:target="_blank"}です。  
 
 ## 仕様概要
@@ -51,7 +51,7 @@ UTXO から上記のルールをベースに COLOR 識別子を導出し、CP2PK
 
 
 ## コマンド概要
-ここからは実際にTapyrusを用いて、Colerd Coinを発行し、転送、焼却を行なう方法について解説します。
+ここからは実際にTapyrusを用いて、Colored Coinを発行し、転送、焼却を行なう方法について解説します。
 
 ## 前提
 本記事ではTapyrusノードの環境構築方法については解説しません。
@@ -245,7 +245,7 @@ $ tapyrus-cli -rpcwallet=test transfertoken 22VKiyVLbGxG1cC5xhBh79awwAJoAPnM8LNV
 ```
 
 
-```Javascript
+```javascript
 $ tapyrus-cli -rpcwallet=test getrawtransaction 9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e true
 {
   "txid": "9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e",
