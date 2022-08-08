@@ -162,7 +162,7 @@
 公式ドキュメントは<a href="https://github.com/chaintope/tapyrus-signer/blob/master/doc/setup.md" target="_blank">こちら</a>です。</p>
 
 <h2 id="assumption">前提</h2>
-<p>本記事で使用するTapyus Signerの<a href="https://github.com/chaintope/tapyrus-signer.git">参照実装</a>はrustで実装されているため、事前にrustの実行環境を準備してください。</p>
+<p>本記事で使用するTapyus Signerの<a href="https://github.com/chaintope/tapyrus-signer.git" target="_blank">参照実装</a>はrustで実装されているため、事前にrustの実行環境を準備してください。</p>
 
 <h2 id="signer-network-structure">Signer Networkの構成</h2>
 <p>本記事では3名のSignerノードによるSigner Networkの構築方法を解説します。
@@ -173,9 +173,9 @@
   <li>Carol</li>
 </ul>
 
-<p>Signerノードの数は、3名以上であり、かつ奇数であれば上限はありません。
+<p>Signerノードの数は、3名以上であれば上限はありません。
 また、本記事では閾値を2に設定します。
-ターミナルで3つのタブを開き、それぞれ</p>
+ターミナルで3つのタブを開き、それぞれのタブで各Signerノードのコマンドを実行します。</p>
 
 <h2 id="overall-flow">全体の流れ</h2>
 <ul>
@@ -190,21 +190,41 @@
   <li><a href="{#generate-genesis-networkid">Step9. genesis.networkidファイルの作成</a></li>
 </ul>
 
+<h2 id="install">Step1. インストール</h2>
+
+<h3 id="install-binary">(インストール方法1) ビルド済みのバイナリの利用</h3>
+<p>バイナリを用いたインストール方法を解説します。</p>
+
+<p><a href="https://github.com/chaintope/tapyrus-signer/releases" target="_blank">tapyrus-signerリポジトリのRelease</a>でバイナリを配布しています。<br />
+使用環境に応じたバイナリファイルをクリックし、ダウンロードします。
+<img src="/assets/images/tapyrus-signer-binary.png" alt="Tapyrus Signer Binary" />　　
+本記事執筆時点(2022年8月)で公開されている最新バーションが<a href="https://github.com/chaintope/tapyrus-signer/releases/tag/v0.4.0" target="_blank">v0.4.0</a>なため、以下のコマンドはx86_64のv0.4.0の圧縮ファイルを解凍する例です。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tar xzf tapyrus-signer-v0.4.0-x86_64-px-linux-gnu.tar.gz
+</code></pre></div></div>
+<p>解凍したあとのbin以下にパスを通してください。</p>
+
+<p>以上でインストールは完了です。<br />
+次に、<a href="#createkey">Step2. キーペアの作成</a>を実施してください。</p>
+
+<h3 id="install-source-code">(インストール方法2) ソースコードからのビルド</h3>
+
+<p>Githubに公開されている<a href="https://github.com/chaintope/tapyrus-signer" target="_blank">tapyrus-signer</a>のソースコードを用いたインストール方法を解説します。</p>
+
+<p>ソースコードをcloneし、ディレクトリを移動してビルドを実行します。その後、bin以下にパスを通します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/chaintope/tapyrus-signer.git
+$ cd tapyrus-signer
+$ cargo build --release\
+$ sudo cp target/release/tapyrus-setup /usr/bin/
+</code></pre></div></div>
+
+<p>次に、<a href="#createkey">Step2. キーペアの作成</a>を実施してください。</p>
+
 <h2 id="about-tapyrus-setup">tapyrus-setupについて</h2>
 <p>Signerのセットアップには、<code class="language-plaintext highlighter-rouge">tapyrus-setup</code>コマンドを実行します。
 tapyrus-setupでは、以下のような構成でコマンドを実行します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup [subcommands] &lt;options&gt;
 </code></pre></div></div>
 <p>tapyrus-setupの各コマンドの詳細は<code class="language-plaintext highlighter-rouge">tapyrus-setup -h</code>で確認できます。</p>
-
-<h2 id="install">Step1. インストール</h2>
-<p><a href="https://github.com/chaintope/tapyrus-signer">tapyrus-signer</a>をcloneし、ディレクトリを移動します。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/chaintope/tapyrus-signer.git
-$ cd tapyrus-signer
-$ cargo build --release\
-$ sudo cp target/release/tapyrus-setup /usr/bin/
-</code></pre></div></div>
 
 <h2 id="createkey">Step2. キーペアの作成</h2>
 <p>まずはsecp256k1楕円曲線に基づく秘密鍵、公開鍵のキーペアを作成します。
@@ -263,10 +283,10 @@ WIF形式の秘密鍵と公開鍵のHex値が出力されます。以下をAlice
 <p><a href="#createnodevss">Step3</a>で生成したノードVSSを元に集約公開鍵とノードの秘密シェアを生成します。</p>
 
 <h4 id="aggregate-input">入力</h4>
-<p><code class="language-plaintext highlighter-rouge">aggregate</code>コマンドを使用し、引数には<code class="language-plaintext highlighter-rouge">--vss</code>と<code class="language-plaintext highlighter-rouge">--private-key</code>を指定します。</p>
+<p>引数に<code class="language-plaintext highlighter-rouge">--vss</code>と<code class="language-plaintext highlighter-rouge">--private-key</code>を指定して<code class="language-plaintext highlighter-rouge">aggregate</code>コマンドを実行します。</p>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">--private-key</code>にはコマンドを実行するSignerノードの秘密鍵を指定します。</li>
-  <li><code class="language-plaintext highlighter-rouge">--vss</code>オプションに<a href="#createnodevss">Step3のノードVSSの生成</a>で<code class="language-plaintext highlighter-rouge">createnodevss</code>コマンドを実行し生成した、各ノードでコマンドを実行するSignerノードの秘密鍵と対応する公開鍵とセットで出力されたノードVSSをそれぞれ指定します。
+  <li><code class="language-plaintext highlighter-rouge">--vss</code>オプションに<a href="#createnodevss">Step3のノードVSSの生成</a>で生成した、各SignerノードのノードVSSをそれぞれ指定します。
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-setup aggregate \
 --vss=&lt;Aliceが生成したコマンド実行者のノードVSS&gt; --vss=&lt;Bobが生成したコマンド実行者のノードVSS&gt; --vss=&lt;Carolが生成したコマンド実行者のノードVSS&gt; \
 --private-key=&lt;コマンド実行者の秘密鍵&gt;
@@ -293,11 +313,14 @@ WIF形式の秘密鍵と公開鍵のHex値が出力されます。以下をAlice
 </code></pre></div></div>
 
 <h2 id="generate-genesis-block">Step5. genesisブロックの生成</h2>
-<p>genesisブロックの生成を行ないます。<br />
-genesisブロックの生成には<a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>をインストールする必要があります。(ビルドする必要はありません)
-genesisブロックの生成には<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを用います。</p>
+<p>genesisブロックの生成を行います。<br />
+genesisブロックの生成には<a href="https://github.com/chaintope/tapyrus-core" target="_blank">tapyrus-core</a>の<code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドを使用します。
+以下のようなオプションが指定可能です。</p>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">-signblockpubkey</code>オプションに<a href="#aggregate">Step4</a>で生成した集約公開鍵を指定します。
+  <li><code class="language-plaintext highlighter-rouge">-signblockpubkey</code>(文字列, <strong>必須</strong>): <a href="#aggregate">Step4</a>で生成した集約公開鍵を指定します。</li>
+  <li><code class="language-plaintext highlighter-rouge">-address</code>(文字列, 任意): ブロック報酬を受け取るアドレスを指定することができます。</li>
+  <li><code class="language-plaintext highlighter-rouge">-time</code>(数値, 任意): genesisブロックのUNIX時間を設定できます。指定しない場合、現在時刻が設定されます。
+今回は<code class="language-plaintext highlighter-rouge">-signblockpubkey</code>のみを指定します。
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-genesis -signblockpubkey=&lt;集約公開鍵&gt;
 </code></pre></div>    </div>
   </li>
@@ -357,7 +380,7 @@ genesisブロックの生成には<code class="language-plaintext highlighter-ro
   <li><code class="language-plaintext highlighter-rouge">--block-vss</code>に各ノードでコマンドを実行するSignerノードの秘密鍵と対応する公開鍵とセットで出力されたブロックVSSをそれぞれ指定します。</li>
   <li><code class="language-plaintext highlighter-rouge">--aggregated-public-key</code>オプションで集約公開鍵を指定します。</li>
   <li><code class="language-plaintext highlighter-rouge">--node-secret-share</code>オプションで<a href="#aggregate">Step4</a>で生成したコマンド実行者のノードの秘密シェアを指定します。</li>
-  <li><code class="language-plaintext highlighter-rouge">--private-key</code>オプションでコマンド実行者の秘密鍵をしていします。</li>
+  <li><code class="language-plaintext highlighter-rouge">--private-key</code>オプションでコマンド実行者の秘密鍵を指定します。</li>
   <li><code class="language-plaintext highlighter-rouge">--block</code>オプションで<a href="#generate-genesis-block">Step5</a>で生成したgenesisブロックを指定します。</li>
   <li><code class="language-plaintext highlighter-rouge">--threshold</code>オプションで閾値を指定します。本記事では閾値には<code class="language-plaintext highlighter-rouge">2</code>を指定します。</li>
 </ul>
@@ -448,6 +471,44 @@ genesisブロックの生成には<code class="language-plaintext highlighter-ro
   --node-secret-share=58b72dffcc114db48291d10a611e13546b4f444bccf234bc132a63b88c9b34c1 \
   --threshold=2
 &gt; 010000000000000000000000000000000000000000000000000000000000000000000000c30fc7bfabe904aecc6db258736b0f52150a43aa3b09bf27fdcb12677684003013c741355a4217988fca4948326a9e737c9899eb7958f3081c1f8e40b18db4c18046d762012102b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9405737a9e12ccff7b4810195837295481b93a5ef6bd7dd50d36843ae3c0e77f6cb4dfed21293738adc40024f2fc2f4545fe3a00dc54165d9e480c189bb2450df8a01010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000001976a914a02d5bb5a1be6b923adf53d079b6e9ede53e4ef988ac00000000
+</code></pre></div></div>
+
+<p>署名付きgenesisブロックは以下のような構造になっています。</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">hash</code>: 集約公開鍵に対して有効なdouble-SHA256ハッシュ値形式のSchnorr署名の値。</li>
+  <li><code class="language-plaintext highlighter-rouge">features</code>: ブロックのバージョン。</li>
+  <li><code class="language-plaintext highlighter-rouge">featuresHex</code>: <code class="language-plaintext highlighter-rouge">features</code>項目のHex値。</li>
+  <li><code class="language-plaintext highlighter-rouge">xfield</code>: メタデータを管理する項目。</li>
+  <li><code class="language-plaintext highlighter-rouge">xfieldType</code>: <code class="language-plaintext highlighter-rouge">xfield</code>項目のメタデータの種類を明示する項目。<code class="language-plaintext highlighter-rouge">1</code>が集約公開鍵を意味する。</li>
+  <li><code class="language-plaintext highlighter-rouge">immutablemerkleroot</code>: <code class="language-plaintext highlighter-rouge">scriptSig</code>を除いて算出したマークルルート。</li>
+  <li><code class="language-plaintext highlighter-rouge">proof</code>: Signerが承認したブロックの閾値署名。</li>
+</ul>
+
+<p>その他の項目はBitcoinと同じです。</p>
+
+<p>以下が実際に生成したgenesisブロックのJSON形式のオブジェクトです。<code class="language-plaintext highlighter-rouge">xfieldType</code>に集約公開鍵を意味する<code class="language-plaintext highlighter-rouge">1</code>が指定され、<code class="language-plaintext highlighter-rouge">xfield</code>に集約公開鍵が指定されています。後に続くブロックはこの集約公開鍵により署名の検証が行われます。</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">hash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c34a5e67690b7822cceba4732f7066eb36991487aa090da64bfe33af206c71f4</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">confirmations</span><span class="dl">"</span><span class="p">:</span> <span class="mi">438</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">strippedsize</span><span class="dl">"</span><span class="p">:</span> <span class="mi">290</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">290</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">weight</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1160</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">features</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">featuresHex</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">00000001</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">merkleroot</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">300084766712cbfd27bf093baa430a15520f6b7358b26dccae04e9abbfc70fc3</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">immutablemerkleroot</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c1b48db1408e1f1c08f35879eb99987c739e6a324849ca8f9817425a3541c713</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">tx</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">c1b48db1408e1f1c08f35879eb99987c739e6a324849ca8f9817425a3541c713</span><span class="dl">"</span>
+  <span class="p">],</span>
+  <span class="dl">"</span><span class="s2">time</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1658275456</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">mediantime</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1658275456</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">xfieldType</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">xfield</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">02b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">proof</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">5737a9e12ccff7b4810195837295481b93a5ef6bd7dd50d36843ae3c0e77f6cb4dfed21293738adc40024f2fc2f4545fe3a00dc54165d9e480c189bb2450df8a</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">nTx</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">nextblockhash</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">db655d2d63aa5ccdcafd96f937e39946b499b4abbe4e8a1c9191640c616d29b8</span><span class="dl">"</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <h2 id="generate-genesis-networkid">Step9. genesisブロックファイルの作成</h2>
