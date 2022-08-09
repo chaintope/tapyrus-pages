@@ -7,7 +7,7 @@ title: "Colored Coin発行・転送・焼却ガイド"
 この記事ではTapyrus上でColored Coinを発行し、転送、焼却を行なう方法について解説します。
 公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/colored_coin_ja.md){:target="_blank"}です。  
 
-## 仕様概要
+## 仕様概要 {#specification-overview}
 TapyrusにおいてColored Coinは、Bitcoin Scriptを拡張し、`OP_COLOR`opcodeを実装したことにより実現されています。
 スクリプト内に`OP_COLOR`opcodeが現れると、スタックの一番上の要素がCOLOR識別子として使われます。後述するルールに従ったCOLOR識別子を持つことにより以下の三種類のトークンが発行可能です。
 - 再発行可能なトークン
@@ -26,7 +26,7 @@ CP2SH(Colored P2SH)：
 <COLOR識別子> OP_COLOR OP_HASH160 <H(redeem script)> OP_EQUAL
 ```
 
-### COLOR識別子
+### COLOR識別子 {#color-identifier}
 COLOR識別子は1バイトのTYPEと、32バイトのPAYLOADで構成されます。
 COLOR識別子が現在サポートするタイプと、対応するペイロードは以下の通りです。
 
@@ -36,13 +36,13 @@ TYPE|定義|PAYLOAD
 0xC2|再発行不可能なトークン|発行インプットのOutPointのSHA256値である32バイトのデータ
 0xC3|NFT|発行インプットのOutPointのSHA256値である32バイトのデータ
 
-### トークンの発行
+### トークンの発行 {#issue-token}
 UTXO から上記のルールをベースに COLOR 識別子を導出し、CP2PKH、CP2SHなどのスクリプトをセットしたトランザクション作成し、公開します。
 
-### トークンの送付
+### トークンの送付 {#transfer-token}
 トークンを持つUTXOをインプットにしたトランザクションを作成し、 送金先のアドレスに対して、インプットのトークンと同じCOLOR識別子と`OP_COLOR`opcodeを付与したアウトプットを追加します。
 
-### トークンの焼却
+### トークンの焼却 {#burn-token}
 焼却するトークンを持つUTXOと手数料用のTPCを持つUTXOをインプットにしたトランザクションを作成し、 手数料を差し引いたTPCのお釣りを受け取るアウトプットを追加します。
 
 また、上記３つのトークン処理を１つのトランザクションを組み合わせることも可能です。
@@ -50,10 +50,10 @@ UTXO から上記のルールをベースに COLOR 識別子を導出し、CP2PK
 各組み合わせおよび有効/無効のパターンについては、[こちら](https://docs.google.com/spreadsheets/d/1hYEe5YVz5NiMzBD2cTYLWdOEPVUkTmVIRp8ytypdr2g/)の資料に掲載されています。
 
 
-## コマンド概要
+## コマンド概要 {#commands}
 ここからは実際にTapyrusを用いて、Colored Coinを発行し、転送、焼却を行なう方法について解説します。
 
-## 前提
+## 前提 {#prerequisites}
 本記事ではTapyrusノードの環境構築方法については解説しません。
 環境構築方法については、以下の記事を参照してください。  
  - [Tapyrus Coreノード構築方法（macOS版）](https://site.tapyrus.chaintope.com/setup/osx)
@@ -62,7 +62,7 @@ UTXO から上記のルールをベースに COLOR 識別子を導出し、CP2PK
  - [Tapyrus Coreノード devモード起動方法（Docker版）](https://site.tapyrus.chaintope.com/setup/dev-docker)
  - [Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）](https://site.tapyrus.chaintope.com/setup/dev-local)
 
-## 準備
+## 準備 {#preparation}
 walletを作成し、TPCの受け取りを行なうアドレスを生成します。
 ```
 $ tapyrus-cli createwallet test
@@ -73,7 +73,7 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
 以降のコマンド実行時には、使用するウォレットを明示する`-rpcwallet=test`オプションを指定します。
 本記事ではTPCの受け取り方法については解説しません。ネットワークに応じた方法で、TPCの受け取りを行っておください。
 
-## 発行
+## 発行 {#issue}
 
 トークンの発行には`issuetoken`コマンドを用います。
 ```
@@ -90,14 +90,14 @@ tapyrus-cli issuetoken <トークンタイプ> <トークン発行量> <transact
   - "transaction id": 再発行不可能なトークン/NFT
 - "index"(数値, 任意): トランザクションのアウトプットのindex。再発行不可能なトークン/NFTの場合必ず指定する必要があります。
 
-### 再発行可能なトークン
+### 再発行可能なトークン {#reissuable-token}
 再発行可能トークンには`scriptPubKey`を取得する必要があります。
 `getaddressinfo`コマンドを用いて引数に先程生成したアドレスを指定します。
 ```
 tapyrus-cli getaddressinfo <アドレス>
 ```
 
-##### 入力例
+##### 入力例 {#reissuable-token-example}
 `getaddressinfo`コマンドを実行し、出力されたJSONオブジェクトの`scriptPubKey`項目を控えておきます。
 ```javascript
 $ tapyrus-cli -rpcwallet=test getaddressinfo mhSs9ykDVWbPvUw12iG3KspEYbWaBLB54y
@@ -139,8 +139,7 @@ $ tapyrus-cli -rpcwallet=test issuetoken 1 100 76a914152a4c370331b0409a065cd4065
 }
 ```
 
-
-### 再発行不可能なトークン(NON-REISSUABLE Token)
+### 再発行不可能なトークン(NON-REISSUABLE Token) {#non-reissuable-token}
 トークンの発行に使用する未使用のトランザクション情報の確認に`listunspent`コマンドを用います。
 ```javascript
 $ tapyrus-cli -rpcwallet=test listunspent
@@ -170,7 +169,7 @@ $ tapyrus-cli -rpcwallet=test issuetoken 2 1000 986db9c02763f5bf266eee0325610d0d
 }
 ```
 
-### NFT(NON-FUNGIBLE token)
+### NFT(NON-FUNGIBLE token) {#non-fungible-token}
 NFTでは`トークン発行量`は`1`を指定しなければいけません。
 ```javascript
 $ tapyrus-cli -rpcwallet=test issuetoken 3 1 1769ee16bcaf7a09bb26dace6e87cc491d05fe8c7049fb2c7a03375b424265cd 0
@@ -180,7 +179,7 @@ $ tapyrus-cli -rpcwallet=test issuetoken 3 1 1769ee16bcaf7a09bb26dace6e87cc491d0
 }
 ```
 
-## 詳細確認
+## 詳細確認 {#check-details}
 発行したトークンを確認します。
 `listunspent`を実行し、`token`プロパティに`TPC`ではなく、COLOR識別子が表示されているオブジェクトがトークンの情報です。
 ```javascript
@@ -215,13 +214,13 @@ COLOR識別子だけを取得したい場合、`getcolor`コマンドを用い�
 tapyrus-cli getcolor <トークンタイプ>  <transaction id/scriptpubkey> <index> 
 ```
 
-##### 入出力例
+##### 入出力例 {#check-details-example}
 ```
 $ tapyrus-cli -rpcwallet=test getcolor 3 fc57e9162eb049cc343d734860026300fb68488b4e3b157cc083526255736770 0
 c3ba0a3d75ab880bf7458623859a6ca5cbc61947eba06042331b03da6b8114cc28
 ```
 
-## 転送
+## 転送 {#transfer}
 COLOR識別子に対応したアドレスを生成する必要があります。
 COLOR識別子を引数に、`getrawchangeaddress`コマンドを実行します。
 実行すると通常のアドレスよりも長いCOLOR識別子に対応したアドレスが出力されます。
@@ -237,7 +236,7 @@ $ tapyrus-cli transfertoken <COLOR識別子に対応したアドレス> <トー�
 ```
 
 
-##### 入出力例
+##### 入出力例 {#transfer-example}
 コマンドを実行すると`transaction id`が出力されます。
 ```
 $ tapyrus-cli -rpcwallet=test transfertoken 22VKiyVLbGxG1cC5xhBh79awwAJoAPnM8LNVnBSK9SJvsgEM1aAPCQSn35w2mVvFf8PmzEa3uVWgKwpY 10
@@ -302,14 +301,14 @@ $ tapyrus-cli -rpcwallet=test getrawtransaction 9716f384090bba30e34d4277fcfe3f27
 }
 ```
 
-## 焼却
+## 焼却 {#burn}
 トークンの焼却には`burntoken`コマンドを用います。
 引数には焼却するトークンの`COLOR識別子`と`焼却量`を指定します。
 ```
 $ tapyrus-cli burntoken <COLOR識別子> <焼却量>
 ```
 
-##### 入出力例
+##### 入出力例 {#burn-example}
 コマンドを実行すると`transaction id`が出力されます。
 ```
 $ tapyrus-cli -rpcwallet=test burntoken c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720 10
@@ -379,14 +378,14 @@ $ tapyrus-cli -rpcwallet=test getrawtransaction f9784313ce52f6ee0bde2d1b18cd6687
 }
 ```
 
-## 再発行
+## 再発行 {#reissue}
 再発行可能なトークンの再発行方法について解説します。
 `reissuetoken`コマンドを用います。引数に`再発行可能なトークンのCOLOR識別子`と`再発行するトークンの量`を指定します。
 ```
 tapyrus-cli reissuetoken <再発行可能なトークンのCOLOR識別子> <再発行量>
 ```
 
-##### 入出力例
+##### 入出力例 {#reissue-token}
 再発行可能なトークンの`issuetoken`コマンド実行時と同様のJSON形式のオブジェクトが出力されます。
 ```javascript
 $ tapyrus-cli -rpcwallet=test reissuetoken c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720 50

@@ -161,7 +161,7 @@
         <p>この記事ではTapyrus上でColored Coinを発行し、転送、焼却を行なう方法について解説します。
 公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/colored_coin_ja.md" target="_blank">こちら</a>です。</p>
 
-<h2 id="仕様概要">仕様概要</h2>
+<h2 id="specification-overview">仕様概要</h2>
 <p>TapyrusにおいてColored Coinは、Bitcoin Scriptを拡張し、<code class="language-plaintext highlighter-rouge">OP_COLOR</code>opcodeを実装したことにより実現されています。
 スクリプト内に<code class="language-plaintext highlighter-rouge">OP_COLOR</code>opcodeが現れると、スタックの一番上の要素がCOLOR識別子として使われます。後述するルールに従ったCOLOR識別子を持つことにより以下の三種類のトークンが発行可能です。</p>
 <ul>
@@ -180,7 +180,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;COLOR識別子&gt; OP_COLOR OP_HASH160 &lt;H(redeem script)&gt; OP_EQUAL
 </code></pre></div></div>
 
-<h3 id="color識別子">COLOR識別子</h3>
+<h3 id="color-identifier">COLOR識別子</h3>
 <p>COLOR識別子は1バイトのTYPEと、32バイトのPAYLOADで構成されます。
 COLOR識別子が現在サポートするタイプと、対応するペイロードは以下の通りです。</p>
 
@@ -211,23 +211,23 @@ COLOR識別子が現在サポートするタイプと、対応するペイロー
   </tbody>
 </table>
 
-<h3 id="トークンの発行">トークンの発行</h3>
+<h3 id="issue-token">トークンの発行</h3>
 <p>UTXO から上記のルールをベースに COLOR 識別子を導出し、CP2PKH、CP2SHなどのスクリプトをセットしたトランザクション作成し、公開します。</p>
 
-<h3 id="トークンの送付">トークンの送付</h3>
+<h3 id="transfer-token">トークンの送付</h3>
 <p>トークンを持つUTXOをインプットにしたトランザクションを作成し、 送金先のアドレスに対して、インプットのトークンと同じCOLOR識別子と<code class="language-plaintext highlighter-rouge">OP_COLOR</code>opcodeを付与したアウトプットを追加します。</p>
 
-<h3 id="トークンの焼却">トークンの焼却</h3>
+<h3 id="burn-token">トークンの焼却</h3>
 <p>焼却するトークンを持つUTXOと手数料用のTPCを持つUTXOをインプットにしたトランザクションを作成し、 手数料を差し引いたTPCのお釣りを受け取るアウトプットを追加します。</p>
 
 <p>また、上記３つのトークン処理を１つのトランザクションを組み合わせることも可能です。</p>
 
 <p>各組み合わせおよび有効/無効のパターンについては、<a href="https://docs.google.com/spreadsheets/d/1hYEe5YVz5NiMzBD2cTYLWdOEPVUkTmVIRp8ytypdr2g/">こちら</a>の資料に掲載されています。</p>
 
-<h2 id="コマンド概要">コマンド概要</h2>
+<h2 id="commands">コマンド概要</h2>
 <p>ここからは実際にTapyrusを用いて、Colored Coinを発行し、転送、焼却を行なう方法について解説します。</p>
 
-<h2 id="前提">前提</h2>
+<h2 id="prerequisites">前提</h2>
 <p>本記事ではTapyrusノードの環境構築方法については解説しません。
 環境構築方法については、以下の記事を参照してください。</p>
 <ul>
@@ -238,7 +238,7 @@ COLOR識別子が現在サポートするタイプと、対応するペイロー
   <li><a href="https://site.tapyrus.chaintope.com/setup/dev-local">Tapyrus Coreノード devモード起動方法（MacOS/Ubuntu版）</a></li>
 </ul>
 
-<h2 id="準備">準備</h2>
+<h2 id="preparation">準備</h2>
 <p>walletを作成し、TPCの受け取りを行なうアドレスを生成します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli createwallet test
 $ tapyrus-cli -rpcwallet=test getnewaddress
@@ -248,7 +248,7 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
 <p>以降のコマンド実行時には、使用するウォレットを明示する<code class="language-plaintext highlighter-rouge">-rpcwallet=test</code>オプションを指定します。
 本記事ではTPCの受け取り方法については解説しません。ネットワークに応じた方法で、TPCの受け取りを行っておください。</p>
 
-<h2 id="発行">発行</h2>
+<h2 id="issue">発行</h2>
 
 <p>トークンの発行には<code class="language-plaintext highlighter-rouge">issuetoken</code>コマンドを用います。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli issuetoken &lt;トークンタイプ&gt; &lt;トークン発行量&gt; &lt;transaction id/scriptpubkey&gt; &lt;index&gt; 
@@ -272,13 +272,13 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
   <li>“index”(数値, 任意): トランザクションのアウトプットのindex。再発行不可能なトークン/NFTの場合必ず指定する必要があります。</li>
 </ul>
 
-<h3 id="再発行可能なトークン">再発行可能なトークン</h3>
+<h3 id="reissuable-token">再発行可能なトークン</h3>
 <p>再発行可能トークンには<code class="language-plaintext highlighter-rouge">scriptPubKey</code>を取得する必要があります。
 <code class="language-plaintext highlighter-rouge">getaddressinfo</code>コマンドを用いて引数に先程生成したアドレスを指定します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli getaddressinfo &lt;アドレス&gt;
 </code></pre></div></div>
 
-<h5 id="入力例">入力例</h5>
+<h5 id="reissuable-token-example">入力例</h5>
 <p><code class="language-plaintext highlighter-rouge">getaddressinfo</code>コマンドを実行し、出力されたJSONオブジェクトの<code class="language-plaintext highlighter-rouge">scriptPubKey</code>項目を控えておきます。</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">getaddressinfo</span> <span class="nx">mhSs9ykDVWbPvUw12iG3KspEYbWaBLB54y</span>
 <span class="p">{</span>
@@ -318,7 +318,7 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="再発行不可能なトークンnon-reissuable-token">再発行不可能なトークン(NON-REISSUABLE Token)</h3>
+<h3 id="non-reissuable-token">再発行不可能なトークン(NON-REISSUABLE Token)</h3>
 <p>トークンの発行に使用する未使用のトランザクション情報の確認に<code class="language-plaintext highlighter-rouge">listunspent</code>コマンドを用います。</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">listunspent</span>
 <span class="p">[</span>
@@ -346,7 +346,7 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="nftnon-fungible-token">NFT(NON-FUNGIBLE token)</h3>
+<h3 id="non-fungible-token">NFT(NON-FUNGIBLE token)</h3>
 <p>NFTでは<code class="language-plaintext highlighter-rouge">トークン発行量</code>は<code class="language-plaintext highlighter-rouge">1</code>を指定しなければいけません。</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">issuetoken</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">1769</span><span class="nx">ee16bcaf7a09bb26dace6e87cc491d05fe8c7049fb2c7a03375b424265cd</span> <span class="mi">0</span>
 <span class="p">{</span>
@@ -355,7 +355,7 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h2 id="詳細確認">詳細確認</h2>
+<h2 id="check-details">詳細確認</h2>
 <p>発行したトークンを確認します。
 <code class="language-plaintext highlighter-rouge">listunspent</code>を実行し、<code class="language-plaintext highlighter-rouge">token</code>プロパティに<code class="language-plaintext highlighter-rouge">TPC</code>ではなく、COLOR識別子が表示されているオブジェクトがトークンの情報です。</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">listunspent</span>
@@ -387,12 +387,12 @@ $ tapyrus-cli -rpcwallet=test getnewaddress
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli getcolor &lt;トークンタイプ&gt;  &lt;transaction id/scriptpubkey&gt; &lt;index&gt; 
 </code></pre></div></div>
 
-<h5 id="入出力例">入出力例</h5>
+<h5 id="check-details-example">入出力例</h5>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test getcolor 3 fc57e9162eb049cc343d734860026300fb68488b4e3b157cc083526255736770 0
 c3ba0a3d75ab880bf7458623859a6ca5cbc61947eba06042331b03da6b8114cc28
 </code></pre></div></div>
 
-<h2 id="転送">転送</h2>
+<h2 id="transfer">転送</h2>
 <p>COLOR識別子に対応したアドレスを生成する必要があります。
 COLOR識別子を引数に、<code class="language-plaintext highlighter-rouge">getrawchangeaddress</code>コマンドを実行します。
 実行すると通常のアドレスよりも長いCOLOR識別子に対応したアドレスが出力されます。</p>
@@ -405,7 +405,7 @@ COLOR識別子を引数に、<code class="language-plaintext highlighter-rouge">
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli transfertoken &lt;COLOR識別子に対応したアドレス&gt; &lt;トークン転送量&gt;
 </code></pre></div></div>
 
-<h5 id="入出力例-1">入出力例</h5>
+<h5 id="transfer-example">入出力例</h5>
 <p>コマンドを実行すると<code class="language-plaintext highlighter-rouge">transaction id</code>が出力されます。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test transfertoken 22VKiyVLbGxG1cC5xhBh79awwAJoAPnM8LNVnBSK9SJvsgEM1aAPCQSn35w2mVvFf8PmzEa3uVWgKwpY 10
 9716f384090bba30e34d4277fcfe3f2722814d1991e25069996ba70d53bca24e
@@ -467,13 +467,13 @@ COLOR識別子を引数に、<code class="language-plaintext highlighter-rouge">
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h2 id="焼却">焼却</h2>
+<h2 id="burn">焼却</h2>
 <p>トークンの焼却には<code class="language-plaintext highlighter-rouge">burntoken</code>コマンドを用います。
 引数には焼却するトークンの<code class="language-plaintext highlighter-rouge">COLOR識別子</code>と<code class="language-plaintext highlighter-rouge">焼却量</code>を指定します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli burntoken &lt;COLOR識別子&gt; &lt;焼却量&gt;
 </code></pre></div></div>
 
-<h5 id="入出力例-2">入出力例</h5>
+<h5 id="burn-example">入出力例</h5>
 <p>コマンドを実行すると<code class="language-plaintext highlighter-rouge">transaction id</code>が出力されます。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tapyrus-cli -rpcwallet=test burntoken c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720 10
 f9784313ce52f6ee0bde2d1b18cd6687ef1c88e4fae06d805a1b244a5a6cb631
@@ -541,13 +541,13 @@ f9784313ce52f6ee0bde2d1b18cd6687ef1c88e4fae06d805a1b244a5a6cb631
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h2 id="再発行">再発行</h2>
+<h2 id="reissue">再発行</h2>
 <p>再発行可能なトークンの再発行方法について解説します。
 <code class="language-plaintext highlighter-rouge">reissuetoken</code>コマンドを用います。引数に<code class="language-plaintext highlighter-rouge">再発行可能なトークンのCOLOR識別子</code>と<code class="language-plaintext highlighter-rouge">再発行するトークンの量</code>を指定します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tapyrus-cli reissuetoken &lt;再発行可能なトークンのCOLOR識別子&gt; &lt;再発行量&gt;
 </code></pre></div></div>
 
-<h5 id="入出力例-3">入出力例</h5>
+<h5 id="reissue-token">入出力例</h5>
 <p>再発行可能なトークンの<code class="language-plaintext highlighter-rouge">issuetoken</code>コマンド実行時と同様のJSON形式のオブジェクトが出力されます。</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span> <span class="nx">tapyrus</span><span class="o">-</span><span class="nx">cli</span> <span class="o">-</span><span class="nx">rpcwallet</span><span class="o">=</span><span class="nx">test</span> <span class="nx">reissuetoken</span> <span class="nx">c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720</span> <span class="mi">50</span>
 <span class="p">{</span>
