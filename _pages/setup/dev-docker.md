@@ -29,7 +29,7 @@ Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyr
 $ gem install tapyrus
 ```
 
-[Github上の鍵導出用Rubyファイル(generate_key_pair.rb)](https://github.com/chaintope/tapyrus-pages/scripts/generate_key_pair.rb){:target="_blank"}をダウンロードしてください。
+[Github上の鍵導出用Rubyファイル(generate_key_pair.rb)](https://github.com/chaintope/tapyrus-pages/blob/master/scripts/generate_key_pair.rb){:target="_blank"}をダウンロードしてください。
 ファイルには以下のようなコードが書かれています。  
 
 ```ruby
