@@ -33,7 +33,6 @@ Signerノードの数は、3名以上であれば上限はありません。
 - [Step8. genesisブロックの署名を計算する (Alice)](#compute-sig)
 - [Step9. genesis.networkidファイルの作成]({#generate-genesis-networkid)
 
-
 ## Step1. インストール {#install}
 
 ###  (インストール方法1) ビルド済みのバイナリの利用 {#install-binary}
@@ -299,6 +298,7 @@ $ tapyrus-setup computesig \
 
 #### 出力 {#compute-sig-output}
 コマンドを実行すると集約署名が付与されたgenesisブロックが出力されます。
+この集約署名は集約公開鍵に対して有効なdouble-SHA256ハッシュ値形式のSchnorr署名の値です。
 
 ```
 <署名付きgenesisブロック>
@@ -325,39 +325,33 @@ $ tapyrus-setup computesig \
 > 010000000000000000000000000000000000000000000000000000000000000000000000c30fc7bfabe904aecc6db258736b0f52150a43aa3b09bf27fdcb12677684003013c741355a4217988fca4948326a9e737c9899eb7958f3081c1f8e40b18db4c18046d762012102b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9405737a9e12ccff7b4810195837295481b93a5ef6bd7dd50d36843ae3c0e77f6cb4dfed21293738adc40024f2fc2f4545fe3a00dc54165d9e480c189bb2450df8a01010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000001976a914a02d5bb5a1be6b923adf53d079b6e9ede53e4ef988ac00000000
 ```
 
-署名付きgenesisブロックは以下のような構造になっています。
-- `hash`: 集約公開鍵に対して有効なdouble-SHA256ハッシュ値形式のSchnorr署名の値。
+署名付きgenesisブロックのブロックヘッダーは以下のような構造になっています。
 - `features`: ブロックのバージョン。
-- `featuresHex`: `features`項目のHex値。
+- `hasPrevBlock`: 前のブロックヘッダの256ビットハッシュ。
+- `hashMerkleRoot`: ブロック内の全トランザクションのハッシュを基にした256ビットのMerkleRoot。
+- `hashImMerkleRoot`: トランザクションハッシュの改ざんを防止を目的とした、transaction idに基づく256ビットMerkleRoot。(トランザクションのハッシュの計算にトランザクションインプットのscriptSigは含まれていません。)
+- `time`: `1970-01-01T00:00 UTC`からの秒数。
 - `xfield`: メタデータを管理する項目。
 - `xfieldType`: `xfield`項目のメタデータの種類を明示する項目。`1`が集約公開鍵を意味する。
-- `immutablemerkleroot`: `scriptSig`を除いて算出したマークルルート。
-- `proof`: Signerが承認したブロックの閾値署名。  
+- `proof`: Signerが承認したこのブロックのSchnorr署名。  
+詳しくは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/signedblocks.md#block-structure-expansion-for-signed-blocks){:target="_blank"}を参考にしてください。
 
-その他の項目はBitcoinと同じです。
-
-以下が実際に生成したgenesisブロックのJSON形式のオブジェクトです。`xfieldType`に集約公開鍵を意味する`1`が指定され、`xfield`に集約公開鍵が指定されています。後に続くブロックはこの集約公開鍵により署名の検証が行われます。
+以下が実際に生成したgenesisブロックヘッダーのJSON形式のオブジェクトです。`xfieldType`に集約公開鍵を意味する`1`が指定され、`xfield`に集約公開鍵が指定されています。後に続くブロックはこの集約公開鍵により署名の検証が行われます。
 ```javascript
 {
   "hash": "c34a5e67690b7822cceba4732f7066eb36991487aa090da64bfe33af206c71f4",
-  "confirmations": 438,
-  "strippedsize": 290,
-  "size": 290,
-  "weight": 1160,
+  "confirmations": 515,
   "height": 0,
   "features": 1,
   "featuresHex": "00000001",
   "merkleroot": "300084766712cbfd27bf093baa430a15520f6b7358b26dccae04e9abbfc70fc3",
   "immutablemerkleroot": "c1b48db1408e1f1c08f35879eb99987c739e6a324849ca8f9817425a3541c713",
-  "tx": [
-    "c1b48db1408e1f1c08f35879eb99987c739e6a324849ca8f9817425a3541c713"
-  ],
   "time": 1658275456,
   "mediantime": 1658275456,
+  "nTx": 1,
   "xfieldType": 1,
   "xfield": "02b45d04c7fabe51857c3d4dfb34f2aece4cc58c9d3a43ecc8517ac38bf9598bb9",
   "proof": "5737a9e12ccff7b4810195837295481b93a5ef6bd7dd50d36843ae3c0e77f6cb4dfed21293738adc40024f2fc2f4545fe3a00dc54165d9e480c189bb2450df8a",
-  "nTx": 1,
   "nextblockhash": "db655d2d63aa5ccdcafd96f937e39946b499b4abbe4e8a1c9191640c616d29b8"
 }
 ```
