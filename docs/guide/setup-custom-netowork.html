@@ -164,22 +164,17 @@
 
 <p>また、本記事ではdocker-composeを使用してTapyrus Netwrokを構築します。事前にDockerをインストールしてください。</p>
 
-<h2 id="cd-tapyrus-signer-docker">Step1. dockerディレクトリへの移動</h2>
-<p>tapyrus-signerの<a href="https://github.com/chaintope/tapyrus-signer/tree/master/docker" target="_blank">dockerディレクトリ配下</a>で作業を行います。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd tapyrus-signer\docker\
-</code></pre></div></div>
-
-<h3 id="set-federationstoml">Step2. federations.tomlの設定</h3>
-
-<p><code class="language-plaintext highlighter-rouge">federations.toml</code>にSigner Networkのフェデレーションの設定情報を記述します。
+<h3 id="set-federationstoml">Step1. federations.tomlの設定</h3>
+<p>tapyrus-signerの<a href="https://github.com/chaintope/tapyrus-signer/tree/master/docker" target="_blank">dockerディレクトリ配下</a>で作業を行います。
+<code class="language-plaintext highlighter-rouge">federations.toml</code>にSigner Networkのフェデレーションの設定情報を記述します。
 まずは<code class="language-plaintext highlighter-rouge">alice</code>, <code class="language-plaintext highlighter-rouge">bob</code>, <code class="language-plaintext highlighter-rouge">carol</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">federations.toml</code>をコピーします。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd signers
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd tapyrus-signer\docker\
+$ cd signers
 $ cp federations.toml alice/ | cp  federations.toml bob/ | cp  federations.toml carol/
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">federations.toml</code>には予め初期状態のブロック高が0、閾値が2で設定されています。
-<code class="language-plaintext highlighter-rouge">vim</code>等を用いて各ディレクトリの<code class="language-plaintext highlighter-rouge">federations.toml</code>を編集し、<code class="language-plaintext highlighter-rouge">aggregated-public-key</code>パラメータに、<a href="setup_signer_node.md#aggregate">前記事のStep3</a><code class="language-plaintext highlighter-rouge">aggregate</code>コマンドを実行して生成した集約公開鍵を設定します。
+各ディレクトリの<code class="language-plaintext highlighter-rouge">federations.toml</code>を編集し、<code class="language-plaintext highlighter-rouge">aggregated-public-key</code>パラメータに、<a href="setup_signer_node.md#aggregate">前記事のStep3</a><code class="language-plaintext highlighter-rouge">aggregate</code>コマンドを実行して生成した集約公開鍵を設定します。
 さらに配列形式の<code class="language-plaintext highlighter-rouge">node-vss</code>パラメータに、Alice, Bob, Carolのそれぞれで<code class="language-plaintext highlighter-rouge">createnodevss</code>コマンドを使用して生成したノードVSSを設定します。
 以下はAliceに設定する<code class="language-plaintext highlighter-rouge">federations.toml</code>の例です。同様にBob, Carolに集約公開鍵とそれぞれ対応したノードVSSを設定します。</p>
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">federation</span><span class="p">]]</span>
@@ -193,7 +188,7 @@ $ cp federations.toml alice/ | cp  federations.toml bob/ | cp  federations.toml 
 <span class="p">]</span>
 </code></pre></div></div>
 
-<h2 id="step3-アドレスの生成-generate-address">Step3. アドレスの生成 #{#generate-address}</h2>
+<h2 id="step2-アドレスの生成-generate-address">Step2. アドレスの生成 #{#generate-address}</h2>
 <p>ブロック報酬を受け取るアドレスを予め生成する必要があります。<br />
 アドレスの生成の方法は様々ありますが、本記事では<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyruseb</a>ライブラリを用います。<br />
 以下のコマンドでtapyrusebのgemをインストールします。</p>
@@ -221,15 +216,16 @@ $ cp federations.toml alice/ | cp  federations.toml bob/ | cp  federations.toml 
 アドレス: &lt;アドレス&gt;
 </code></pre></div></div>
 
-<h2 id="set-tapyrus-signertoml">Step4. tapyrus-signer.tomlの設定</h2>
+<h2 id="set-tapyrus-signertoml">Step3. tapyrus-signer.tomlの設定</h2>
 <p><code class="language-plaintext highlighter-rouge">tapyrus-signer.toml</code>にはSignerノードの設定を記述します。
 まずは<code class="language-plaintext highlighter-rouge">alice</code>, <code class="language-plaintext highlighter-rouge">bob</code>, <code class="language-plaintext highlighter-rouge">carol</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus-signer.toml</code>をコピーします。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp tapyrus-signer.toml alice/ | cp tapyrus-signer.toml bob/ | cp tapyrus-signer.toml carol/
 </code></pre></div></div>
 
 <p>コピーしたそれぞれのファイルを編集します。
-<code class="language-plaintext highlighter-rouge">to-address</code>はブロック生成報酬を受け取るアドレスの設定です。<code class="language-plaintext highlighter-rouge">to-address</code>に本記事のStepで生成したアドレスを指定します。
-<code class="language-plaintext highlighter-rouge">&lt;signerの公開鍵&gt;</code>には<a href="setup_signer_node.md#createkey">前記事のStep1</a>で生成したそれぞれの公開鍵を指定します。</p>
+<code class="language-plaintext highlighter-rouge">to-address</code>はブロック生成報酬を受け取るアドレスの設定です。<code class="language-plaintext highlighter-rouge">to-address</code>に本記事のStep2で生成したアドレスを指定します。
+<code class="language-plaintext highlighter-rouge">&lt;signerの公開鍵&gt;</code>には<a href="setup_signer_node.md#createkey">前記事のStep1</a>で生成したそれぞれの公開鍵を指定します。
+docker-compose.ymlには、RedisとTapyrus Coreがそれぞれホスト名がredis、tapyrusdで、ポートが6379と2377でアクセスできるように設定されています。tomlファイルにも事前に同様の設定情報が記載されています。</p>
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">general</span><span class="p">]</span>
 <span class="n">round</span><span class="o">-</span><span class="n">duration</span> <span class="o">=</span> <span class="mi">60</span>
 <span class="n">round</span><span class="o">-</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">15</span>
@@ -253,12 +249,12 @@ $ cp federations.toml alice/ | cp  federations.toml bob/ | cp  federations.toml 
 <span class="n">redis</span><span class="o">-</span><span class="n">port</span> <span class="o">=</span>  <span class="mi">6379</span>
 </code></pre></div></div>
 
-<h2 id="mv-genesis-file">Step5. genesisファイルの移動</h2>
+<h2 id="mv-genesis-file">Step4. genesisファイルの移動</h2>
 <p>次にtapyrusノードの設定に移ります。
 <a href="setup_signer_node.md#generate-genesis-networkid">前記事のStep8</a>で作成したgenesisブロックファイルを<code class="language-plaintext highlighter-rouge">tapyrus-signer/docker/tapyrus</code>ディレクトリ配下に移動させてください。</p>
 
-<h2 id="set-tapyrusconf">Step6. tapyrus.confファイルの作成</h2>
-<p><code class="language-plaintext highlighter-rouge">tapyrus-signer/docker/tapyrus</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルをさくせいします。
+<h2 id="set-tapyrusconf">Step5. tapyrus.confファイルの作成</h2>
+<p><code class="language-plaintext highlighter-rouge">tapyrus-signer/docker/tapyrus</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルを作成します。
 <code class="language-plaintext highlighter-rouge">networkid</code>には<a href="setup_signer_node.md#generate-genesis-networkid">前記事のStep8</a>で決めたネットワークIDを指定します。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat &lt;&lt;EOF &gt;  &lt;tapyrus-signerをcloneしたPATH&gt;/tapyrus-signer/docker/tapyrus/tapyrus.conf
 networkid=&lt;ネットワークID&gt;
@@ -274,15 +270,15 @@ EOF
 
 <p>以上で各ノードの設定は完了です。</p>
 
-<h2 id="docker-compose-up">Step7. コンテナの作成・起動</h2>
+<h2 id="docker-compose-up">Step6. コンテナの作成・起動</h2>
 <p><code class="language-plaintext highlighter-rouge">docker-compose up</code>を実行し、カスタムネットワークを起動します。</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up
 </code></pre></div></div>
 
-<h2 id="importprivkey">Step8. 秘密鍵のインポート</h2>
+<h2 id="importprivkey">Step7. 秘密鍵のインポート</h2>
 <p>ブロック報酬を受け取るアドレスに対応した秘密鍵をtapyrus-coreノードにインポートします。
-秘密鍵のインポートには<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">importprivkey</code>コマンドを使用し、引数にStep3で生成したWIF形式の秘密鍵を指定します。
+秘密鍵のインポートには<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">importprivkey</code>コマンドを使用し、引数にStep2で生成したWIF形式の秘密鍵を指定します。
 また、tapyrusdのdockerイメージを使ったコンテナではオプションに<code class="language-plaintext highlighter-rouge">-conf=/etc/tapyrus/tapyrus.conf </code>を指定する必要があります。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec docker_tapyrusd_1 tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf importprivkey &lt;秘密鍵&gt;
 </code></pre></div></div>
