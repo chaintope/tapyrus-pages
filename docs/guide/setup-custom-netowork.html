@@ -1,0 +1,377 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tapyrus Custom Network構築方法 - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="Tapyrus Custom Network構築方法">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/guide/setup-custom-netowork">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/guide/setup-custom-netowork">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tapyrus Custom Network構築方法">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Tapyrus Custom Network構築方法
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>本記事ではミニマムのTapyrus Neteworkを構築する方法を解説します。
+<a href="/guide/setup_signer_node">Tapyrus Signerノードセットアップ方法</a>の手順に基づき、<a href="https://github.com/chaintope/tapyrus-signer.git" target="_blank">tapyrus-signer</a>をインストールし、セットアップ手順が全て完了している前提で記述します。
+公式のドキュメントは<a href="https://github.com/chaintope/tapyrus-signer/tree/master/docker" target="_blank">こちら</a>です。</p>
+
+<p>また、本記事ではdocker-composeを使用してTapyrus Netwrokを構築します。事前にDockerをインストールしてください。</p>
+
+<h3 id="set-federationstoml">Step1. federations.tomlの設定</h3>
+<p>tapyrus-signerの<a href="https://github.com/chaintope/tapyrus-signer/tree/master/docker" target="_blank">dockerディレクトリ配下</a>で作業を行います。
+<code class="language-plaintext highlighter-rouge">federations.toml</code>にSigner Networkのフェデレーションの設定情報を記述します。
+まずは<code class="language-plaintext highlighter-rouge">alice</code>, <code class="language-plaintext highlighter-rouge">bob</code>, <code class="language-plaintext highlighter-rouge">carol</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">federations.toml</code>をコピーします。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd tapyrus-signer\docker\
+$ cd signers
+$ cp federations.toml alice/ | cp  federations.toml bob/ | cp  federations.toml carol/
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">federations.toml</code>には予め初期状態のブロック高が0、閾値が2で設定されています。
+各ディレクトリの<code class="language-plaintext highlighter-rouge">federations.toml</code>を編集し、<code class="language-plaintext highlighter-rouge">aggregated-public-key</code>パラメータに、<a href="setup_signer_node.md#aggregate">前記事のStep3</a><code class="language-plaintext highlighter-rouge">aggregate</code>コマンドを実行して生成した集約公開鍵を設定します。
+さらに配列形式の<code class="language-plaintext highlighter-rouge">node-vss</code>パラメータに、Alice, Bob, Carolのそれぞれで<code class="language-plaintext highlighter-rouge">createnodevss</code>コマンドを使用して生成したノードVSSを設定します。
+以下はAliceに設定する<code class="language-plaintext highlighter-rouge">federations.toml</code>の例です。同様にBob, Carolに集約公開鍵とそれぞれ対応したノードVSSを設定します。</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[[</span><span class="n">federation</span><span class="p">]]</span>
+<span class="n">block</span><span class="o">-</span><span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">aggregated</span><span class="o">-</span><span class="n">public</span><span class="o">-</span><span class="n">key</span> <span class="o">=</span> <span class="s">"&lt;集約公開鍵&gt;"</span>
+<span class="n">node</span><span class="o">-</span><span class="n">vss</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"&lt;AliceのノードVSS&gt;"</span><span class="p">,</span>
+    <span class="s">"&lt;Bobが生成したコマンド実行者のノードVSS&gt;"</span><span class="p">,</span>
+    <span class="s">"&lt;Carolが生成したのコマンド実行者のノードVSS&gt;"</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="step2-アドレスの生成-generate-address">Step2. アドレスの生成 #{#generate-address}</h2>
+<p>ブロック報酬を受け取るアドレスを予め生成する必要があります。<br />
+アドレスの生成の方法は様々ありますが、本記事では<a href="https://github.com/chaintope/tapyrusrb" target="_blank">tapyruseb</a>ライブラリを用います。<br />
+以下のコマンドでtapyrusebのgemをインストールします。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install tapyrus
+</code></pre></div></div>
+
+<p><a href="https://github.com/chaintope/tapyrus-pages/scripts/generate_address.rb" target="_blank">Github上のAddress生成用Rubyファイル(generate_address.rb)</a>をダウンロードしてください。
+ファイルには以下のようなコードが書かれています。</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'tapyrus'</span>
+
+<span class="no">Tapyrus</span><span class="p">.</span><span class="nf">chain_params</span> <span class="o">=</span> <span class="ss">:prod</span>
+<span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
+
+<span class="nb">puts</span> <span class="s2">"秘密鍵(WIF): </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_wif</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span> <span class="s2">"アドレス: </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_p2pkh</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>以下のようにファイルの実行、もしくはRubyの対話モード(irb)で上記コードを一行づつ実行してください。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby generate_address.rb 
+</code></pre></div></div>
+
+<p>実行すると以下のような出力が表示されます。
+<code class="language-plaintext highlighter-rouge">&lt;秘密鍵&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;アドレス&gt;</code>に表示されている文字列の値を控えておきます。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): &lt;秘密鍵&gt;
+アドレス: &lt;アドレス&gt;
+</code></pre></div></div>
+
+<h2 id="set-tapyrus-signertoml">Step3. tapyrus-signer.tomlの設定</h2>
+<p><code class="language-plaintext highlighter-rouge">tapyrus-signer.toml</code>にはSignerノードの設定を記述します。
+まずは<code class="language-plaintext highlighter-rouge">alice</code>, <code class="language-plaintext highlighter-rouge">bob</code>, <code class="language-plaintext highlighter-rouge">carol</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus-signer.toml</code>をコピーします。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp tapyrus-signer.toml alice/ | cp tapyrus-signer.toml bob/ | cp tapyrus-signer.toml carol/
+</code></pre></div></div>
+
+<p>コピーしたそれぞれのファイルを編集します。
+<code class="language-plaintext highlighter-rouge">to-address</code>はブロック生成報酬を受け取るアドレスの設定です。<code class="language-plaintext highlighter-rouge">to-address</code>に本記事のStep2で生成したアドレスを指定します。
+<code class="language-plaintext highlighter-rouge">&lt;signerの公開鍵&gt;</code>には<a href="setup_signer_node.md#createkey">前記事のStep1</a>で生成したそれぞれの公開鍵を指定します。
+docker-compose.ymlには、RedisとTapyrus Coreがそれぞれホスト名がredis、tapyrusdで、ポートが6379と2377でアクセスできるように設定されています。tomlファイルにも事前に同様の設定情報が記載されています。</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">general</span><span class="p">]</span>
+<span class="n">round</span><span class="o">-</span><span class="n">duration</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">round</span><span class="o">-</span><span class="n">limit</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="k">log</span><span class="o">-</span><span class="n">quiet</span> <span class="o">=</span> <span class="k">false</span>
+<span class="k">log</span><span class="o">-</span><span class="n">level</span> <span class="o">=</span> <span class="s">"info"</span>
+<span class="n">skip</span><span class="o">-</span><span class="n">waiting</span><span class="o">-</span><span class="n">ibd</span> <span class="o">=</span> <span class="k">true</span>
+
+<span class="p">[</span><span class="n">signer</span><span class="p">]</span>
+<span class="n">to</span><span class="o">-</span><span class="n">address</span> <span class="o">=</span> <span class="s">"&lt;アドレス&gt;"</span>
+<span class="n">public</span><span class="o">-</span><span class="n">key</span> <span class="o">=</span> <span class="s">"Signerの公開鍵&gt;"</span>
+<span class="n">federations</span><span class="o">-</span><span class="n">file</span> <span class="o">=</span> <span class="s">"/etc/tapyrus/federations.toml"</span>
+
+<span class="p">[</span><span class="n">rpc</span><span class="p">]</span>
+<span class="n">rpc</span><span class="o">-</span><span class="n">endpoint</span><span class="o">-</span><span class="n">host</span> <span class="o">=</span> <span class="s">"tapyrusd"</span>
+<span class="n">rpc</span><span class="o">-</span><span class="n">endpoint</span><span class="o">-</span><span class="n">port</span> <span class="o">=</span> <span class="mi">2377</span>
+<span class="n">rpc</span><span class="o">-</span><span class="n">endpoint</span><span class="o">-</span><span class="n">user</span> <span class="o">=</span> <span class="s">"user"</span>
+<span class="n">rpc</span><span class="o">-</span><span class="n">endpoint</span><span class="o">-</span><span class="n">pass</span> <span class="o">=</span> <span class="s">"pass"</span>
+
+<span class="p">[</span><span class="n">redis</span><span class="p">]</span>
+<span class="n">redis</span><span class="o">-</span><span class="n">host</span> <span class="o">=</span> <span class="s">"redis"</span>
+<span class="n">redis</span><span class="o">-</span><span class="n">port</span> <span class="o">=</span>  <span class="mi">6379</span>
+</code></pre></div></div>
+
+<h2 id="mv-genesis-file">Step4. genesisファイルの移動</h2>
+<p>次にtapyrusノードの設定に移ります。
+<a href="setup_signer_node.md#generate-genesis-networkid">前記事のStep8</a>で作成したgenesisブロックファイルを<code class="language-plaintext highlighter-rouge">tapyrus-signer/docker/tapyrus</code>ディレクトリ配下に移動させてください。</p>
+
+<h2 id="set-tapyrusconf">Step5. tapyrus.confファイルの作成</h2>
+<p><code class="language-plaintext highlighter-rouge">tapyrus-signer/docker/tapyrus</code>ディレクトリ配下に<code class="language-plaintext highlighter-rouge">tapyrus.conf</code>ファイルを作成します。
+<code class="language-plaintext highlighter-rouge">networkid</code>には<a href="setup_signer_node.md#generate-genesis-networkid">前記事のStep8</a>で決めたネットワークIDを指定します。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cat &lt;&lt;EOF &gt;  &lt;tapyrus-signerをcloneしたPATH&gt;/tapyrus-signer/docker/tapyrus/tapyrus.conf
+networkid=&lt;ネットワークID&gt;
+txindex=1
+server=1
+rest=1
+rpcuser=user
+rpcpassword=pass
+rpcbind=0.0.0.0
+rpcallowip=0.0.0.0/0
+EOF
+</code></pre></div></div>
+
+<p>以上で各ノードの設定は完了です。</p>
+
+<h2 id="docker-compose-up">Step6. コンテナの作成・起動</h2>
+<p><code class="language-plaintext highlighter-rouge">docker-compose up</code>を実行し、カスタムネットワークを起動します。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker-compose up
+</code></pre></div></div>
+
+<h2 id="importprivkey">Step7. 秘密鍵のインポート</h2>
+<p>ブロック報酬を受け取るアドレスに対応した秘密鍵をtapyrus-coreノードにインポートします。
+秘密鍵のインポートには<code class="language-plaintext highlighter-rouge">tapyrus-cli</code>の<code class="language-plaintext highlighter-rouge">importprivkey</code>コマンドを使用し、引数にStep2で生成したWIF形式の秘密鍵を指定します。
+また、tapyrusdのdockerイメージを使ったコンテナではオプションに<code class="language-plaintext highlighter-rouge">-conf=/etc/tapyrus/tapyrus.conf </code>を指定する必要があります。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker exec docker_tapyrusd_1 tapyrus-cli -conf=/etc/tapyrus/tapyrus.conf importprivkey &lt;秘密鍵&gt;
+</code></pre></div></div>
+
+<p>以上でカスタムネットワークの構築は完了です。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
