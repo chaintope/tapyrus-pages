@@ -158,7 +158,7 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>この記事ではTapyruys rubyライブラリであるtapyrusrbの使用方法を解説します。
+        <p>この記事ではTapyruysのプロトコル用のrubyライブラリであるtapyrusrbの使用方法を解説します。
 <a href="https://github.com/chaintope/tapyrus-pages/tree/master/scripts" target="_blank">こちら</a>に各項目のサンプルコードがあります。
 公式ドキュメントは<a href="https://github.com/chaintope/tapyrusrb/wiki" target="_blank">こちら</a>です。</p>
 
@@ -172,8 +172,6 @@
   <li>ブロックとトランザクションのデシリアライゼーション</li>
   <li>SchnorrとECDSAの鍵生成と検証（BIP-32とBIP-39のサポートを含む）</li>
   <li>ECDSA署名(RFC6979 -決定論的ECDSA, LOW-S, LOW-R対応)</li>
-  <li>[WIP] SPVノード</li>
-  <li>[WIP】0ff-chainプロトコル</li>
 </ul>
 
 <h2 id="setup">セットアップ方法</h2>
@@ -190,23 +188,8 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install leveldb
 </code></pre></div></div>
 
-<h3 id="setup-leveldb-native">leveldb-nativeのインストール</h3>
-<p>次にleveldb用のgemである<code class="language-plaintext highlighter-rouge">leveldb-native</code>をインストールします</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install leveldb-native
-</code></pre></div></div>
-
-<h3 id="setup-tapyrusrb">tapyrusrbのインストール</h3>
-<p><code class="language-plaintext highlighter-rouge">tapyrusrb</code>をインストールします</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install tapyrus
-</code></pre></div></div>
-
-<p>tapyrusrbのモジュールを使用するためには、requireで読み込みをする必要があります。</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require 'tapyrus'
-</code></pre></div></div>
-
 <h2 id="rpc-call">RPC呼び出し</h2>
-<p><a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/rpc/tapyrus_core_client.rb" target="_blank">TapyrusCoreClientモジュール</a>を用いることで、TapyrusCoreに対してRPC呼び出しを行なうことができます。</p>
-
+<p><a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/rpc/tapyrus_core_client.rb" target="_blank">TapyrusCoreClientモジュール</a>を用いることで、Tapyrus Coreに対してRPC呼び出しを行なうことができます。</p>
 <h3 id="rpc-call-createwallet">createwallet</h3>
 <p><code class="language-plaintext highlighter-rouge">config</code>変数に実行中のTapyrus Coreの設定を行い、TapyrusCoreClientインスタンスの生成を行います。
 ウォレットの名前を引数に指定し、<code class="language-plaintext highlighter-rouge">createwallet</code>メソッドを使用することで、createwallet命令が実行されます。</p>
@@ -231,35 +214,28 @@
 {"txid"=&gt;"5da116c8b9f6b85fb8ff26428ddf2d71cb1cb230a4ea6767759cebe9045616f0", "vout"=&gt;0, "address"=&gt;"mma9LALzWZTapAMxB9gN1CDCbNhJxuCwQr", "token"=&gt;"TPC", "amount"=&gt;"50.00000000", "label"=&gt;"", "scriptPubKey"=&gt;"76a914426b371b81a6da4b5ee616de7f7328b36fb813ec88ac", "confirmations"=&gt;11, "spendable"=&gt;true, "solvable"=&gt;true, "safe"=&gt;true}
 </code></pre></div></div>
 
-<h2 id="generate-keypair">鍵ペア作成</h2>
-<p>鍵ペアの作成には<a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/key.rb" target="_blank">Keyモジュール</a>を使用します。</p>
+<h2 id="generate-keypair">鍵ペアとアドレスの生成</h2>
+<p>鍵ペアとアドレスの生成には<a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/key.rb" target="_blank">Tapyrus::Key</a>クラスを使用します。</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
 <span class="nb">puts</span> <span class="s2">"秘密鍵(WIF): </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_wif</span><span class="si">}</span><span class="s2">"</span>
 <span class="nb">puts</span> <span class="s2">"公開鍵： </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">pubkey</span><span class="si">}</span><span class="s2">"</span>
-</code></pre></div></div>
-
-<p>実行結果例:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): cMx36XoeCWx6fCMYXRn8J999fn4BuTkw7PaYm4tBBEMPKT3NHZgL
-公開鍵： 0201c315cd4bde40c098aa2251227aff1cd3f462c57993a31de3648c27c919a748
-</code></pre></div></div>
-
-<p>サンプルコードは<a href="https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_key_pair.rb" target="_blank">こちら</a>です。</p>
-
-<h2 id="generate-address">アドレスの生成</h2>
-<p>アドレスの生成は、鍵ペアの作成と同様に<a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/key.rb" target="_blank">Keyモジュール</a>を使用します。</p>
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
-<span class="nb">puts</span> <span class="s2">"秘密鍵(WIF): </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_wif</span><span class="si">}</span><span class="s2">"</span>
 <span class="nb">puts</span> <span class="s2">"アドレス: </span><span class="si">#{</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_p2pkh</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div></div>
 
-<p>サンプルコードは<a href="https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_address.rb" target="_blank">こちら</a>です。</p>
+<p>実行結果例:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>秘密鍵(WIF): KwuxDcUYw17Xjf1pj9MCZnGmHxf6A17DkNt99i6V1CLWGRfXcxyg
+公開鍵： 023db289006c4fe2953097e8623184f3ae9071806b90cbb7de7338edba4f041373
+アドレス: 14o95dJWnMS7NU3mPNbhFtmtHZZFH4xP9s
+</code></pre></div></div>
+
+<p>サンプルコードは<a href="https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_key_and_address.rb" target="_blank">こちら</a>です。</p>
 
 <h2 id="generate-transaction">トランザクション作成、署名</h2>
 <p>次に送金、 再発行可能なトークン発行、再発行不可能なトークン発行、NFT発行のトランザクション作成と署名方法について解説します。
 各種トランザクション作成には<a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/tx_builder.rb" target="_blank">TxBuilderモジュール</a>を使用します。</p>
 
 <p>トランザクションの作成には、以下のような<code class="language-plaintext highlighter-rouge">script_pubkey</code>, <code class="language-plaintext highlighter-rouge">txid</code>、<code class="language-plaintext highlighter-rouge">index</code>、<code class="language-plaintext highlighter-rouge">value</code>キーを持つハッシュオブジェクトの変数を定義する必要があります。
-<code class="language-plaintext highlighter-rouge">listunspend</code>コマンド等を用いてUTXOを取得し、変数を定義してください。</p>
+<code class="language-plaintext highlighter-rouge">listunspent</code>コマンド等を用いてUTXOを取得し、変数を定義してください。</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">utxo</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">script_pubkey: </span><span class="o">&lt;</span><span class="n">script_pubkey</span><span class="err">の文字列</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="ss">txid: </span><span class="o">&lt;</span><span class="n">txid</span><span class="err">の文字列</span><span class="o">&gt;</span><span class="p">,</span>
@@ -311,7 +287,7 @@ payメソッドに送金先のアドレスと、送金するTPCの量を指定�
 </code></pre></div></div>
 
 <h3 id="sign-transaction">署名</h3>
-<p>署名にはKeyモジュールのsignメソッドを用います。
+<p>署名にはKeyクラスのsignメソッドを用います。
 signメソッドには引数としてsignature hashを指定する必要があります。</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sig_hash</span> <span class="o">=</span> <span class="n">pay_tx</span><span class="p">.</span><span class="nf">sighash_for_input</span><span class="p">(</span><span class="n">utxo</span><span class="p">[</span><span class="ss">:index</span><span class="p">],</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">parse_from_payload</span><span class="p">(</span><span class="n">utxo</span><span class="p">[</span><span class="ss">:script_pubkey</span><span class="p">]))</span>
 <span class="n">signature</span> <span class="o">=</span> <span class="n">key_pair</span><span class="p">.</span><span class="nf">sign</span><span class="p">(</span><span class="n">sig_hash</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="no">Tapyrus</span><span class="o">::</span><span class="no">SIGHASH_TYPE</span><span class="p">[</span><span class="ss">:all</span><span class="p">]].</span><span class="nf">pack</span><span class="p">(</span><span class="s1">'C'</span><span class="p">)</span>
@@ -375,29 +351,28 @@ ColorIdentifierモジュールのreissuableメソッドの引数にscript_pubkey
 
 <h2 id="generate-script">Scriptの生成</h2>
 <p>次に各種トランザクションに設定するTapyrusスクリプトの生成方法について解説します。
-スクリプトの生成には<a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script.rb" target="_blank">Scriptモジュール</a>を使用します。</p>
+スクリプトの生成には<a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script.rb" target="_blank">Tapyrus::Script</a>クラスを使用します。</p>
 
 <h3 id="generate-script-p2pkh">P2PKH</h3>
 <p>P2PKHはBitcoinと同様のスクリプトを記述します。</p>
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p2pkh_script</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">new</span> <span class="o">&lt;&lt;</span> <span class="s1">'032ad705d98318241852ba9394a90e85f6afc8f7b5f445675040318a9d9ea29e35'</span> <span class="o">&lt;&lt;</span> 
-<span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="o">::</span><span class="no">OP_CHECKSIG</span>
-<span class="nb">puts</span> <span class="n">p2pkh_script</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key_pair</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
+<span class="nb">puts</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">to_p2pkh</span><span class="p">(</span><span class="no">Tapyrus</span><span class="p">.</span><span class="nf">hash160</span><span class="p">(</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">pubkey</span><span class="p">))</span>
 </code></pre></div></div>
 
 <p>実行結果例:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>032ad705d98318241852ba9394a90e85f6afc8f7b5f445675040318a9d9ea29e35 OP_CHECKSIG
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OP_DUP OP_HASH160 5a266ce0b0e183b58ffe62f68dc407e6bb9a4191 OP_EQUALVERIFY OP_CHECKSIG
 </code></pre></div></div>
 
-<h3 id="generate-script-p2sh">P2PH</h3>
-<p>P2PHもBitcoinと同様です。以下は1-of-2マルチシグの例です。</p>
+<h3 id="generate-script-p2sh">P2SH</h3>
+<p>P2SHもBitcoinと同様です。以下は1-of-2マルチシグの例です。</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key_pair1</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
 <span class="n">key_pair2</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
-<span class="n">p2sh_script</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">new</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">key_pair1</span><span class="p">.</span><span class="nf">to_p2pkh</span> <span class="o">&lt;&lt;</span> <span class="n">key_pair2</span><span class="p">.</span><span class="nf">to_p2pkh</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="o">::</span><span class="no">OP_CHECKMULTISIG</span>
-<span class="nb">puts</span> <span class="n">p2sh_script</span>
+<span class="n">p2sh_script</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">to_p2sh_multisig_script</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">key_pair1</span><span class="p">.</span><span class="nf">pubkey</span><span class="p">,</span> <span class="n">key_pair2</span><span class="p">.</span><span class="nf">pubkey</span><span class="p">])</span>
+<span class="nb">puts</span> <span class="n">p2sh_script</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">to_s</span>
 </code></pre></div></div>
 
 <p>実行結果例:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 63dfb8ddfa2e3fa327686bb44bb31251d0 617117b2e0c2338a03161d47b0f436c434 2 OP_CHECKMULTISIG
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 0306160fe0a7efb18be680aca8109d72d6fd5b47ef534a6eab7613a896f17f8d01 024052dd6211f2d22bb228118b0ca2ad41015cc883a51052255718f9c5ae0e7158 2 OP_CHECKMULTISIG
 </code></pre></div></div>
 
 <h3 id="generate-script-cp2pkh">CP2PKH</h3>
@@ -443,7 +418,8 @@ ColorIdentifierモジュールのreissuableメソッドの引数にscript_pubkey
 <p>サンプルコードは<a href="https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_script.rb" target="_blank">こちら</a>です。</p>
 
 <h2 id="scriptInterpreter">ScriptInterpreterによるスクリプトの評価</h2>
-<p><a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script_interpreter.rb" target="_blank">ScriptInterpreterモジュール</a>を使用します。</p>
+<p><a href="https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script_interpreter.rb" target="_blank">Tapyrus::ScriptInterpreter</a>クラスを使用します。
+Tapyrus::ScriptInterpreter は、トランザクションを検証する際にも使用されるスクリプト・インタープリターで、フラグを使用して詳細なスクリプト評価を行います。</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">script_pubkey</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">to_p2pkh</span><span class="p">(</span><span class="n">key_pair</span><span class="p">.</span><span class="nf">to_p2pkh</span><span class="p">)</span>
 <span class="n">script_sig</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">new</span> <span class="o">&lt;&lt;</span> <span class="n">signature</span> <span class="o">&lt;&lt;</span> <span class="n">key_pair</span><span class="p">.</span><span class="nf">pubkey</span>
 <span class="n">tx_checker</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">TxChecker</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">tx: </span><span class="n">pay_tx</span><span class="p">,</span> <span class="ss">input_index: </span><span class="mi">0</span><span class="p">)</span>

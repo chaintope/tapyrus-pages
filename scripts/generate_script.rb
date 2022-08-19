@@ -1,15 +1,16 @@
 require 'tapyrus'
 
 ### p2pkh
-p2pkh_script = Tapyrus::Script.new << '032ad705d98318241852ba9394a90e85f6afc8f7b5f445675040318a9d9ea29e35' << Tapyrus::Script::OP_CHECKSIG
+key_pair1 = Tapyrus::Key.generate
+p2pkh_script = Tapyrus::Script.to_p2pkh(Tapyrus.hash160(key_pair1.pubkey))
 puts "p2pkh_script: #{p2pkh_script}"
 
 
 ### p2sh
-key_pair1 = Tapyrus::Key.generate
 key_pair2 = Tapyrus::Key.generate
-p2sh_script = Tapyrus::Script.new << 1 << key_pair1.to_p2pkh << key_pair2.to_p2pkh << 2 << Tapyrus::Script::OP_CHECKMULTISIG
-puts "p2sh_script: #{p2sh_script}"
+p2sh_script = Tapyrus::Script.to_p2sh_multisig_script(1, [key_pair1.pubkey, key_pair2.pubkey])
+puts "p2sh_script: #{p2sh_script[1].to_s}"
+
 
 ### cp2pkh
 txid = '82ef88fbbc7009d5ec8f60a488643c8843e75c3cea5e19a6b9598867689908b7'

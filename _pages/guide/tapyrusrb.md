@@ -4,7 +4,7 @@ permalink: /guide/tapyrusrb
 title: "tapyrusrb ガイド"
 ---
 
-この記事ではTapyruys rubyライブラリであるtapyrusrbの使用方法を解説します。
+この記事ではTapyruysのプロトコル用のrubyライブラリであるtapyrusrbの使用方法を解説します。
 [こちら](https://github.com/chaintope/tapyrus-pages/tree/master/scripts){:target="_blank"}に各項目のサンプルコードがあります。
 公式ドキュメントは[こちら](https://github.com/chaintope/tapyrusrb/wiki){:target="_blank"}です。
 
@@ -17,8 +17,6 @@ tapyrsurbとはTapyrusの基本機能を全て実装したrubyライブラリで
 - ブロックとトランザクションのデシリアライゼーション
 - SchnorrとECDSAの鍵生成と検証（BIP-32とBIP-39のサポートを含む）
 - ECDSA署名(RFC6979 -決定論的ECDSA, LOW-S, LOW-R対応)
-- [WIP] SPVノード
-- [WIP】0ff-chainプロトコル
 
 ## セットアップ方法 {#setup}
 
@@ -36,26 +34,8 @@ Mac環境の場合:
 $ brew install leveldb
 ```
 
-### leveldb-nativeのインストール {#setup-leveldb-native}
-次にleveldb用のgemである`leveldb-native`をインストールします
-```
-$ gem install leveldb-native
-```
-
-### tapyrusrbのインストール {#setup-tapyrusrb}
-`tapyrusrb`をインストールします
-```
-$ gem install tapyrus
-```
-
-tapyrusrbのモジュールを使用するためには、requireで読み込みをする必要があります。
-```
-require 'tapyrus'
-```
-
 ## RPC呼び出し {#rpc-call}
-[TapyrusCoreClientモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/rpc/tapyrus_core_client.rb){:target="_blank"}を用いることで、TapyrusCoreに対してRPC呼び出しを行なうことができます。
-
+[TapyrusCoreClientモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/rpc/tapyrus_core_client.rb){:target="_blank"}を用いることで、Tapyrus Coreに対してRPC呼び出しを行なうことができます。
 ### createwallet {#rpc-call-createwallet}
 `config`変数に実行中のTapyrus Coreの設定を行い、TapyrusCoreClientインスタンスの生成を行います。
 ウォレットの名前を引数に指定し、`createwallet`メソッドを使用することで、createwallet命令が実行されます。
@@ -86,38 +66,31 @@ puts client.listunspent
 ```
 
 
-## 鍵ペア作成 {#generate-keypair}
-鍵ペアの作成には[Keyモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/key.rb){:target="_blank"}を使用します。
+## 鍵ペアとアドレスの生成 {#generate-keypair}
+鍵ペアとアドレスの生成には[Tapyrus::Key](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/key.rb){:target="_blank"}クラスを使用します。
 ```ruby
 key_pair = Tapyrus::Key.generate
 puts "秘密鍵(WIF): #{key_pair.to_wif}"
 puts "公開鍵： #{key_pair.pubkey}"
+puts "アドレス: #{key_pair.to_p2pkh}"
 ```
 
 実行結果例:
 ```
-秘密鍵(WIF): cMx36XoeCWx6fCMYXRn8J999fn4BuTkw7PaYm4tBBEMPKT3NHZgL
-公開鍵： 0201c315cd4bde40c098aa2251227aff1cd3f462c57993a31de3648c27c919a748
+秘密鍵(WIF): KwuxDcUYw17Xjf1pj9MCZnGmHxf6A17DkNt99i6V1CLWGRfXcxyg
+公開鍵： 023db289006c4fe2953097e8623184f3ae9071806b90cbb7de7338edba4f041373
+アドレス: 14o95dJWnMS7NU3mPNbhFtmtHZZFH4xP9s
 ```
 
-サンプルコードは[こちら](https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_key_pair.rb){:target="_blank"}です。
+サンプルコードは[こちら](https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_key_and_address.rb){:target="_blank"}です。
 
-## アドレスの生成 {#generate-address}
-アドレスの生成は、鍵ペアの作成と同様に[Keyモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/key.rb){:target="_blank"}を使用します。
-```ruby
-key_pair = Tapyrus::Key.generate
-puts "秘密鍵(WIF): #{key_pair.to_wif}"
-puts "アドレス: #{key_pair.to_p2pkh}"
-```
-
-サンプルコードは[こちら](https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_address.rb){:target="_blank"}です。
 
 ## トランザクション作成、署名 {#generate-transaction}
 次に送金、 再発行可能なトークン発行、再発行不可能なトークン発行、NFT発行のトランザクション作成と署名方法について解説します。
 各種トランザクション作成には[TxBuilderモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/tx_builder.rb){:target="_blank"}を使用します。
 
 トランザクションの作成には、以下のような`script_pubkey`, `txid`、`index`、`value`キーを持つハッシュオブジェクトの変数を定義する必要があります。
-`listunspend`コマンド等を用いてUTXOを取得し、変数を定義してください。
+`listunspent`コマンド等を用いてUTXOを取得し、変数を定義してください。
 ```ruby
 utxo = {
   script_pubkey: <script_pubkeyの文字列>,
@@ -178,7 +151,7 @@ puts "未署名のNFT発行トランザクション(hex): #{nft_tx.to_hex}"
 
 
 ### 署名  {#sign-transaction}
-署名にはKeyモジュールのsignメソッドを用います。
+署名にはKeyクラスのsignメソッドを用います。
 signメソッドには引数としてsignature hashを指定する必要があります。
 ```ruby
 sig_hash = pay_tx.sighash_for_input(utxo[:index], Tapyrus::Script.parse_from_payload(utxo[:script_pubkey]))
@@ -253,33 +226,32 @@ c36dc00eff1382bf20457922fd2fa2b26420b6d7045b28cf5ba90d0ee31055b82b
 
 ## Scriptの生成 {#generate-script}
 次に各種トランザクションに設定するTapyrusスクリプトの生成方法について解説します。
-スクリプトの生成には[Scriptモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script.rb){:target="_blank"}を使用します。
+スクリプトの生成には[Tapyrus::Script](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script.rb){:target="_blank"}クラスを使用します。
 
 ### P2PKH {#generate-script-p2pkh}
 P2PKHはBitcoinと同様のスクリプトを記述します。
 ```ruby
-p2pkh_script = Tapyrus::Script.new << '032ad705d98318241852ba9394a90e85f6afc8f7b5f445675040318a9d9ea29e35' << 
-Tapyrus::Script::OP_CHECKSIG
-puts p2pkh_script
+key_pair = Tapyrus::Key.generate
+puts Tapyrus::Script.to_p2pkh(Tapyrus.hash160(key_pair.pubkey))
 ```
 
 実行結果例:
 ```
-032ad705d98318241852ba9394a90e85f6afc8f7b5f445675040318a9d9ea29e35 OP_CHECKSIG
+OP_DUP OP_HASH160 5a266ce0b0e183b58ffe62f68dc407e6bb9a4191 OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### P2PH {#generate-script-p2sh}
-P2PHもBitcoinと同様です。以下は1-of-2マルチシグの例です。
+### P2SH {#generate-script-p2sh}
+P2SHもBitcoinと同様です。以下は1-of-2マルチシグの例です。
 ```ruby
 key_pair1 = Tapyrus::Key.generate
 key_pair2 = Tapyrus::Key.generate
-p2sh_script = Tapyrus::Script.new << 1 << key_pair1.to_p2pkh << key_pair2.to_p2pkh << 2 << Tapyrus::Script::OP_CHECKMULTISIG
-puts p2sh_script
+p2sh_script = Tapyrus::Script.to_p2sh_multisig_script(1, [key_pair1.pubkey, key_pair2.pubkey])
+puts p2sh_script[1].to_s
 ```
 
 実行結果例:
 ```
-1 63dfb8ddfa2e3fa327686bb44bb31251d0 617117b2e0c2338a03161d47b0f436c434 2 OP_CHECKMULTISIG
+1 0306160fe0a7efb18be680aca8109d72d6fd5b47ef534a6eab7613a896f17f8d01 024052dd6211f2d22bb228118b0ca2ad41015cc883a51052255718f9c5ae0e7158 2 OP_CHECKMULTISIG
 ```
 
 ### CP2PKH {#generate-script-cp2pkh}
@@ -331,7 +303,8 @@ OP_RETURN 636f6e74656e7473
 サンプルコードは[こちら](https://github.com/chaintope/tapyrus-pages/scripts/tree/master/generate_script.rb){:target="_blank"}です。
 
 ## ScriptInterpreterによるスクリプトの評価 {#scriptInterpreter}
-[ScriptInterpreterモジュール](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script_interpreter.rb){:target="_blank"}を使用します。
+[Tapyrus::ScriptInterpreter](https://github.com/chaintope/tapyrusrb/blob/master/lib/tapyrus/script/script_interpreter.rb){:target="_blank"}クラスを使用します。
+Tapyrus::ScriptInterpreter は、トランザクションを検証する際にも使用されるスクリプト・インタープリターで、フラグを使用して詳細なスクリプト評価を行います。
 ```ruby
 script_pubkey = Tapyrus::Script.to_p2pkh(key_pair.to_p2pkh)
 script_sig = Tapyrus::Script.new << signature << key_pair.pubkey
