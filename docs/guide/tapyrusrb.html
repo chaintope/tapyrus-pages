@@ -368,11 +368,11 @@ ColorIdentifierモジュールのreissuableメソッドの引数にscript_pubkey
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">key_pair1</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
 <span class="n">key_pair2</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Key</span><span class="p">.</span><span class="nf">generate</span>
 <span class="n">p2sh_script</span> <span class="o">=</span> <span class="no">Tapyrus</span><span class="o">::</span><span class="no">Script</span><span class="p">.</span><span class="nf">to_p2sh_multisig_script</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">key_pair1</span><span class="p">.</span><span class="nf">pubkey</span><span class="p">,</span> <span class="n">key_pair2</span><span class="p">.</span><span class="nf">pubkey</span><span class="p">])</span>
-<span class="nb">puts</span> <span class="n">p2sh_script</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">to_s</span>
+<span class="nb">puts</span> <span class="n">p2sh_script</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">to_s</span>
 </code></pre></div></div>
 
 <p>実行結果例:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 0306160fe0a7efb18be680aca8109d72d6fd5b47ef534a6eab7613a896f17f8d01 024052dd6211f2d22bb228118b0ca2ad41015cc883a51052255718f9c5ae0e7158 2 OP_CHECKMULTISIG
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OP_HASH160 4213f9e1579497ce22640b669895b7b23abb77a0 OP_EQUAL
 </code></pre></div></div>
 
 <h3 id="generate-script-cp2pkh">CP2PKH</h3>

@@ -9,7 +9,7 @@ puts "p2pkh_script: #{p2pkh_script}"
 ### p2sh
 key_pair2 = Tapyrus::Key.generate
 p2sh_script = Tapyrus::Script.to_p2sh_multisig_script(1, [key_pair1.pubkey, key_pair2.pubkey])
-puts "p2sh_script: #{p2sh_script[1].to_s}"
+puts "p2sh_script: #{p2sh_script[0].to_s}"
 
 
 ### cp2pkh

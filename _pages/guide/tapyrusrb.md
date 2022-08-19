@@ -246,12 +246,12 @@ P2SHもBitcoinと同様です。以下は1-of-2マルチシグの例です。
 key_pair1 = Tapyrus::Key.generate
 key_pair2 = Tapyrus::Key.generate
 p2sh_script = Tapyrus::Script.to_p2sh_multisig_script(1, [key_pair1.pubkey, key_pair2.pubkey])
-puts p2sh_script[1].to_s
+puts p2sh_script[0].to_s
 ```
 
 実行結果例:
 ```
-1 0306160fe0a7efb18be680aca8109d72d6fd5b47ef534a6eab7613a896f17f8d01 024052dd6211f2d22bb228118b0ca2ad41015cc883a51052255718f9c5ae0e7158 2 OP_CHECKMULTISIG
+OP_HASH160 4213f9e1579497ce22640b669895b7b23abb77a0 OP_EQUAL
 ```
 
 ### CP2PKH {#generate-script-cp2pkh}
