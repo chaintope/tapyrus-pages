@@ -14,7 +14,7 @@ TapyrusにおいてColored Coinは、Bitcoin Scriptを拡張し、`OP_COLOR`opco
 - 再発行不可能なトークン
 - NFT
 
-既存のP2PKHとP2SHをカラーリングした以下のタイプのscriptPubkeyをサポートしています。
+既存のP2PKHとP2SHをカラーリングした以下のタイプのScriptPubkeyをサポートしています。
 
 CP2PKH(Colored P2PKH)：
 ```
@@ -32,7 +32,7 @@ COLOR識別子が現在サポートするタイプと、対応するペイロー
 
 TYPE|定義|PAYLOAD
 ---|---|---
-0xC1|再発行可能なトークン|発行インプットのscriptPubkeyのSHA256値である32バイトのデータ
+0xC1|再発行可能なトークン|発行インプットのScriptPubkeyのSHA256値である32バイトのデータ
 0xC2|再発行不可能なトークン|発行インプットのOutPointのSHA256値である32バイトのデータ
 0xC3|NFT|発行インプットのOutPointのSHA256値である32バイトのデータ
 
@@ -346,7 +346,7 @@ $ tapyrus-cli -rpcwallet=test getrawtransaction f9784313ce52f6ee0bde2d1b18cd6687
   ],
   "vout": [
     {
-      "token": "c15f8dbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720",
+      "token": "c15f8モジュールdbe022c47bf14b62976b7b10b3a95ce4b6e12aa4b11cfb342c6bd63689720",
       "value": 90,
       "n": 0,
       "scriptPubKey": {
