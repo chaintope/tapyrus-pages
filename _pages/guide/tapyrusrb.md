@@ -20,18 +20,14 @@ tapyrsurbとはTapyrusの基本機能を全て実装したrubyライブラリで
 
 ## セットアップ方法 {#setup}
 
-### Level DBのインストール {#setup-leveldb}
-tapyrusrbライブラリをインストールするためには、まずLevel DBをインストールする必要があります。
-各環境に応じた以下のコマンドを実行してください。
-
-Ubuntu環境の場合:
+`tapyrusrb`をインストールします
 ```
-$ sudo apt-get install libleveldb-dev
+$ gem install tapyrus
 ```
 
-Mac環境の場合:
+tapyrusrbのモジュールを使用するためには、requireで読み込みをする必要があります。
 ```
-$ brew install leveldb
+require 'tapyrus'
 ```
 
 ## RPC呼び出し {#rpc-call}
@@ -245,8 +241,8 @@ P2SHもBitcoinと同様です。以下は1-of-2マルチシグの例です。
 ```ruby
 key_pair1 = Tapyrus::Key.generate
 key_pair2 = Tapyrus::Key.generate
-p2sh_script = Tapyrus::Script.to_p2sh_multisig_script(1, [key_pair1.pubkey, key_pair2.pubkey])
-puts p2sh_script[0].to_s
+p2sh_script = Tapyrus::Script.new << 1 << key_pair1.to_p2pkh << key_pair2.to_p2pkh << 2 << Tapyrus::Script::OP_CHECKMULTISIG
+puts p2sh_script.to_p2sh
 ```
 
 実行結果例:
@@ -315,7 +311,7 @@ puts interpreter.verify_script(script_sig, script_pubkey)
 
 実行するとbooleanで検証結果が出力されます。
 ```
-false
+true
 ```
 
 サンプルコードは[こちら](https://github.com/chaintope/tapyrus-pages/scripts/tree/master/scriptinterpreter.rb){:target="_blank"}です。
