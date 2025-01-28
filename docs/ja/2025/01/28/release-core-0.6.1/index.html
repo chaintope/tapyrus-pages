@@ -1,0 +1,585 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tapyrus Core v0.6.1リリース - Tapyrus Guide</title>
+<meta name="description" content="Tapyrus Core v0.6.1をリリース">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="Tapyrus Core v0.6.1リリース">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/ja/2025/01/28/release-core-0.6.1/">
+
+
+  <meta property="og:description" content="Tapyrus Core v0.6.1をリリース">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-01-28T00:00:00+09:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/ja/2025/01/28/release-core-0.6.1/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name"></h3>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tapyrus Core v0.6.1リリース">
+    <meta itemprop="description" content="Tapyrus Core v0.6.1をリリース">
+    <meta itemprop="datePublished" content="2025-01-28T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Tapyrus Core v0.6.1リリース
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p><a href="https://github.com/chaintope/tapyrus-core/releases/tag/v0.6.1">Tapyrus Core v0.6.1</a>をリリースしました。</p>
+
+<h2 id="changes">主な変更点</h2>
+
+<h3 id="dynamic-block-size">ブロックサイズの動的な変更をサポート</h3>
+
+<p>このリリースでは、ブロックサイズを動的に変更する機能が導入されました。
+これまではブロックサイズの上限は1MBに固定されていました。
+ブロックサイズの変更は、ブロックヘッダー内の<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/signedblocks.md">xfied</a>（<code class="language-plaintext highlighter-rouge">xfieldType = 0x02</code>）を使用して行われます。
+チェーンを運用するフェデレーションが、<code class="language-plaintext highlighter-rouge">xfied</code>で新しいブロックサイズを指定すると、
+そのサイズがそれ以降作成されるブロックの最大サイズになります。
+ブロックサイズの変更をトリガーできるのは、ブロックを生成するフェデレーションのみです。</p>
+
+<ul>
+  <li>注意：
+この機能を利用してブロックサイズを変更する場合、ネットワーク内のすべてのノードが<code class="language-plaintext highlighter-rouge">v0.6.1</code>以降を使用する必要があります。
+旧バージョンを使用するノードは、認識している最大ブロックサイズを超えるブロックを受け取るとそれを無効なブロックとして判断します。
+フェデレーションが後続のブロックを作成しても、ブロックサイズの変更を検知できない旧ノードは、後続のチェーンを認識できなくなります。</li>
+</ul>
+
+<h3 id="prc">RPC</h3>
+
+<p>ノードのUTXOセットをダンプする<code class="language-plaintext highlighter-rouge">dumptxoutset</code>RPCが追加されました。
+将来、<code class="language-plaintext highlighter-rouge">loadtxoset</code> RPCが導入されると、スナップショットベースの同期が可能になる予定です。</p>
+
+<h3 id="usdt">USDTのトレースポイントを導入</h3>
+
+<p>開発、デバッグ、レビューおよび実稼働環境において、より詳細なモニタリングを可能にするために
+USDT（User Statically-Defined Tracing）のトレースポイントを導入しました
+（<a href="https://github.com/chaintope/tapyrus-core/pull/280">#280</a>、
+<a href="https://github.com/chaintope/tapyrus-core/pull/281">#281</a>）。
+これらのトレースポイントを使用することで内部のデータにアクセスできるようになります。
+現在、提供されているトレースポイントについては、<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/tracing.md">こちら</a>で確認できます。</p>
+
+<h3 id="build">ビルド</h3>
+
+<ul>
+  <li>依存ライブラリの更新：
+    <ul>
+      <li>leveldbを1.23にアップグレード（<a href="https://github.com/chaintope/tapyrus-core/pull/272">#272</a>）</li>
+      <li>boostを1.81にアップグレード（<a href="https://github.com/chaintope/tapyrus-core/pull/250">#250</a>）</li>
+      <li>不要になった依存ライブラリを削除（<a href="https://github.com/chaintope/tapyrus-core/pull/249">#249</a>）</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="others">その他の変更</h3>
+
+<ul>
+  <li>スレッドの同期とmutexの安定性の向上（<a href="https://github.com/chaintope/tapyrus-core/pull/276">#276</a>）</li>
+  <li><code class="language-plaintext highlighter-rouge">tapyrus-genesis</code>コマンドで非圧縮公開鍵が指定された場合にエラーを返すようになりました（<a href="https://github.com/chaintope/tapyrus-core/pull/262">#262</a>）</li>
+  <li>ブロック高の型を32 bitに統一（<a href="https://github.com/chaintope/tapyrus-core/pull/286">#286</a>）</li>
+  <li>CIの環境をUbuntu 22.04にアップグレードし、機能テストのRIPEMD160の実装を移植（<a href="https://github.com/chaintope/tapyrus-core/pull/301">#301</a>）</li>
+</ul>
+
+<h3 id="security-fix">セキュリティFix</h3>
+
+<p>Tapyrus CoreはBitcoin Coreのコードベースを元にしていますが、昨年開示された以下のBitcoin Coreの脆弱性の内、
+Tapyrusにも関連する以下の脆弱性の対応を行っています。</p>
+
+<ul>
+  <li><a href="https://bitcoincore.org/ja/2024/07/03/disclose-getdata-cpu/">巨大なGETDATAメッセージを使用したDoS</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/312">#312</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/07/03/disclose-inv-buffer-blowup/">巨大なINVメッセージを使用したメモリDoS</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/313">#313</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/07/03/disclose-orphan-dos/">オーファンの処理による重大なDoS</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/314">#314</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/07/03/disclose-timestamp-overflow/">タイムスタンプの調整によるネットワーク分割</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/315">#315</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/07/31/disclose-addrman-int-overflow/">addrメッセージスパムによるリモートクラッシュ</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/317">#317</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/10/08/disclose-mutated-blocks-hindering-propagation/">変異ブロックによるブロック伝播阻害</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/318">#318</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/10/08/disclose-large-inv-to-send/">inv-to-sendの肥大化によるDoS</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/319">#319</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/10/08/disclose-blocktxn-crash/">CVE-2024-35202</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/318">#318</a>）</li>
+  <li><a href="https://bitcoincore.org/ja/2024/11/05/cb-stall-hindering-propagation/">ピアの停止によるブロック伝播の妨害</a>への対応（<a href="https://github.com/chaintope/tapyrus-core/pull/318">#318</a>）</li>
+</ul>
+
+<h3 id="bug-fix">バグ修正</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-reloadxfield</code>オプションを使用して再起動した場合にクラッシュする不具合の修正（<a href="https://github.com/chaintope/tapyrus-core/pull/275">#275</a>）</li>
+  <li><code class="language-plaintext highlighter-rouge">gettransaction</code> RPCで手数料が正しく計算されない不具合の修正（<a href="https://github.com/chaintope/tapyrus-core/pull/328">#328</a>）</li>
+</ul>
+
+<p>すべての変更点については、<a href="https://github.com/chaintope/tapyrus-core/blob/master/doc/release-notes/release-notes-0.6.1.md">リリースノート</a>を参照ください。</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2025-01-28T00:00:00+09:00">January 28, 2025</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Tapyrus+Core+v0.6.1%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%20https%3A%2F%2Fsite.tapyrus.chaintope.com%2Fja%2F2025%2F01%2F28%2Frelease-core-0.6.1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsite.tapyrus.chaintope.com%2Fja%2F2025%2F01%2F28%2Frelease-core-0.6.1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fsite.tapyrus.chaintope.com%2Fja%2F2025%2F01%2F28%2Frelease-core-0.6.1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/ja/2022/04/20/release-core-0.5.1/" class="pagination--pager" title="Tapyrus Core v0.5.1リリース
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ja/2022/04/20/release-core-0.5.1/" rel="permalink">Tapyrus Core v0.5.1リリース
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">ARM64ベースのコンテナで動作するTapyrus Core v0.5.1をリリース
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ja/2021/12/24/release-core-0.5.0/" rel="permalink">Tapyrus Core v0.5.0リリース
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">ネイティブColored Coin機能を搭載したTapyrus Core v0.5.0をリリース
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ja/2020/05/25/release-core-0.4.0/" rel="permalink">Tapyrus Core v0.4.0リリース
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">フェデレーション管理をサポートしたTapyrus Core v0.4.0をリリース
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
