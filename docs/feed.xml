@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://site.tapyrus.chaintope.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://site.tapyrus.chaintope.com/" rel="alternate" type="text/html" /><updated>2022-07-12T10:33:14+09:00</updated><id>https://site.tapyrus.chaintope.com/feed.xml</id><title type="html">Tapyrus Guide</title><subtitle>TapyrusおよびTapyrus APIに関する技術情報サイトです。</subtitle><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.1リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.1リリース" /><published>2022-04-20T00:00:00+09:00</published><updated>2022-04-20T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2022/04/20/v0.5.1</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/">&lt;p&gt;ARM64アーキテクチャのコンテナで動作する&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1&quot;&gt;Tapyrus Core v0.5.1&lt;/a&gt;をリリースしました。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://site.tapyrus.chaintope.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://site.tapyrus.chaintope.com/" rel="alternate" type="text/html" /><updated>2025-01-28T14:56:54+09:00</updated><id>https://site.tapyrus.chaintope.com/feed.xml</id><title type="html">Tapyrus Guide</title><subtitle>TapyrusおよびTapyrus APIに関する技術情報サイトです。</subtitle><entry xml:lang="ja"><title type="html">Tapyrus Core v0.6.1リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2025/01/28/release-core-0.6.1/" rel="alternate" type="text/html" title="Tapyrus Core v0.6.1リリース" /><published>2025-01-28T00:00:00+09:00</published><updated>2025-01-28T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2025/01/28/v0.6.1</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2025/01/28/release-core-0.6.1/">&lt;p&gt;&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.6.1&quot;&gt;Tapyrus Core v0.6.1&lt;/a&gt;をリリースしました。&lt;/p&gt;
+
+&lt;h2 id=&quot;changes&quot;&gt;主な変更点&lt;/h2&gt;
+
+&lt;h3 id=&quot;dynamic-block-size&quot;&gt;ブロックサイズの動的な変更をサポート&lt;/h3&gt;
+
+&lt;p&gt;このリリースでは、ブロックサイズを動的に変更する機能が導入されました。
+これまではブロックサイズの上限は1MBに固定されていました。
+ブロックサイズの変更は、ブロックヘッダー内の&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/blob/master/doc/tapyrus/signedblocks.md&quot;&gt;xfied&lt;/a&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xfieldType = 0x02&lt;/code&gt;）を使用して行われます。
+チェーンを運用するフェデレーションが、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xfied&lt;/code&gt;で新しいブロックサイズを指定すると、
+そのサイズがそれ以降作成されるブロックの最大サイズになります。
+ブロックサイズの変更をトリガーできるのは、ブロックを生成するフェデレーションのみです。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;注意：
+この機能を利用してブロックサイズを変更する場合、ネットワーク内のすべてのノードが&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v0.6.1&lt;/code&gt;以降を使用する必要があります。
+旧バージョンを使用するノードは、認識している最大ブロックサイズを超えるブロックを受け取るとそれを無効なブロックとして判断します。
+フェデレーションが後続のブロックを作成しても、ブロックサイズの変更を検知できない旧ノードは、後続のチェーンを認識できなくなります。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;prc&quot;&gt;RPC&lt;/h3&gt;
+
+&lt;p&gt;ノードのUTXOセットをダンプする&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dumptxoutset&lt;/code&gt;RPCが追加されました。
+将来、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loadtxoset&lt;/code&gt; RPCが導入されると、スナップショットベースの同期が可能になる予定です。&lt;/p&gt;
+
+&lt;h3 id=&quot;usdt&quot;&gt;USDTのトレースポイントを導入&lt;/h3&gt;
+
+&lt;p&gt;開発、デバッグ、レビューおよび実稼働環境において、より詳細なモニタリングを可能にするために
+USDT（User Statically-Defined Tracing）のトレースポイントを導入しました
+（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/280&quot;&gt;#280&lt;/a&gt;、
+&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/281&quot;&gt;#281&lt;/a&gt;）。
+これらのトレースポイントを使用することで内部のデータにアクセスできるようになります。
+現在、提供されているトレースポイントについては、&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/blob/master/doc/tracing.md&quot;&gt;こちら&lt;/a&gt;で確認できます。&lt;/p&gt;
+
+&lt;h3 id=&quot;build&quot;&gt;ビルド&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;依存ライブラリの更新：
+    &lt;ul&gt;
+      &lt;li&gt;leveldbを1.23にアップグレード（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/272&quot;&gt;#272&lt;/a&gt;）&lt;/li&gt;
+      &lt;li&gt;boostを1.81にアップグレード（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/250&quot;&gt;#250&lt;/a&gt;）&lt;/li&gt;
+      &lt;li&gt;不要になった依存ライブラリを削除（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/249&quot;&gt;#249&lt;/a&gt;）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;others&quot;&gt;その他の変更&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;スレッドの同期とmutexの安定性の向上（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/276&quot;&gt;#276&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tapyrus-genesis&lt;/code&gt;コマンドで非圧縮公開鍵が指定された場合にエラーを返すようになりました（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/262&quot;&gt;#262&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;ブロック高の型を32 bitに統一（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/286&quot;&gt;#286&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;CIの環境をUbuntu 22.04にアップグレードし、機能テストのRIPEMD160の実装を移植（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/301&quot;&gt;#301&lt;/a&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;security-fix&quot;&gt;セキュリティFix&lt;/h3&gt;
+
+&lt;p&gt;Tapyrus CoreはBitcoin Coreのコードベースを元にしていますが、昨年開示された以下のBitcoin Coreの脆弱性の内、
+Tapyrusにも関連する以下の脆弱性の対応を行っています。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/07/03/disclose-getdata-cpu/&quot;&gt;巨大なGETDATAメッセージを使用したDoS&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/312&quot;&gt;#312&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/07/03/disclose-inv-buffer-blowup/&quot;&gt;巨大なINVメッセージを使用したメモリDoS&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/313&quot;&gt;#313&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/07/03/disclose-orphan-dos/&quot;&gt;オーファンの処理による重大なDoS&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/314&quot;&gt;#314&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/07/03/disclose-timestamp-overflow/&quot;&gt;タイムスタンプの調整によるネットワーク分割&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/315&quot;&gt;#315&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/07/31/disclose-addrman-int-overflow/&quot;&gt;addrメッセージスパムによるリモートクラッシュ&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/317&quot;&gt;#317&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/10/08/disclose-mutated-blocks-hindering-propagation/&quot;&gt;変異ブロックによるブロック伝播阻害&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/318&quot;&gt;#318&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/10/08/disclose-large-inv-to-send/&quot;&gt;inv-to-sendの肥大化によるDoS&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/319&quot;&gt;#319&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/10/08/disclose-blocktxn-crash/&quot;&gt;CVE-2024-35202&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/318&quot;&gt;#318&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoincore.org/ja/2024/11/05/cb-stall-hindering-propagation/&quot;&gt;ピアの停止によるブロック伝播の妨害&lt;/a&gt;への対応（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/318&quot;&gt;#318&lt;/a&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bug-fix&quot;&gt;バグ修正&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-reloadxfield&lt;/code&gt;オプションを使用して再起動した場合にクラッシュする不具合の修正（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/275&quot;&gt;#275&lt;/a&gt;）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gettransaction&lt;/code&gt; RPCで手数料が正しく計算されない不具合の修正（&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/pull/328&quot;&gt;#328&lt;/a&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;すべての変更点については、&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/blob/master/doc/release-notes/release-notes-0.6.1.md&quot;&gt;リリースノート&lt;/a&gt;を参照ください。&lt;/p&gt;</content><author><name></name></author><category term="core" /><summary type="html">Tapyrus Core v0.6.1をリリース</summary></entry><entry xml:lang="ja"><title type="html">Tapyrus Core v0.5.1リリース</title><link href="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/" rel="alternate" type="text/html" title="Tapyrus Core v0.5.1リリース" /><published>2022-04-20T00:00:00+09:00</published><updated>2022-04-20T00:00:00+09:00</updated><id>https://site.tapyrus.chaintope.com/ja/2022/04/20/v0.5.1</id><content type="html" xml:base="https://site.tapyrus.chaintope.com/ja/2022/04/20/release-core-0.5.1/">&lt;p&gt;ARM64アーキテクチャのコンテナで動作する&lt;a href=&quot;https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1&quot;&gt;Tapyrus Core v0.5.1&lt;/a&gt;をリリースしました。&lt;/p&gt;
 
 &lt;h2 id=&quot;changes&quot;&gt;主な変更点&lt;/h2&gt;
 
