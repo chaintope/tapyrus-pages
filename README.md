@@ -4,17 +4,12 @@
 
 ## コンテンツの追加・変更
 
-Jekyllにより生成されたコンテンツは`docs`フォルダに反映されます。
-Github Pagesの設定により`docs`以下をサイトとして公開するようになっているため、
-コンテンツを追加・変更する場合は、`docs`以下も含めてPRを作成してください。
+コンテンツを追加・変更する場合は、ソースファイルを編集して PR を作成してください。
+`master` ブランチにマージされると、GitHub Actions により自動的にビルド・デプロイされます。
 
-### コンテンツの作成
+### ローカルでのプレビュー
 
-Jekyllベースで作成されているため、以下のコマンドでlocalhost:4000でサイトが起動します。
+Jekyll ベースで作成されているため、以下のコマンドで localhost:4000 でサイトが起動します。
 
-    $ bundle exec jekyll s
-
-上記のコマンドでは`docs`以下のコンテンツのURLもすべてlocalhost:4000になるため、
-PRを作成する際は、事前に以下のコマンドを実行しプロダクション用のURLを適用してください。
-
-    $ bundle exec jekyll build
+    $ bundle install
+    $ bundle exec jekyll serve
