@@ -59,7 +59,6 @@ exclude:
   - vendor/ruby/
   - scripts/
 
-destination: ./docs
 minimal_mistakes_skin: "contrast"
 include:
   - _pages
