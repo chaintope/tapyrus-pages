@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 220" width="580" height="220">
+  <defs>
+    <linearGradient id="tpcGradT" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tokenGradT" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrowTransfer" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="580" height="220" fill="#fafafa"/>
+
+  <!-- Inputs group: transform(20, 20) -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="150" height="180" rx="8" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="75" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2980b9">Inputs</text>
+    <line x1="10" y1="32" x2="140" y2="32" stroke="#3498db" stroke-width="1" opacity="0.3"/>
+
+    <!-- Token UTXO: y=45, height=55, center=72.5 -->
+    <rect x="15" y="45" width="120" height="55" rx="5" fill="url(#tokenGradT)"/>
+    <text x="75" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">Token UTXO</text>
+    <text x="75" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(100 token)</text>
+
+    <!-- TPC UTXO: y=110, height=55, center=137.5 -->
+    <rect x="15" y="110" width="120" height="55" rx="5" fill="url(#tpcGradT)"/>
+    <text x="75" y="133" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TPC UTXO</text>
+    <text x="75" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(手数料)</text>
+  </g>
+
+  <!-- Outputs group: transform(310, 20) -->
+  <g transform="translate(310, 20)">
+    <rect x="0" y="0" width="250" height="180" rx="8" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+    <text x="125" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7d3c98">Outputs</text>
+    <line x1="10" y1="32" x2="240" y2="32" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+
+    <!-- Colored Output (recipient): y=42, height=38, center=61 -->
+    <rect x="15" y="42" width="220" height="38" rx="5" fill="url(#tokenGradT)"/>
+    <text x="125" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">Colored Output (受取人)</text>
+    <text x="125" y="73" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">70 token</text>
+
+    <!-- Colored Output (change): y=87, height=38, center=106 -->
+    <rect x="15" y="87" width="220" height="38" rx="5" fill="url(#tokenGradT)"/>
+    <text x="125" y="103" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">Colored Output (お釣り)</text>
+    <text x="125" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">30 token</text>
+
+    <!-- TPC Change: y=132, height=38, center=151 -->
+    <rect x="15" y="132" width="220" height="38" rx="5" fill="url(#tpcGradT)"/>
+    <text x="125" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TPC Change</text>
+  </g>
+
+  <!-- Arrows -->
+  <!-- Token UTXO center: 20+15+120=155, 20+72.5=92.5 -->
+  <!-- To Colored Output (recipient): 310, 20+61=81 -->
+  <path d="M170,93 L240,93 L240,81 L310,81" stroke="#9b59b6" stroke-width="2" fill="none" marker-end="url(#arrowTransfer)"/>
+  <!-- To Colored Output (change): 310, 20+106=126 -->
+  <path d="M170,93 L220,93 L220,126 L310,126" stroke="#9b59b6" stroke-width="2" fill="none" marker-end="url(#arrowTransfer)"/>
+
+  <!-- TPC UTXO center: 20+15+120=155, 20+137.5=157.5 -->
+  <!-- To TPC Change: 310, 20+151=171 -->
+  <path d="M170,158 L240,158 L240,171 L310,171" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#arrowTransfer)"/>
+</svg>

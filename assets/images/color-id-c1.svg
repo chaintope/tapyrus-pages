@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260">
+  <defs>
+    <linearGradient id="txGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="deriveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7f8c8d"/>
+    </marker>
+    <marker id="arrowPurpleLeft" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M10,0 L10,6 L0,3 z" fill="#9b59b6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="260" fill="#fafafa"/>
+
+  <!-- 発行Tx group -->
+  <g transform="translate(20, 25)">
+    <rect x="0" y="0" width="180" height="190" rx="8" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2980b9">発行Tx</text>
+    <line x1="10" y1="38" x2="170" y2="38" stroke="#3498db" stroke-width="1" opacity="0.3"/>
+
+    <!-- Input -->
+    <rect x="20" y="55" width="140" height="55" rx="5" fill="url(#txGrad)"/>
+    <text x="90" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#fff">Input</text>
+    <text x="90" y="96" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(address Aを参照)</text>
+
+    <!-- Output -->
+    <rect x="20" y="125" width="140" height="55" rx="5" fill="url(#txGrad)"/>
+    <text x="90" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#fff">Colored Output</text>
+    <text x="90" y="166" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(100 token)</text>
+  </g>
+
+  <!-- Arrow from Input to scriptPubkey -->
+  <path d="M200,107 L260,107" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="230" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">参照</text>
+
+  <!-- Color ID導出 group -->
+  <g transform="translate(265, 25)">
+    <rect x="0" y="0" width="430" height="190" rx="8" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+    <text x="215" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#7d3c98">Color ID導出</text>
+    <line x1="10" y1="38" x2="420" y2="38" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+
+    <!-- scriptPubkey -->
+    <rect x="20" y="60" width="120" height="60" rx="5" fill="url(#deriveGrad)"/>
+    <text x="80" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">address Aの</text>
+    <text x="80" y="102" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">scriptPubkey</text>
+
+    <!-- Arrow -->
+    <path d="M145,90 L175,90" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+    <!-- SHA256 -->
+    <rect x="180" y="60" width="110" height="60" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+    <text x="235" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2c3e50">SHA256</text>
+    <text x="235" y="102" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">(scriptPubkey)</text>
+
+    <!-- Arrow -->
+    <path d="M295,90 L325,90" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+    <!-- Color ID -->
+    <rect x="330" y="60" width="85" height="60" rx="5" fill="url(#deriveGrad)"/>
+    <text x="372" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">0xC1 || Hash</text>
+    <text x="372" y="102" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(Color ID)</text>
+  </g>
+
+  <!-- Dashed arrow from Color ID to Output -->
+  <!-- Path: down from Color ID, left below boxes, up to Output level, then left into Output -->
+  <path d="M637,145 L637,240 L230,240 L230,178 L205,178" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowPurpleLeft)"/>
+  <text x="440" y="252" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#9b59b6">Color ID</text>
+</svg>

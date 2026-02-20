@@ -76,6 +76,8 @@ Table #1: Color IDのタイプ
 Color ID = 0xC1 || SHA256(scriptPubkey)
 ```
 
+![C1 Color ID導出](/assets/images/color-id-c1.svg)
+
 同じscriptPubkeyを持つUTXOから、同じIDのトークンを何度でも発行できます。
 これにより、特定のアドレス（スクリプト）の所有者が追加発行を行う権限を持つトークンを実現できます。
 
@@ -86,6 +88,8 @@ Color ID = 0xC1 || SHA256(scriptPubkey)
 ```
 Color ID = 0xC2 || SHA256(OutPoint)
 ```
+
+![C2 Color ID導出](/assets/images/color-id-c2.svg)
 
 OutPointはブロックチェーン上で重複できないため、同じIDのトークンを再度発行することはできません。
 発行時に総供給量が確定するトークンに適しています。
@@ -110,11 +114,7 @@ Color ID = 0xC3 || SHA256(OutPoint)
 2. Color IDを導出（タイプに応じてscriptPubkeyまたはOutPointから）
 3. CP2PKHまたはCP2SHスクリプトを含むアウトプットを作成
 
-```
-[Input]                    [Output]
-UTXO (TPC) ───────────────→ Colored Output (トークン)
-                           Change Output (TPC お釣り)
-```
+![トークン発行](/assets/images/token-issue.svg)
 
 #### 4.2 転送（Transfer）
 
@@ -124,11 +124,7 @@ UTXO (TPC) ───────────────→ Colored Output (ト�
 2. 同じColor IDを持つアウトプットを作成
 3. 手数料用のTPCインプットも必要
 
-```
-[Input]                    [Output]
-Token UTXO ───────────────→ Colored Output (受取人)
-TPC UTXO (手数料) ────────→ TPC Change (お釣り)
-```
+![トークン転送](/assets/images/token-transfer.svg)
 
 **重要:** 入力のトークン総量 ≥ 出力のトークン総量である必要があります。
 
@@ -140,11 +136,7 @@ TPC UTXO (手数料) ────────→ TPC Change (お釣り)
 2. 手数料用のTPCインプットも必要
 3. アウトプットにはTPCのお釣りのみ（トークンアウトプットなし）
 
-```
-[Input]                    [Output]
-Token UTXO ───────────────→ (消滅)
-TPC UTXO (手数料) ────────→ TPC Change (お釣り)
-```
+![トークン焼却](/assets/images/token-burn.svg)
 
 トークンアウトプットを作成しないことで、インプットのトークンは永久に消滅します。
 
@@ -197,6 +189,8 @@ TIP20は、Colored Coinトークンにメタデータを紐付けるための標
 3. **暗号学的な紐付け**: このインプットからColor IDが導出されるため、メタデータとトークンが暗号学的に結び付けられます
 
 この仕組みにより、メタデータが特定のColor IDに対して正当なものであることを暗号学的に検証できます。
+
+![TIP20 メタデータ紐付けスキーム](/assets/images/tip20-scheme.svg)
 
 #### 7.2 必須フィールド
 

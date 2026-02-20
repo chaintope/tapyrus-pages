@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 200" width="520" height="200">
+  <defs>
+    <linearGradient id="tpcGradB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tokenGradB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="burnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrowBurn" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+    <marker id="arrowBurnRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="520" height="200" fill="#fafafa"/>
+
+  <!-- Inputs group: transform(20, 20) -->
+  <g transform="translate(20, 20)">
+    <rect x="0" y="0" width="150" height="160" rx="8" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="75" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2980b9">Inputs</text>
+    <line x1="10" y1="32" x2="140" y2="32" stroke="#3498db" stroke-width="1" opacity="0.3"/>
+
+    <!-- Token UTXO: y=45, height=50, center=70 -->
+    <rect x="15" y="45" width="120" height="50" rx="5" fill="url(#tokenGradB)"/>
+    <text x="75" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">Token UTXO</text>
+    <text x="75" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(焼却対象)</text>
+
+    <!-- TPC UTXO: y=105, height=45, center=127.5 -->
+    <rect x="15" y="105" width="120" height="45" rx="5" fill="url(#tpcGradB)"/>
+    <text x="75" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TPC UTXO</text>
+    <text x="75" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(手数料)</text>
+  </g>
+
+  <!-- Outputs group: transform(300, 20) -->
+  <g transform="translate(300, 20)">
+    <rect x="0" y="0" width="200" height="160" rx="8" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+    <text x="100" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7d3c98">Outputs</text>
+    <line x1="10" y1="32" x2="190" y2="32" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+
+    <!-- Burn indicator: y=45, height=50, center=70 -->
+    <rect x="15" y="45" width="170" height="50" rx="5" fill="url(#burnGrad)"/>
+    <text x="100" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">焼却</text>
+    <text x="100" y="83" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(トークン消滅)</text>
+
+    <!-- TPC Change: y=105, height=45, center=127.5 -->
+    <rect x="15" y="105" width="170" height="45" rx="5" fill="url(#tpcGradB)"/>
+    <text x="100" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TPC Change</text>
+    <text x="100" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">(お釣り)</text>
+  </g>
+
+  <!-- Arrows -->
+  <!-- Token UTXO center: 20+15+120=155, 20+70=90 -->
+  <!-- To Burn: 300, 20+70=90 -->
+  <path d="M170,90 L300,90" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowBurnRed)"/>
+  <text x="235" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e74c3c">消滅</text>
+
+  <!-- TPC UTXO center: 20+15+120=155, 20+127.5=147.5 -->
+  <!-- To TPC Change: 300, 20+127.5=147.5 -->
+  <path d="M170,148 L300,148" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#arrowBurn)"/>
+</svg>
