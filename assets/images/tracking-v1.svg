@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 350" width="612" height="350">
+  <defs>
+    <linearGradient id="accGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16a085;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0e6655;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="612" height="350" fill="#ffffff" />
+
+  <!-- Accumulator icon - multiple items compressing into one -->
+  <g transform="translate(180, 175)">
+    <!-- Input items (small boxes) -->
+    <rect x="-70" y="-70" width="25" height="25" rx="3" fill="#7f8c8d" opacity="0.6"/>
+    <rect x="-35" y="-75" width="25" height="25" rx="3" fill="#7f8c8d" opacity="0.7"/>
+    <rect x="0" y="-70" width="25" height="25" rx="3" fill="#7f8c8d" opacity="0.6"/>
+    <rect x="35" y="-75" width="25" height="25" rx="3" fill="#7f8c8d" opacity="0.7"/>
+
+    <!-- Compression arrows -->
+    <path d="M-55,-40 L-20,5" stroke="#16a085" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M-20,-45 L-5,5" stroke="#16a085" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M15,-40 L5,5" stroke="#16a085" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M50,-45 L20,5" stroke="#16a085" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+    <!-- Accumulator (single compressed result) -->
+    <ellipse cx="0" cy="40" rx="50" ry="30" fill="url(#accGrad)"/>
+    <text x="0" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">ACC</text>
+  </g>
+
+  <!-- Text -->
+  <text x="300" y="145" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#0e6655">Tracking</text>
+  <text x="300" y="185" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#0e6655">Protocol</text>
+  <text x="300" y="230" font-family="Arial, sans-serif" font-size="24" fill="#16a085">v1 - Accumulator</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#16a085"/>
+    </marker>
+  </defs>
+</svg>

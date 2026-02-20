@@ -36,6 +36,28 @@ feature_row:
     url: "/api/"
     btn_class: "btn--info"
     btn_label: "Learn more"
+  - image_path: /assets/images/colored-coin.svg
+    alt: "Colored Coin Protocol"
+    title: "Colored Coinプロトコル"
+    excerpt: "Tapyrusでは、基軸通貨（TPC）以外のトークンを1stレイヤーでネイティブにサポートしています。
+OP_COLOR opcodeによりコンセンサスレベルでトークンの正当性が検証され、再発行可能/不可能なトークンやNFTを発行できます。"
+    url: "/colored-coin/spec"
+    btn_class: "btn--info"
+    btn_label: "Learn more"
+  - image_path: /assets/images/tracking-v1.svg
+    alt: "Tracking Protocol v1"
+    title: "Tracking Protocol v1"
+    excerpt: "RSAアキュムレーターを使用して大量のアイテムIDを固定サイズに圧縮し、サプライチェーンなどでモノの移動を効率的にトラッキングするプロトコルです。"
+    url: "/tracking/v1"
+    btn_class: "btn--info"
+    btn_label: "Learn more"
+  - image_path: /assets/images/tracking-v2.svg
+    alt: "Tracking Protocol v2"
+    title: "Tracking Protocol v2"
+    excerpt: "v1を拡張し、Vector Pedersen Commitmentを使用してアイテムの構成要素（部材の量など）も追跡可能にしたプロトコルです。量を秘匿したままの取引も実現できます。"
+    url: "/tracking/v2"
+    btn_class: "btn--info"
+    btn_label: "Learn more"
 ---
 
 {% include feature_row %}
