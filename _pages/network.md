@@ -2,6 +2,7 @@
 layout: single
 permalink: /network/
 title: "Tapyrus Network"
+description: "Tapyrusテストネットワークの接続情報とFaucet。ネットワークID、マジックバイト、シーダー情報を提供。開発・検証用のテストコインを取得可能。"
 ---
 
 Tapyrusは誰でもすぐに動作検証ができるよう、テスト用のネットワークおよび、そのネットワークで使用するコインを配布するfaucetを公開しています。

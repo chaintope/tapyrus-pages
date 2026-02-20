@@ -2,6 +2,7 @@
 layout: single
 permalink: /core/
 title: "Tapyrus Core"
+description: "エンタープライズ向けブロックチェーンTapyrus Coreの技術情報。Signer NetworkとTapyrus Networkの2層構造、フェデレーション管理、ネットワーク構築方法を解説。"
 ---
 
 Tapyrusは、任意のビジネスユースケースに応じて独自のブロックチェーンネットワークを構成可能なエンタープライズ向けのブロックチェーンです。

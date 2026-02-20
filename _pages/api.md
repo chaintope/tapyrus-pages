@@ -2,6 +2,7 @@
 layout: single
 permalink: /api/
 title: "Tapyrus API"
+description: "エンタープライズ向けブロックチェーンAPIサービス。タイムスタンプ、トークン管理、トラッキングなどの機能をREST APIで提供。即時利用可能なインフラで開発をサポート。"
 ---
 
 Tapyrus APIは、chaintope社がセットアップしたブロックチェーンネットワーク上で利用可能な

@@ -1,6 +1,8 @@
 ---
 layout: splash
 permalink: /
+title: "Tapyrus Guide - エンタープライズ向けブロックチェーン技術情報"
+description: "Tapyrusブロックチェーンの技術情報サイト。Colored Coin、Tracking Protocol、API、ネットワーク構築など、エンタープライズ向けブロックチェーンの開発に必要な情報を提供。"
 hidden: true
 header:
   overlay_color: "#000"

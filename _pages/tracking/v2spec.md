@@ -2,6 +2,8 @@
 layout: single
 permalink: /tracking/v2
 title: "Tracking Protocol v2"
+description: "原材料の量を秘匿したままサプライチェーンのトレースを可能にするプロトコル。Pedersen Commitmentを用いて量を秘匿しつつ、原材料の追跡とリサイクル証明を実現。"
+og_image: /assets/images/tracking-v2.svg
 ---
 {% include mermaid.html %}
 
