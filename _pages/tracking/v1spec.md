@@ -3,7 +3,8 @@ layout: single
 permalink: /tracking/v1
 title: "Tracking Protocol v1"
 description: "Tapyrusブロックチェーン上でサプライチェーン・トレーサビリティを実現するプロトコル。アキュムレーターを用いて複数アイテムの履歴を効率的に集約・検証可能。"
-og_image: /assets/images/tracking-v1.svg
+header:
+  og_image: /assets/images/tracking-v1.png
 ---
 
 ブロックチェーンのユースケースの1つに、モノの輸送履歴をトラッキングするサプライチェーン・トレーサビリティが挙げられます。

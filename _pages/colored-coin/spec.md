@@ -3,7 +3,8 @@ layout: single
 permalink: /colored-coin/spec
 title: "Colored Coinプロトコル"
 description: "Tapyrusの1stレイヤーでネイティブにサポートされるトークン機能。OP_COLORオペコードによりコンセンサスレベルでトークンの正当性を検証し、再発行可能トークン(C1)、非再発行トークン(C2)、NFT(C3)の3種類をサポート。"
-og_image: /assets/images/colored-coin.svg
+header:
+  og_image: /assets/images/colored-coin.png
 ---
 
 Tapyrusでは、基軸通貨（TPC）以外のトークンを取引するために、Colored Coinと呼ばれる仕組みを採用しています。
