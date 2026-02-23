@@ -18,3 +18,13 @@ $doc-font-size: 12 !default;
     font-size: 0.8em;
   }
 }
+
+// X (Twitter) share button
+.btn--x {
+  background-color: #000000;
+  color: #fff;
+
+  &:hover {
+    background-color: #333333;
+  }
+}
