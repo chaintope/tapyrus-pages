@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280">
+  <defs>
+    <linearGradient id="v2opMintGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e8449;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2opTransferGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2opBurnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <marker id="v2opArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="280" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="400" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">3つのオペレーション</text>
+
+  <!-- Mint Operation -->
+  <g transform="translate(30, 55)">
+    <rect x="0" y="0" width="230" height="200" rx="10" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+
+    <rect x="0" y="0" width="230" height="35" rx="10" fill="url(#v2opMintGrad)"/>
+    <rect x="0" y="20" width="230" height="15" fill="url(#v2opMintGrad)"/>
+    <text x="115" y="24" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">ミント (Mint)</text>
+
+    <text x="115" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">新しい材料を登録</text>
+
+    <!-- Diagram -->
+    <g transform="translate(30, 80)">
+      <rect x="0" y="0" width="70" height="40" rx="5" fill="#ecf0f1" stroke="#bdc3c7"/>
+      <text x="35" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">外部</text>
+      <text x="35" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">(サプライヤー)</text>
+
+      <path d="M75,20 L115,20" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#v2opArrow)"/>
+
+      <rect x="120" y="0" width="50" height="40" rx="5" fill="url(#v2opMintGrad)"/>
+      <text x="145" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff">登録</text>
+      <text x="145" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">Co:350g</text>
+    </g>
+
+    <text x="115" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">例: 原材料の初回登録</text>
+    <text x="115" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">回収した廃棄物の登録</text>
+    <text x="115" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">→ トラッキング開始</text>
+  </g>
+
+  <!-- Transfer Operation -->
+  <g transform="translate(285, 55)">
+    <rect x="0" y="0" width="230" height="200" rx="10" fill="#fff" stroke="#3498db" stroke-width="2"/>
+
+    <rect x="0" y="0" width="230" height="35" rx="10" fill="url(#v2opTransferGrad)"/>
+    <rect x="0" y="20" width="230" height="15" fill="url(#v2opTransferGrad)"/>
+    <text x="115" y="24" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">移動 (Transfer)</text>
+
+    <text x="115" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">材料を別のアドレスへ</text>
+
+    <!-- Diagram -->
+    <g transform="translate(25, 80)">
+      <rect x="0" y="0" width="50" height="40" rx="5" fill="url(#v2opTransferGrad)"/>
+      <text x="25" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff">A社</text>
+      <text x="25" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">Co:350g</text>
+
+      <path d="M55,20 L115,20" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#v2opArrow)"/>
+
+      <rect x="120" y="0" width="50" height="40" rx="5" fill="url(#v2opTransferGrad)"/>
+      <text x="145" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff">B社</text>
+      <text x="145" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">Co:350g</text>
+    </g>
+
+    <text x="115" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#3498db">例: 企業間の輸送</text>
+    <text x="115" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#3498db">工程間の移動</text>
+    <text x="115" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">→ 分割・統合も可能</text>
+  </g>
+
+  <!-- Burn Operation -->
+  <g transform="translate(540, 55)">
+    <rect x="0" y="0" width="230" height="200" rx="10" fill="#fff" stroke="#e74c3c" stroke-width="2"/>
+
+    <rect x="0" y="0" width="230" height="35" rx="10" fill="url(#v2opBurnGrad)"/>
+    <rect x="0" y="20" width="230" height="15" fill="url(#v2opBurnGrad)"/>
+    <text x="115" y="24" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">焼却 (Burn)</text>
+
+    <text x="115" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">材料を消費・廃棄</text>
+
+    <!-- Diagram -->
+    <g transform="translate(30, 80)">
+      <rect x="0" y="0" width="70" height="40" rx="5" fill="url(#v2opBurnGrad)"/>
+      <text x="35" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff">処理前</text>
+      <text x="35" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">Co:350g</text>
+
+      <path d="M75,20 L115,20" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#v2opArrow)"/>
+
+      <rect x="120" y="0" width="50" height="40" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-dasharray="3,2"/>
+      <text x="145" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7f8c8d">廃棄</text>
+      <text x="145" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7f8c8d">-50g</text>
+    </g>
+
+    <text x="115" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">例: 加工時の不純物除去</text>
+    <text x="115" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">材料の消費・処分</text>
+    <text x="115" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">→ 以降流通不可</text>
+  </g>
+</svg>

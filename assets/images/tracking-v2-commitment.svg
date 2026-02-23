@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <linearGradient id="inputGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="outputGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="commitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+    </linearGradient>
+    <marker id="cmtArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="300" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="400" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">Vector Pedersen Commitment による秘匿と検証</text>
+
+  <!-- Left: Actual values (hidden) -->
+  <g transform="translate(30, 55)">
+    <text x="110" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e74c3c">実際の値（非公開）</text>
+
+    <rect x="0" y="15" width="220" height="100" rx="8" fill="#fff" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3"/>
+
+    <text x="20" y="45" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">コバルト (Co):</text>
+    <text x="180" y="45" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e74c3c">350g</text>
+
+    <text x="20" y="70" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">ニッケル (Ni):</text>
+    <text x="180" y="70" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e74c3c">330g</text>
+
+    <text x="20" y="95" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">マンガン (Mn):</text>
+    <text x="180" y="95" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e74c3c">300g</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M260,120 L310,120" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#cmtArrow)"/>
+  <text x="285" y="108" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">暗号化</text>
+
+  <!-- Right: Commitment (public) -->
+  <g transform="translate(320, 55)">
+    <text x="110" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">コミットメント（公開）</text>
+
+    <rect x="0" y="15" width="220" height="100" rx="8" fill="url(#commitGrad)"/>
+
+    <text x="110" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fff">C = rG + 350H_Co + 330H_Ni + 300H_Mn</text>
+
+    <rect x="20" y="65" width="180" height="35" rx="4" fill="#fff" opacity="0.2"/>
+    <text x="110" y="82" text-anchor="middle" font-family="monospace" font-size="9" fill="#fff">0x02a3f7b9c...</text>
+    <text x="110" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">(33バイトの固定長データ)</text>
+  </g>
+
+  <!-- Verification section -->
+  <g transform="translate(560, 55)">
+    <text x="100" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#3498db">検証可能なこと</text>
+
+    <rect x="0" y="15" width="200" height="100" rx="8" fill="#ecf0f1"/>
+
+    <text x="100" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">✓ バランスが不変か</text>
+    <text x="100" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">入力量 = 出力量</text>
+
+    <text x="100" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">✗ 実際の量</text>
+    <text x="100" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">量は秘匿されたまま</text>
+  </g>
+
+  <!-- Balance verification example -->
+  <g transform="translate(50, 185)">
+    <rect x="0" y="0" width="700" height="100" rx="8" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+    <text x="350" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">バランス検証の例</text>
+    <line x1="20" y1="32" x2="680" y2="32" stroke="#27ae60" stroke-width="1" opacity="0.3"/>
+
+    <!-- Input -->
+    <rect x="30" y="45" width="200" height="45" rx="5" fill="url(#inputGrad)"/>
+    <text x="130" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">インプット</text>
+    <text x="130" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">C_in = (Co:350, Ni:330, Mn:300)</text>
+
+    <!-- Minus sign -->
+    <text x="255" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#2c3e50">−</text>
+
+    <!-- Output -->
+    <rect x="280" y="45" width="200" height="45" rx="5" fill="url(#outputGrad)"/>
+    <text x="380" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">アウトプット</text>
+    <text x="380" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">C_out = (Co:350, Ni:330, Mn:300)</text>
+
+    <!-- Equals -->
+    <text x="505" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#2c3e50">=</text>
+
+    <!-- Result -->
+    <rect x="530" y="45" width="140" height="45" rx="5" fill="#27ae60"/>
+    <text x="600" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">結果</text>
+    <text x="600" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">0 (バランス OK)</text>
+  </g>
+</svg>

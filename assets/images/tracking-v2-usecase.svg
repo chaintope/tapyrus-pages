@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <linearGradient id="v2ucCollectorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e8449;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2ucRecyclerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2ucMakerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2ucTxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+    </linearGradient>
+    <marker id="v2ucArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="400" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">ユースケース：電池原材料のリサイクル追跡</text>
+
+  <!-- Step 1: Collection -->
+  <g transform="translate(20, 55)">
+    <rect x="0" y="0" width="175" height="95" rx="8" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+    <text x="87" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#27ae60">Step 1: 回収・登録</text>
+
+    <rect x="15" y="30" width="145" height="55" rx="5" fill="url(#v2ucCollectorGrad)"/>
+    <text x="87" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">回収業者</text>
+    <text x="87" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">廃電池回収</text>
+    <text x="87" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">Co:???g, Ni:???g, Mn:???g</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M200,102 L230,102" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#v2ucArrow)"/>
+
+  <!-- Step 2: Recycling -->
+  <g transform="translate(235, 55)">
+    <rect x="0" y="0" width="175" height="95" rx="8" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="87" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#3498db">Step 2: リサイクル処理</text>
+
+    <rect x="15" y="30" width="145" height="55" rx="5" fill="url(#v2ucRecyclerGrad)"/>
+    <text x="87" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">リサイクラー</text>
+    <text x="87" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">破砕・精製</text>
+    <text x="87" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">量は秘匿のまま処理</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M415,102 L445,102" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#v2ucArrow)"/>
+
+  <!-- Step 3: Manufacturing -->
+  <g transform="translate(450, 55)">
+    <rect x="0" y="0" width="175" height="95" rx="8" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+    <text x="87" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#9b59b6">Step 3: 電池製造</text>
+
+    <rect x="15" y="30" width="145" height="55" rx="5" fill="url(#v2ucMakerGrad)"/>
+    <text x="87" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">電池メーカー</text>
+    <text x="87" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">リサイクル材で製造</text>
+    <text x="87" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">バランス検証可能</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M630,102 L660,102" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#v2ucArrow)"/>
+
+  <!-- Step 4: Product -->
+  <g transform="translate(665, 55)">
+    <rect x="0" y="0" width="115" height="95" rx="8" fill="#2c3e50"/>
+    <text x="57" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">製品</text>
+    <text x="57" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">EV車など</text>
+    <text x="57" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e67e22">リサイクル</text>
+    <text x="57" y="88" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e67e22">証明付き</text>
+  </g>
+
+  <!-- Recycling loop -->
+  <path d="M720,155 L720,35 L87,35 L87,50" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#v2ucArrow)"/>
+  <text x="400" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#27ae60">使用済み電池の回収（サイクル）</text>
+
+  <!-- Blockchain section -->
+  <g transform="translate(50, 175)">
+    <text x="350" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">ブロックチェーン上の記録（量は秘匿）</text>
+
+    <rect x="0" y="30" width="170" height="70" rx="6" fill="url(#v2ucTxGrad)"/>
+    <text x="85" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">ミント TX</text>
+    <text x="85" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">C = rG + Co·H₁ + Ni·H₂ + Mn·H₃</text>
+    <text x="85" y="82" text-anchor="middle" font-family="monospace" font-size="8" fill="#fff">0x02a3f7...</text>
+
+    <path d="M175,65 L215,65" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#v2ucArrow)"/>
+
+    <rect x="220" y="30" width="170" height="70" rx="6" fill="url(#v2ucTxGrad)"/>
+    <text x="305" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">処理 TX</text>
+    <text x="305" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">移動 + 焼却</text>
+    <text x="305" y="82" text-anchor="middle" font-family="monospace" font-size="8" fill="#fff">0x03b5c8...</text>
+
+    <path d="M395,65 L435,65" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#v2ucArrow)"/>
+
+    <rect x="440" y="30" width="170" height="70" rx="6" fill="url(#v2ucTxGrad)"/>
+    <text x="525" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">製造 TX</text>
+    <text x="525" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">複数材料の統合</text>
+    <text x="525" y="82" text-anchor="middle" font-family="monospace" font-size="8" fill="#fff">0x02d9e1...</text>
+  </g>
+
+  <!-- Key points -->
+  <g transform="translate(50, 295)">
+    <rect x="0" y="0" width="700" height="115" rx="8" fill="#ecf0f1"/>
+    <text x="350" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">Tracking Protocol v2 のポイント</text>
+    <line x1="20" y1="32" x2="680" y2="32" stroke="#bdc3c7" stroke-width="1"/>
+
+    <g transform="translate(30, 45)">
+      <rect x="0" y="0" width="200" height="55" rx="5" fill="#fff"/>
+      <text x="100" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#27ae60">✓ 営業秘密の保護</text>
+      <text x="100" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">取引量を競合他社から</text>
+      <text x="100" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">秘匿したままトレース</text>
+    </g>
+
+    <g transform="translate(250, 45)">
+      <rect x="0" y="0" width="200" height="55" rx="5" fill="#fff"/>
+      <text x="100" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#3498db">✓ 不正の防止</text>
+      <text x="100" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">バランス検証で</text>
+      <text x="100" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">材料の改ざんを検知</text>
+    </g>
+
+    <g transform="translate(470, 45)">
+      <rect x="0" y="0" width="200" height="55" rx="5" fill="#fff"/>
+      <text x="100" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#9b59b6">✓ リサイクル証明</text>
+      <text x="100" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">原材料の流れを</text>
+      <text x="100" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7f8c8d">暗号学的に証明</text>
+    </g>
+  </g>
+</svg>

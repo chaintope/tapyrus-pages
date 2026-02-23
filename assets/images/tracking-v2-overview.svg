@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="800" height="320">
+  <defs>
+    <linearGradient id="v2SupplierGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e8449;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2MakerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2RecycleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="v2ChainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+    </linearGradient>
+    <marker id="v2Arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="320" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">量を秘匿したサプライチェーン追跡</text>
+
+  <!-- Supplier -->
+  <g transform="translate(30, 70)">
+    <rect x="0" y="0" width="130" height="90" rx="8" fill="url(#v2SupplierGrad)"/>
+    <text x="65" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fff">原材料サプライヤー</text>
+    <rect x="15" y="45" width="100" height="35" rx="4" fill="#fff" opacity="0.2"/>
+    <text x="65" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">コバルト: ???kg</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">ニッケル: ???kg</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M165,115 L205,115" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#v2Arrow)"/>
+
+  <!-- Manufacturer -->
+  <g transform="translate(210, 70)">
+    <rect x="0" y="0" width="130" height="90" rx="8" fill="url(#v2MakerGrad)"/>
+    <text x="65" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fff">電池メーカー</text>
+    <rect x="15" y="45" width="100" height="35" rx="4" fill="#fff" opacity="0.2"/>
+    <text x="65" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">電池製造</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">材料量: 秘匿</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M345,115 L385,115" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#v2Arrow)"/>
+
+  <!-- Product/Consumer -->
+  <g transform="translate(390, 70)">
+    <rect x="0" y="0" width="130" height="90" rx="8" fill="#2c3e50"/>
+    <text x="65" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fff">製品・消費者</text>
+    <rect x="15" y="45" width="100" height="35" rx="4" fill="#fff" opacity="0.2"/>
+    <text x="65" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">EV車など</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">使用・廃棄</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M525,115 L565,115" stroke="#7f8c8d" stroke-width="2" fill="none" marker-end="url(#v2Arrow)"/>
+
+  <!-- Recycler -->
+  <g transform="translate(570, 70)">
+    <rect x="0" y="0" width="130" height="90" rx="8" fill="url(#v2RecycleGrad)"/>
+    <text x="65" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fff">リサイクル業者</text>
+    <rect x="15" y="45" width="100" height="35" rx="4" fill="#fff" opacity="0.2"/>
+    <text x="65" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">材料回収</text>
+    <text x="65" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">リサイクル証明</text>
+  </g>
+
+  <!-- Recycling loop arrow -->
+  <path d="M700,115 L740,115 L740,50 L95,50 L95,65" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#v2Arrow)"/>
+  <text x="420" y="42" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9b59b6">リサイクル材料の再利用</text>
+
+  <!-- Blockchain section -->
+  <g transform="translate(100, 185)">
+    <rect x="0" y="0" width="600" height="120" rx="10" fill="url(#v2ChainGrad)"/>
+    <text x="300" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff">ブロックチェーン上の記録</text>
+    <line x1="20" y1="35" x2="580" y2="35" stroke="#fff" stroke-width="1" opacity="0.3"/>
+
+    <!-- Key features -->
+    <g transform="translate(30, 50)">
+      <rect x="0" y="0" width="160" height="55" rx="5" fill="#fff" opacity="0.2"/>
+      <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">量の秘匿</text>
+      <text x="80" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">各社の取引量は</text>
+      <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">第三者に非公開</text>
+    </g>
+
+    <g transform="translate(220, 50)">
+      <rect x="0" y="0" width="160" height="55" rx="5" fill="#fff" opacity="0.2"/>
+      <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">バランス検証</text>
+      <text x="80" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">量を明かさず</text>
+      <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">整合性を検証可能</text>
+    </g>
+
+    <g transform="translate(410, 50)">
+      <rect x="0" y="0" width="160" height="55" rx="5" fill="#fff" opacity="0.2"/>
+      <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">トレース可能</text>
+      <text x="80" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">材料の流れを</text>
+      <text x="80" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">追跡・証明</text>
+    </g>
+  </g>
+</svg>
