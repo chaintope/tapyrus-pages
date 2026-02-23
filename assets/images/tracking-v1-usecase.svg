@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="ucFarmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e8449;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ucTradeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ucFactoryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7d3c98;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="txGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d35400;stop-opacity:1" />
+    </linearGradient>
+    <marker id="ucArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="400" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">ユースケース：カカオ豆の流通追跡</text>
+
+  <!-- Step 1 -->
+  <g transform="translate(20, 50)">
+    <rect x="0" y="0" width="240" height="100" rx="8" fill="#fff" stroke="#27ae60" stroke-width="2"/>
+    <text x="120" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#27ae60">Step 1: 出荷</text>
+
+    <rect x="15" y="35" width="80" height="55" rx="5" fill="url(#ucFarmGrad)"/>
+    <text x="55" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#fff">Ivan Farm</text>
+    <text x="55" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">カカオ農家</text>
+    <text x="55" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">[A,B,C]</text>
+
+    <path d="M100,62 L130,62" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#ucArrow)"/>
+
+    <rect x="135" y="35" width="90" height="55" rx="5" fill="url(#ucTradeGrad)"/>
+    <text x="180" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#fff">Dave Trade</text>
+    <text x="180" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">輸出業者</text>
+    <text x="180" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">[A,B,C]</text>
+  </g>
+
+  <!-- TX1 -->
+  <g transform="translate(20, 155)">
+    <rect x="0" y="0" width="240" height="50" rx="5" fill="url(#txGrad)"/>
+    <text x="120" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">トランザクション #1</text>
+    <text x="120" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">Acc(A,B,C) を記録</text>
+  </g>
+
+  <!-- Step 2 -->
+  <g transform="translate(280, 50)">
+    <rect x="0" y="0" width="240" height="100" rx="8" fill="#fff" stroke="#3498db" stroke-width="2"/>
+    <text x="120" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#3498db">Step 2: 分配（A, B）</text>
+
+    <rect x="15" y="35" width="70" height="55" rx="5" fill="url(#ucTradeGrad)"/>
+    <text x="50" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#fff">Dave</text>
+    <text x="50" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">[A,B,C]</text>
+
+    <path d="M90,50 L120,40" stroke="#2c3e50" stroke-width="1.5" fill="none" marker-end="url(#ucArrow)"/>
+    <path d="M90,70 L120,80" stroke="#2c3e50" stroke-width="1.5" fill="none" marker-end="url(#ucArrow)"/>
+
+    <rect x="125" y="30" width="50" height="25" rx="4" fill="url(#ucFactoryGrad)"/>
+    <text x="150" y="47" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff">A社 [A]</text>
+
+    <rect x="125" y="60" width="50" height="25" rx="4" fill="url(#ucFactoryGrad)"/>
+    <text x="150" y="77" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fff">B社 [B]</text>
+
+    <rect x="185" y="45" width="45" height="25" rx="4" fill="url(#ucTradeGrad)" opacity="0.7"/>
+    <text x="207" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">Dave[C]</text>
+  </g>
+
+  <!-- TX2 -->
+  <g transform="translate(280, 155)">
+    <rect x="0" y="0" width="240" height="50" rx="5" fill="url(#txGrad)"/>
+    <text x="120" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">トランザクション #2</text>
+    <text x="120" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">Acc(A), Acc(B), Acc(C) を記録</text>
+  </g>
+
+  <!-- Step 3 -->
+  <g transform="translate(540, 50)">
+    <rect x="0" y="0" width="240" height="100" rx="8" fill="#fff" stroke="#9b59b6" stroke-width="2"/>
+    <text x="120" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#9b59b6">Step 3: 分配（C）</text>
+
+    <rect x="25" y="45" width="70" height="45" rx="5" fill="url(#ucTradeGrad)"/>
+    <text x="60" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#fff">Dave</text>
+    <text x="60" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">[C]</text>
+
+    <path d="M100,67 L140,67" stroke="#2c3e50" stroke-width="2" fill="none" marker-end="url(#ucArrow)"/>
+
+    <rect x="145" y="45" width="70" height="45" rx="5" fill="url(#ucFactoryGrad)"/>
+    <text x="180" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#fff">C社</text>
+    <text x="180" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#fff">[C]</text>
+  </g>
+
+  <!-- TX3 -->
+  <g transform="translate(540, 155)">
+    <rect x="0" y="0" width="240" height="50" rx="5" fill="url(#txGrad)"/>
+    <text x="120" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">トランザクション #3</text>
+    <text x="120" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#fff">Acc(C) を記録</text>
+  </g>
+
+  <!-- Blockchain visualization -->
+  <g transform="translate(100, 230)">
+    <text x="300" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2c3e50">ブロックチェーン上の記録</text>
+
+    <rect x="0" y="30" width="150" height="60" rx="6" fill="#2c3e50"/>
+    <text x="75" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TX #1</text>
+    <text x="75" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e67e22">Ivan → Dave</text>
+    <text x="75" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7f8c8d">[A,B,C]</text>
+
+    <path d="M155,60 L195,60" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#ucArrow)"/>
+
+    <rect x="200" y="30" width="150" height="60" rx="6" fill="#2c3e50"/>
+    <text x="275" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TX #2</text>
+    <text x="275" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e67e22">Dave → A,B社 + Dave</text>
+    <text x="275" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7f8c8d">[A] [B] [C]</text>
+
+    <path d="M355,60 L395,60" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#ucArrow)"/>
+
+    <rect x="400" y="30" width="150" height="60" rx="6" fill="#2c3e50"/>
+    <text x="475" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">TX #3</text>
+    <text x="475" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e67e22">Dave → C社</text>
+    <text x="475" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7f8c8d">[C]</text>
+  </g>
+
+  <!-- Bottom note -->
+  <g transform="translate(50, 340)">
+    <rect x="0" y="0" width="700" height="50" rx="6" fill="#ecf0f1"/>
+    <text x="350" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#27ae60">トレース（追跡）</text>
+    <text x="350" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">アイテムIDからトランザクションチェーンをたどり、アキュムレーターを検証することで流通経路を証明</text>
+  </g>
+</svg>
