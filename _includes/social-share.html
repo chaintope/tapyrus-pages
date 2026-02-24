@@ -1,0 +1,14 @@
+{% if site.data.ui-text[site.locale].share_on_label %}
+  {% assign share_on_label = site.data.ui-text[site.locale].share_on_label %}
+{% else %}
+  {% assign share_on_label = "Share on" %}
+{% endif %}
+
+<section class="page__share">
+  {% if site.data.ui-text[site.locale].share_label %}
+    <h4 class="page__share-title">{{ site.data.ui-text[site.locale].share_label | default: "Share" }}</h4>
+  {% endif %}
+  <a href="https://x.com/intent/tweet?{% if site.twitter.username %}via={{ site.twitter.username | url_encode }}&{% endif %}text={{ page.title | url_encode }}%20{{ page.url | absolute_url | url_encode }}" class="btn btn--x" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="{{ share_on_label }} X"><i class="fab fa-fw fa-x-twitter" aria-hidden="true"></i><span></span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | url_encode }}" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="{{ share_on_label }} Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.url | absolute_url | url_encode }}" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="{{ share_on_label }} LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>

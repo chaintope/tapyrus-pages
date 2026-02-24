@@ -81,7 +81,7 @@ search: true
 search_full_content: true
 footer:
   links:
-    - label: "X"
+    - label: ""
       icon: "fab fa-fw fa-x-twitter"
       url: "https://x.com/chaintope"
     - label: "GitHub"
