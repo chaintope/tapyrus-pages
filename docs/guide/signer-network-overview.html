@@ -1,0 +1,388 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Signer Networkの概要 - Tapyrus Guide</title>
+<meta name="description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja">
+<meta property="og:site_name" content="Tapyrus Guide">
+<meta property="og:title" content="Signer Networkの概要">
+<meta property="og:url" content="https://site.tapyrus.chaintope.com/guide/signer-network-overview">
+
+
+  <meta property="og:description" content="TapyrusおよびTapyrus APIに関する技術情報サイトです。">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://site.tapyrus.chaintope.com/guide/signer-network-overview">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "chaintope, Inc",
+      "url": "https://site.tapyrus.chaintope.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Tapyrus Guide Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Tapyrus Guide"></a>
+        
+        <a class="site-title" href="/">
+          Tapyrus Guide
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/core">Tapyrus Core</a>
+            </li><li class="masthead__menu-item">
+              <a href="/api">Tapyrus API</a>
+            </li><li class="masthead__menu-item">
+              <a href="/network">Network</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Signer Networkの概要">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Signer Networkの概要
+</h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>本記事ではSignerが用いる閾値署名方式とブロック生成の概要について解説します。
+Tapyrus Signerは参照実装であり、有効なSchnorr署名が作成が可能であれば、必ずしもTapyrus Signerを利用する必要はありません。</p>
+
+<h2 id="秘密分散法">秘密分散法</h2>
+<p>秘密分散法とはブラークリーとシャミアによって同時期に独立して提案された、複数の秘密情報を複数の参加者が協力して管理する方法です。
+一つの秘密情報を分割した情報である<strong>シェア</strong>を複数の参加者に配布し、特定の数のシェアが集まれば、元の秘密データを復元できるという手法です。</p>
+
+<h2 id="検証可能な秘密分散法verifiable-secret-sharing">検証可能な秘密分散法（Verifiable Secret Sharing）</h2>
+<p>通常の秘密分散法では、ディーラーから配布されたシェアがその参加者に対応したシェアであるか、または悪意をもったディーラーが誤ったシェアを分配していないか、参加者は判断することができないことが問題となります。
+そのような問題に対処するために提案されたのが、検証可能な秘密分散法(VSS)で、Feldmanが提案した方式などが有名です。
+ディーラーが秘密情報をn個のシェアに分割し、n人の参加者に対し、それぞれの参加者に対応したシェアを分配します。</p>
+
+<h3 id="feldmans-vss-feldmanの検証可能な秘密分散法-feldmans-verifiable-secret-sharing-scheme">Feldman’s VSS, Feldmanの検証可能な秘密分散法 (Feldman’s Verifiable Secret Sharing Scheme)</h3>
+<p>Feldmanの検証可能な秘密分散法は、通常の秘密分散法においてディーラー（マスター秘密鍵生成者）から受け取ったシークレットシェアが本当に秘密分散法の曲線上の点であるか検証できるようにする手法です。
+ディラーは多項式の各係数のコミットメントを計算し、参加者に対して公開します。各参加者はコミットメントを用いて自分のシークレットシェアが正しいものであるか検証することができます。</p>
+
+<h2 id="threshold-signature-scheme">閾値署名方式</h2>
+<p>Tapyrus Signer Network(TSN)の署名方式は、”Provably Secure Distributed Schnorr Signatures and a (t, n) Threshold Scheme for Implicit Certificates”<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>に基づいています。この署名方式では、n人の署名者のうちt人が協力しなければ有効な署名が作成されません。
+TSNではFeldmanの検証可能な秘密分散法を採用しています。
+詳しくは<a href="http://cacr.uwaterloo.ca/techreports/2001/corr2001-13.ps">こちら</a>をご参照ください。</p>
+
+<h2 id="blockvss-structure">BlockVSSの構成</h2>
+<p>BlockVSSは「正」と「負」の2種類のVSSを持っています。候補ブロックに賛成する際に、正のシークレットシェアを用いて署名を生成します。</p>
+
+<ul>
+  <li>Blockvss[0]: 候補ブロックのSighash。</li>
+  <li>Blockvss[1]: 候補ブロックに賛成するVSSのためのデータのオブジェクト。
+    <ul>
+      <li>parameter:　秘密分散パラメータを格納したオブジェクト。
+        <ul>
+          <li>threshold: 閾値の整数値 - 1</li>
+          <li>share_count: 署名者数の整数値</li>
+        </ul>
+      </li>
+      <li>commitments: コミットメントの配列。コミットメントはsecp256k1曲線点でありxとyの座標を持ちます。</li>
+    </ul>
+  </li>
+  <li>Blockvss[2]: 正のシークレットシェア。secp256k1曲線のスカラー値をhex形式で表したものです。</li>
+  <li>Blockvss[3] 負のVSSの追加データのオブジェクト。フィールドのプロパティは賛成のVSSのデータのオブジェクトと同じです。</li>
+  <li>Blockvss[4] 負のVSSのシークレットシェア。secp256k1曲線のスカラー値をhex形式で表したものです。</li>
+</ul>
+
+<p><em>BlockVSSの例</em></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">Blockvss</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">d68e99f1135c6661f174f4bee7c9b94a1e7dbb0eb7609f0aea118340ffd05944</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">parameters</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">threshold</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">share_count</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">commitments</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1fc491aef36b480160d71b099fe376e58fe0a915d0b382bb2c5daeb2f46665d2</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">d4ec3f9d4e5a7494447c9f97476abdc475376311e49b7ce6000f9d0640c08fe9</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">647d33c9bb32320e8b7476743577180021f36e95aa939a96896e7e5be89f08fe</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">6a68092234664285e4fd244623c406d8feead1e44c1be2b7272f77c733c4ab48</span><span class="dl">"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">23a7185d3f2b402ff54168b880da783a7535e55cbc3ad657e5da2f2336cb349c</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">parameters</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">threshold</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">share_count</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">commitments</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1fc491aef36b480160d71b099fe376e58fe0a915d0b382bb2c5daeb2f46665d2</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2b13c062b1a58b6bbb836068b895423b8ac89cee1b648319fff062f8bf3f6c46</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4247c04efc03c0c94bb129715d2b8d6128018e607936d9e3075bbb87f411043e</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">fc8a579ca133a73ad27b0e9499b180c18fe51110beb8ebc90e18d12f2a490f4a</span><span class="dl">"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">972ad402adf631e5a52ffe14803a40b19c6f578678a57bc833364842cce9c68</span><span class="dl">"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="localsig-structure">LocalSigの構成</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">Blocksig</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">d68e99f1135c6661f174f4bee7c9b94a1e7dbb0eb7609f0aea118340ffd05944</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">218f1a47f87b48fa5ee77202fd14b15dbd04f8ef63834a56c1821f9b4ee842ed</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">e645628bb53b9902f89771863037e99448069014ab99860b26a3a710a5f746df</span><span class="dl">"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="round">ラウンド</h3>
+<p>Signer Networkのブロック生成はラウンド制で行います。<br />
+ラウンドが開始する前に、ラウンドロビン方式で1つのSignerノードをラウンドマスターとして選出します。
+ラウンドマスターは、候補ブロックを生成し、他のSignerノード（ラウンドメンバー）に候補ブロックを公開します。
+候補ブロックを受信したラウンドメンバーはブロックの有効性を検証し、候補ブロックの賛成・反対を判断し、各判断に対応したシークレットシェアを用いて署名を付与します。閾値以上の賛成署名が付与されると、ラウンドが成功し１つのブロックが生成されます。</p>
+
+<p>各ラウンド開始時、タイマーがスタートする。各ラウンドの制限時間は65秒で、制限時間を過ぎるとラウンドは失敗し、次のラウンドが開始されます。
+これにより、一部のSignerが停止している場合でも、閾値を超える署名が生成可能であればブロック生成が可能で、システムの可用性を高めることが可能です。</p>
+
+<h4 id="raund-master-flow">ラウンドマスターのフロー</h4>
+<ol>
+  <li>新しいラウンドを開始する</li>
+  <li>候補ブロックを生成</li>
+  <li>他のSignerノードに新しいブロックを公開（Redis Pub/Subを使用）</li>
+  <li>署名発行プロトコル(<a href="#signature-issuing-protocol">以下</a>で説明)</li>
+  <li>ブロックの公開
+    <ul>
+      <li>ブロックが無効な場合、警告を記録</li>
+      <li>ブロックが有効な場合、次のステップへ</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="raund-member-flow">ラウンドメンバーのフロー</h4>
+<ol>
+  <li>新しいラウンドを開始する</li>
+  <li>候補ブロックメッセージの受信を待つ</li>
+  <li>候補ブロックの確認(<a href="#signature-issuing-protocol">以下</a>で説明)
+    <ul>
+      <li>ブロックが無効な場合、警告を記録</li>
+      <li>ブロックが有効な場合、次のステップへ</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Stinson, D. R., &amp; Strobl, R. (2001). Provably secure distributed schnorr signatures and a (T, n) threshold scheme for implicit certificates. In Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics) (Vol. 2119, pp. 417–434). Springer Verlag. https://doi.org/10.1007/3-540-47719-5_33 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/chaintope" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 chaintope, Inc. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
