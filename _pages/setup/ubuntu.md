@@ -4,86 +4,88 @@ permalink: /setup/ubuntu
 title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 ---
 
-この記事ではUbuntu 20.04 LTS環境でのTapyrus Coreのノード構築方法を解説します。  
+この記事ではUbuntu 22.04 LTS環境でのTapyrus Coreのノード構築方法を解説します。
 公式のドキュメントは[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/build-unix.md){:target="_blank"}です。
 
-本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。 
+本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。
 
-また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
-記載されたコマンドを順に実行することでノードの構築が完了します。  
+また、本記事ではコマンドの実行にターミナルアプリケーション使用します。
+記載されたコマンドを順に実行することでノードの構築が完了します。
 
 「ビルド済みのバイナリの利用」と「ソースコードからのビルド」の2種類のセットアップ方法を解説します。
 
-##  (インストール方法1) ビルド済みのバイナリの利用 {#install-binary}
-バイナリを用いたインストール方法を解説します。  
+> **Note:** 本記事はTapyrus Core v0.7.0以降のCMakeベースのビルド方法を解説しています。
+> v0.6.1以前のAutotoolsベースのビルド方法は[こちら](#autotools-build)を参照してください。
 
-[tapyrus-coreリポジトリのRelease](https://github.com/chaintope/tapyrus-core/releases){:target="_blank"}でバイナリを配布しています。  
-使用環境に応じたバイナリファイルをクリックし、ダウンロードします。　　
+## (インストール方法1) ビルド済みのバイナリの利用 {#install-binary}
+
+バイナリを用いたインストール方法を解説します。
+
+[tapyrus-coreリポジトリのRelease](https://github.com/chaintope/tapyrus-core/releases){:target="_blank"}でバイナリを配布しています。
+使用環境に応じたバイナリファイルをクリックし、ダウンロードします。
 ![Setup Ubuntu Binary](/assets/images/setup_ubuntu_binary.png)
 
-本記事執筆時点(2022年6月)で公開されている最新バーションが[v0.5.1](https://github.com/chaintope/tapyrus-core/releases/tag/v0.5.1){:target="_blank"}なため、以下のコマンドはx86_64のv0.5.1の圧縮ファイルを解凍する例です。
+最新バージョン（v0.7.0）の場合、以下のコマンドでx86_64の圧縮ファイルを解凍します。
 ```
-$ tar xzf tapyrus-core-0.5.1-x86_64-linux-gnu.tar.gz
+$ tar xzf tapyrus-0.7.0-x86_64-linux-gnu.tar.gz
 ```
-解凍したあとのbin以下にパスを通してください。  
+解凍したあとのbin以下にパスを通してください。
 
-以上でインストールは完了です。  
+以上でインストールは完了です。
 次に、[Tapyrusノードを起動する](#run-tapyrusd)を実施してください。
 
 ## (インストール方法2) ソースコードからのビルド {#install-source-code}
+
 Githubに公開されている[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のソースコードを用いたインストール方法を解説します。
 
 ### 依存関係のインストール {#install-dependencies}
 
-依存ライブラリをインストールには以下のコマンドを実行します。  
+依存ライブラリをインストールには以下のコマンドを実行します。
 依存ライブラリ情報は[こちら](https://github.com/chaintope/tapyrus-core/blob/master/doc/dependencies.md){:target="_blank"}で確認できます。
+
 ```
-$ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
+$ sudo apt-get update
+$ sudo apt-get install build-essential cmake pkg-config bsdmainutils python3 libevent-dev libboost-dev libsqlite3-dev libdb-dev libdb++-dev
+```
+
+GUIウォレット（tapyrus-qt）をビルドする場合は、追加で以下もインストールします。
+```
+$ sudo apt-get install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools libqrencode-dev
 ```
 
 ### ビルド {#build}
 
-[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のリポジトリをcloneします。  
+[tapyrus-core](https://github.com/chaintope/tapyrus-core){:target="_blank"}のリポジトリをcloneします。
 cloneの際、[secp256k1](https://github.com/chaintope/secp256k1){:target="_blank"}サブモジュールを同時にインストールするように、`--recursive`オプションを追加した状態で実行します。
 ```
 $ git clone --recursive https://github.com/chaintope/tapyrus-core
-```
-
-
-Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。  
-tapyrus-coreのcontribディレクトリ配下に用意された[インストール用のスクリプト](https://github.com/chaintope/tapyrus-core/blob/master/contrib/install_db4.sh){:target="_blank"}を実行します。
-```
 $ cd tapyrus-core
-$ ./contrib/install_db4.sh `pwd`
 ```
 
-以下のコマンドでビルドを実行します。
+CMakeを使用してビルドを実行します。
 ```
-$ ./autogen.sh
-$ export BDB_PREFIX="/home/$(whoami)/tapyrus-core/db4"
-$ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
-$ make
+$ cmake -B build
+$ cmake --build build
 ```
 
-エラーが表示されなければビルドは完了です。  
+GUIウォレットを含めてビルドする場合は、以下のようにオプションを指定します。
+```
+$ cmake -B build -DBUILD_GUI=ON
+$ cmake --build build
+```
+
+エラーが表示されなければビルドは完了です。
 次に、[Tapyrusノードを起動する](#run-tapyrusd)を実施してください。
 
-(任意) インストールするにはさらに以下を実行します。  
+(任意) インストールするにはさらに以下を実行します。
 以降の解説ではインストールされている前提でコマンドを例示しています。
 ```
-$ sudo make install
-```
-
-(任意) インストールするにはさらに以下を実行します。  
-以降の解説ではインストールされている前提でコマンドを例示しています。
-```
-$ sudo make install
+$ sudo cmake --install build
 ```
 
 ## Tapyrusノードを起動する {#run-tapyrusd}
 
-
-Tapyrusノードを起動する前に設定を行います。設定は`tapyrus.conf`ファイルに記述します。  
+Tapyrusノードを起動する前に設定を行います。設定は`tapyrus.conf`ファイルに記述します。
 Ubuntuではホームディレクトリ配下に`.tapyrus`ディレクトリを作成し、その配下に`tapyrus.conf`ファイルを作成、編集します。
 ```
 $ mkdir ~/.tapyrus
@@ -116,7 +118,7 @@ $ vim ~/.tapyrus/genesis.1939510133
 
 Tapyrus Coreをデーモンで起動します。
 ```
-$ tapyrusd -daemon 
+$ tapyrusd -daemon
 ```
 
 `tapyrus-cli`の`getblockchaininfo`コマンドを用いて、ブロックチェーンの情報を確認します。
@@ -151,4 +153,42 @@ $ tapyrus-cli getblockchaininfo
 $ tapyrus-cli stop
 ```
 
-以上でUbuntu20.04LTS環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。
+以上でUbuntu環境でTapyrus Coreノードが立ち上がり、ChaintopeのTapyrusテストネットと接続ができました。
+
+---
+
+## Autotoolsによるビルド（v0.6.1以前） {#autotools-build}
+
+Tapyrus Core v0.6.1以前のバージョンをビルドする場合は、以下のAutotoolsベースの手順を使用してください。
+
+### 依存関係のインストール
+
+```
+$ sudo apt-get install build-essential libtool autotools-dev automake pkg-config libevent-dev bsdmainutils python3 libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
+```
+
+### ビルド
+
+```
+$ git clone --recursive https://github.com/chaintope/tapyrus-core
+$ cd tapyrus-core
+$ git checkout v0.6.1  # 使用するバージョンをチェックアウト
+```
+
+Walletのデータベースとして使用するBerkeley DB 4.8をインストールします。
+```
+$ ./contrib/install_db4.sh `pwd`
+```
+
+以下のコマンドでビルドを実行します。
+```
+$ ./autogen.sh
+$ export BDB_PREFIX="/home/$(whoami)/tapyrus-core/db4"
+$ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
+$ make
+```
+
+(任意) インストールするにはさらに以下を実行します。
+```
+$ sudo make install
+```

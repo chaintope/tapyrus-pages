@@ -11,9 +11,7 @@ devモードとは開発やテストの際、ローカルでSigner Networkを用
 また、本記事ではコマンドの実行にターミナルアプリケーション使用します。  
 記載されたコマンドを順に実行することでdevモードでTapyrusノード起動が完了します。  
 
-
-Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyrus/tapyrusd){:target="_blank"}の[v0.5.1](https://hub.docker.com/layers/tapyrusd/tapyrus/tapyrusd/v0.5.1/images/sha256-0e25122fe7805ecc3a4545862befe3e0a9ec60ad211b94afa8d07d5ac2a5198c?context=explore){:target="_blank"}を使用します。  
-
+Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyrus/tapyrusd){:target="_blank"}の[v0.7.0](https://hub.docker.com/layers/tapyrus/tapyrusd/v0.7.0/images/sha256-e4647a9874d413bd7f102910c6e7b0c860847d578bccf5f8906b16d9037b4c51){:target="_blank"}を使用します。
 
 ## 前提 {#prerequisites}
 本記事ではDockerがインストール済みの前提で解説を行います。  
@@ -58,7 +56,7 @@ $ ruby generate_key_pair.rb
 
 ## genesisブロックの生成 {#generate-genesis-block}
 
-`tapyrus/tapyrusd:v0.5.1`のイメージを指定し、`dev`モードで動作するためのチェーンのgenesisブロックの生成を行ないます。  
+`tapyrus/tapyrusd:v0.7.0`のイメージを指定し、`dev`モードで動作するためのチェーンのgenesisブロックの生成を行ないます。  
 genesisブロックの生成には`tapyrus-genesis`コマンドを用います。
 `-dev`でdevモードであることを指定し、控えておいた`<秘密鍵>`を`signblockprivatekey`に、`<公開鍵>`を`signblockpubkey`にオプションとして指定して以下のコマンドを実行します。
 実行すると表示される文字列の値がgenesisブロックです。
