@@ -28,3 +28,98 @@ $doc-font-size: 12 !default;
     background-color: #333333;
   }
 }
+
+// 更新情報カード
+.updates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.update-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid #1e88e5;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  &.core {
+    border-left-color: #43a047;
+  }
+
+  &.api {
+    border-left-color: #fb8c00;
+  }
+
+  .update-date {
+    font-size: 0.75rem;
+    color: #757575;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #1e88e5;
+    }
+  }
+
+  &.core .update-date::before {
+    background-color: #43a047;
+  }
+
+  &.api .update-date::before {
+    background-color: #fb8c00;
+  }
+
+  .update-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212121;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+
+    &:hover {
+      color: #1e88e5;
+    }
+  }
+
+  .update-excerpt {
+    font-size: 0.85rem;
+    color: #616161;
+    line-height: 1.5;
+  }
+
+  .update-category {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background-color: #e3f2fd;
+    color: #1565c0;
+    margin-top: 0.75rem;
+  }
+
+  &.core .update-category {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.api .update-category {
+    background-color: #fff3e0;
+    color: #e65100;
+  }
+}
