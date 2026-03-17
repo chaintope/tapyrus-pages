@@ -9,7 +9,7 @@ title: "Tapyrus Coreノード構築方法（Docker版）"
 
 本記事では、Tapyrus Coreのセットアップ方法と、Chaintopeが提供するTapyrusのテストネット（networkid 1939510133）に参加する方法を解説しています。 
 
-Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyrus/tapyrusd){:target="_blank"}の[v0.7.0](https://hub.docker.com/layers/tapyrus/tapyrusd/v0.7.0/images/sha256-e4647a9874d413bd7f102910c6e7b0c860847d578bccf5f8906b16d9037b4c51){:target="_blank"}を使用します。
+Docker Hub上に公開された[tapyrus/tapyrusd](https://hub.docker.com/r/tapyrus/tapyrusd){:target="_blank"}の[v0.7.1](https://hub.docker.com/layers/tapyrus/tapyrusd/v0.7.1/images/sha256-285ac25c921670c37bbc86c86c8e3a5d3135b545cf2986b3be66a21983518882){:target="_blank"}を使用します。
 
 また、本記事ではDockerがインストール済みの前提で解説を行います。
 
@@ -34,7 +34,7 @@ EOS
 
 ## コンテナ作成・起動 {#run-container}
 
-`tapyrus/tapyrusd:v0.7.0`のイメージを指定し、Dockerコンテナの作成・起動を行います。  
+`tapyrus/tapyrusd:v0.7.1`のイメージを指定し、Dockerコンテナの作成・起動を行います。  
 コンテナ作成時に`-e`オプションを使用し`GENESIS_BLOCK_WITH_SIG`にgenesisブロック情報を設定します。  
 ```
 $ docker run -d --name 'tapyrus_node_testnet' -v $PWD/tapyrus.conf:/etc/tapyrus/tapyrus.conf -e GENESIS_BLOCK_WITH_SIG='01000000000000000000000000000000000000000000000000000000000000000000000044cc181bd0e95c5b999a13d1fc0d193fa8223af97511ad2098217555a841b3518f18ec2536f0bb9d6d4834fcc712e9563840fe9f089db9e8fe890bffb82165849f52ba5e01210366262690cbdf648132ce0c088962c6361112582364ede120f3780ab73438fc4b402b1ed9996920f57a425f6f9797557c0e73d0c9fbafdebcaa796b136e0946ffa98d928f8130b6a572f83da39530b13784eeb7007465b673aa95091619e7ee208501010000000100000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0100f2052a010000002776a92231415132437447336a686f37385372457a4b6533766636647863456b4a74356e7a4188ac00000000' tapyrus/tapyrusd:v0.5.1

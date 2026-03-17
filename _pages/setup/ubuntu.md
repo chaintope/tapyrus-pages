@@ -25,9 +25,9 @@ title: "Tapyrus Coreノード構築方法（Ubuntu版）"
 使用環境に応じたバイナリファイルをクリックし、ダウンロードします。
 ![Setup Ubuntu Binary](/assets/images/setup_ubuntu_binary.png)
 
-最新バージョン（v0.7.0）の場合、以下のコマンドでx86_64の圧縮ファイルを解凍します。
+最新バージョン（v0.7.1）の場合、以下のコマンドでx86_64の圧縮ファイルを解凍します。
 ```
-$ tar xzf tapyrus-0.7.0-x86_64-linux-gnu.tar.gz
+$ tar xzf tapyrus-0.7.1-x86_64-linux-gnu.tar.gz
 ```
 解凍したあとのbin以下にパスを通してください。
 
